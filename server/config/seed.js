@@ -7,6 +7,8 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var location = require('../api/location/location.model');
+//var Category = require('../api/location/category.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -43,7 +45,30 @@ User.find({}).remove(function() {
     email: 'admin@admin.com',
     password: 'admin'
   }, function() {
-      console.log('finished populating users');
-    }
-  );
+    console.log('finished populating users');
+  });
 });
+
+
+location.find({}).remove(function() {
+    location.create({
+      address: {
+        street: '112 rue du Faubourg Saint-Honore',
+        city: 'Paris',
+        zipcode: '75008'
+      },
+      coordinates: {
+        lat: 48.8718282, 
+        lng: 2.31499899
+      },
+      details: {
+        name: 'Epicure',
+        //category: Category.findBy{ Name, "Food & Drink"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
+    }, function() {
+    console.log('finished populating locations');
+    });
+  });
