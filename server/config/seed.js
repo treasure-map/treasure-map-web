@@ -7,6 +7,32 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Category = require('../api/category/category.model');
+
+Category.find({}).remove(function() {
+  Category.create({
+    name : 'Geocaches',
+    imgUrl : 'http://zizaza.com/cache/big_thumb/iconset/581024/581034/PNG/512/map_marker/home_home_icon_map_marker_flat_icon_home_png_map_marker_icon_png.png'
+  }, {
+    name : 'Sights & Culture',
+    imgUrl : 'http://zizaza.com/cache/big_thumb/iconset/581024/581034/PNG/512/map_marker/home_home_icon_map_marker_flat_icon_home_png_map_marker_icon_png.png'
+  }, {
+    name : 'Food & Drink',
+    imgUrl : 'http://zizaza.com/cache/big_thumb/iconset/581024/581034/PNG/512/map_marker/home_home_icon_map_marker_flat_icon_home_png_map_marker_icon_png.png'
+  }, {
+    name : 'Leisure',
+    imgUrl : 'http://zizaza.com/cache/big_thumb/iconset/581024/581034/PNG/512/map_marker/home_home_icon_map_marker_flat_icon_home_png_map_marker_icon_png.png'
+  }, {
+    name : 'Shopping',
+    imgUrl : 'http://zizaza.com/cache/big_thumb/iconset/581024/581034/PNG/512/map_marker/home_home_icon_map_marker_flat_icon_home_png_map_marker_icon_png.png'
+  }, {
+    name : 'Accommodation',
+    imgUrl : 'http://zizaza.com/cache/big_thumb/iconset/581024/581034/PNG/512/map_marker/home_home_icon_map_marker_flat_icon_home_png_map_marker_icon_png.png'
+  }, {
+    name : 'Other',
+    imgUrl : 'http://zizaza.com/cache/big_thumb/iconset/581024/581034/PNG/512/map_marker/home_home_icon_map_marker_flat_icon_home_png_map_marker_icon_png.png'
+  });
+});
 
 Thing.find({}).remove(function() {
   Thing.create({
