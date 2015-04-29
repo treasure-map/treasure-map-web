@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Location = require('./location.model');
+var geocoder = require('node-geocoder');
 
 // Get list of locations
 exports.index = function(req, res) {
@@ -22,6 +23,21 @@ exports.show = function(req, res) {
 
 // Creates a new location in the DB.
 exports.create = function(req, res) {
+  // no coordindates? ask the mighty geocoder
+  //console.log(req.body);
+  if(!req.body.coordinates && req.body.address) {
+    var address = req.body.address;
+    geocoder.geocode(address.street + ', ' + address.zipcode + ' ' + address.city)
+      .then(function(res) {
+        //console.log(res);
+        req.body.coordinates.lat = res.latitude;
+        req.body.coordinates.lng = res.longitude;
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
+
   Location.create(req.body, function(err, location) {
     if(err) { return handleError(res, err); }
     return res.json(201, location);
