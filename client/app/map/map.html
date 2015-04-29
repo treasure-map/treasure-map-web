@@ -4,8 +4,7 @@
   <h1>Map</h1>
   <ui-gmap-google-map center='map.center' zoom='map.zoom'>
 
-  	<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
-    </ui-gmap-marker>
+  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'"></ui-gmap-markers>
 
   </ui-gmap-google-map>
 </div>
