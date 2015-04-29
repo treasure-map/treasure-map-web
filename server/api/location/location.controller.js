@@ -2,7 +2,16 @@
 
 var _ = require('lodash');
 var Location = require('./location.model');
-var geocoder = require('node-geocoder');
+
+var geocoderProvider = 'google';
+var httpAdapter = 'https';
+// optionnal
+var extra = {
+  apiKey: ***REMOVED***, // for Mapquest, OpenCage, Google Premier
+  formatter: null         // 'gpx', 'string', ...
+};
+
+var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 
 // Get list of locations
 exports.index = function(req, res) {
@@ -28,20 +37,22 @@ exports.create = function(req, res) {
   if(!req.body.coordinates && req.body.address) {
     var address = req.body.address;
     geocoder.geocode(address.street + ', ' + address.zipcode + ' ' + address.city)
-      .then(function(res) {
-        //console.log(res);
-        req.body.coordinates.lat = res.latitude;
-        req.body.coordinates.lng = res.longitude;
+      .then(function(addr) {
+        //console.log(addr);
+        req.body.coordinates = {
+          lat: addr[0].latitude,
+          lng: addr[0].longitude
+        };
+
+        Location.create(req.body, function(err, location) {
+          if(err) { return handleError(res, err); }
+          return res.json(201, location);
+        });
       })
       .catch(function(err) {
         console.log(err);
       });
   }
-
-  Location.create(req.body, function(err, location) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, location);
-  });
 };
 
 // Updates an existing location in the DB.
