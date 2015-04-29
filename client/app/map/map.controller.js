@@ -5,7 +5,7 @@ angular.module('treasuremapApp')
 
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-          $scope.map = { center: { latitude: position.coords.latitude, longitude: position.coords.longitude }, zoom: 14 }
+          $scope.map = { center: { latitude: position.coords.latitude, longitude: position.coords.longitude }, zoom: 14 };
       });
     }
 
