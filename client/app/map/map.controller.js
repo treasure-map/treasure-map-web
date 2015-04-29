@@ -15,13 +15,10 @@ angular.module('treasuremapApp')
 
     $http.get('/api/locations').success(function(locations) {
     	$scope.locations = locations;
-      	$scope.marker = {
-	    	id: 0,
-	      	coords: {
-	        	latitude: locations[0].coordinates.lat,
-	        	longitude: locations[0].coordinates.lng
-	      	}
-	    };
+    	 _.each($scope.locations, function(location){
+    	 	location.coordinates.latitude = location.coordinates.lat;
+    	 	location.coordinates.longitude = location.coordinates.lng;
+    	});
     });
 
  });
