@@ -4,7 +4,19 @@
   <h1>Map</h1>
   <ui-gmap-google-map center='map.center' zoom='map.zoom'>
 
-  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'"></ui-gmap-markers>
+  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'" doCluster='true'>
+
+  		<ui-gmap-windows show="show">
+        <div ng-non-bindable>
+          <a ng-href='/location/{{link}}'>
+            <strong>{{title}}</strong>
+            <p>{{street}}<br/>{{zipcode}} {{city}}</p>
+            <p>Duration {{duration}}h</p>
+          </a>
+        </div>
+      </ui-gmap-windows>
+
+  	</ui-gmap-markers>
 
   </ui-gmap-google-map>
 </div>
