@@ -143,6 +143,7 @@ location.find({}).remove(function() {
         description:"",
         pictures:"",
         duration:4
+      }
     }, {
       address: {
         street: 'Poststraße 28',
