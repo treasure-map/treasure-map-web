@@ -11,17 +11,17 @@ angular.module('treasuremapApp')
 
     var style = [
       {
-        "featureType": "poi",
-        "elementType": "labels",
-        "stylers": [
-          { "visibility": "off" }
+        'featureType': 'poi',
+        'elementType': 'labels',
+        'stylers': [
+          { 'visibility': 'off' }
         ]
       },{
-        "stylers": [
-          { "gamma": 0.4 }
+        'stylers': [
+          { 'gamma': 0.4 }
         ]
       }
-    ]
+    ];
 
     $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
 
@@ -48,9 +48,9 @@ angular.module('treasuremapApp')
         location.link = link;
     	 	location.title = location.details.name;
         location.street = location.address.street;
-        location.zipcode = location.address.zipcode
+        location.zipcode = location.address.zipcode;
         location.city = location.address.city;
-        location.category = locations.details.category.name;
+        //location.category = locations.details.category.name;
         location.duration = location.details.duration;
     	});
     });
