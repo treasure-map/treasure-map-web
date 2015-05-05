@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Category = require('./category.model');
+var Location = require('../location/location.model');
 
 // Get list of categorys
 exports.index = function(req, res) {
@@ -18,6 +19,15 @@ exports.show = function(req, res) {
     if(!category) { return res.send(404); }
     return res.json(category);
   });
+};
+
+// Get all the shops from a single category
+exports.showLocations = function(req, res) {
+  Location.find({'details.category': req.params.id})
+    .exec(function (err, locations) {
+      if(err) { return handleError(res, err); }
+      return res.json(200, locations);
+    });
 };
 
 // Creates a new category in the DB.
