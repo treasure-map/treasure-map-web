@@ -1,0 +1,12 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <h1>Categories</h1>
+
+  <ul class="categories">
+    <li ng-repeat="c in categories">
+      <img class="cat-image" ng-src="{{c.imgUrl}}" alt=""/>
+      <a ng-href="/categories/{{c._id}}"><h3 class="cat-name">{{c.name}}</h3></a>
+    </li>
+  </ul>
+</div>
