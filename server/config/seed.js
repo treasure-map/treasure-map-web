@@ -93,6 +93,379 @@ location.find({}).remove(function() {
         pictures: ['',''],
         duration: 2
       }
+    }, {
+      address: {
+        street: 'Paul-Lincke-Ufer 21',
+        city: 'Berlin',
+        zipcode: '10999'
+      },
+      coordinates: {
+        lat: 52.4942, 
+        lng: 13.42957
+      },
+      details: {
+        name: 'Restaurant VOLT',
+        //category: Category.findBy{ Name, "Food & Drink"},
+        description: '',
+        pictures: ['',''],
+        duration: 3
+      }
+    }, {
+      address: {
+        street: 'Marlene-Dietrich-Platz 2',
+        city: 'Berlin',
+        zipcode: '10785'
+      },
+      coordinates: {
+        lat: 52.508116, 
+        lng: 13.372982
+      },
+      details: {
+        name: 'Vox Restaurant',
+        //category: Category.findBy{ Name, "Food & Drink"},
+        description: '',
+        pictures: ['',''],
+        duration: 1.5
+      }
+    }, {
+      address: {
+        street:'Poststraße 17',
+        city:'Berlin',
+        zipcode:'10178'
+   },
+      coordinates: {
+        lat: 52.51631,
+        lng: 13.40784
+   },
+      details: {
+        name:'Gasthaus Zur Rippe',
+        //category:'Foods & Drinks',
+        description:"",
+        pictures:"",
+        duration:4
+    }, {
+      address: {
+        street: 'Poststraße 28',
+        city: 'Berlin',
+        zipcode: '10178'
+      },
+      coordinates: {
+        lat: 52.517241,
+        lng: 13.4064
+      },
+      details: {
+        name: 'Zur Gerichtslaube',
+        //category: Category.findBy{ Name, "Food & Drink"},
+        description: '',
+        pictures: ['',''],
+        duration: 1
+      }
+    }, {
+      address: {
+        street: 'Köpenicker Straße 18-20',
+        city: 'Berlin',
+        zipcode: '10997'
+      },
+      coordinates: {
+        lat: 52.505579,
+        lng: 13.432972
+      },
+      details: {
+        name: 'Sage Restaurant',
+        //category: Category.findBy{ Name, "Food & Drink"},
+        description: '',
+        pictures: ['',''],
+        duration: 2.5
+      }
+    }, {
+      address: {
+        street: 'Am Treptower Park 14',
+        city: 'Berlin',
+        zipcode: '12435'
+      },
+      coordinates: {
+        lat: 52.4904928,
+        lng: 13.4578314
+      },
+      details: {
+        name: 'Park Center Treptow',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
+    }, {
+      address: {
+        street: 'Schnellerstraße 21',
+        city: 'Berlin',
+        zipcode: '12439'
+      },
+      coordinates: {
+        lat: 52.45685,
+        lng: 13.50842
+      },
+      details: {
+        name: 'Zentrum Schöneweide',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 1.5
+      }
+    }, {
+      address: {
+        street: 'Frankfurter Allee 111',
+        city: 'Berlin',
+        zipcode: '10247'
+      },
+      coordinates: {
+        lat: 52.5141263,
+        lng: 13.4745089
+      },
+      details: {
+        name: 'Ring-Center Berlin',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 3
+      }
+    }, {
+      address: {
+        street: 'Grunerstraße 20',
+        city: 'Berlin',
+        zipcode: '10179'
+      },
+      coordinates: {
+        lat: 2.519187,
+        lng: 13.41597
+      },
+      details: {
+        name: 'Alexa Berlin',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 4
+      }
+    }, {
+      address: {
+        street: 'Bahnhofstraße 33-38',
+        city: 'Berlin',
+        zipcode: '12555'
+      },
+      coordinates: {
+        lat: 52.4581599,
+        lng: 13.57750229
+      },
+      details: {
+        name: 'Forum Köpenick',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2.5
+      }
+    }, {
+      address: {
+        street: 'Pariser Platz',
+        city: 'Berlin',
+        zipcode: '10117'
+      },
+      coordinates: {
+        lat: 52.5158566,
+        lng: 13.3784283
+      },
+      details: {
+        name: 'Brandenburg Gate',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 1
+      }
+    }, {
+      address: {
+        street: 'Bodestrasse 1-3',
+        city: 'Berlin',
+        zipcode: '10178'
+      },
+      coordinates: {
+        lat: 52.5194894,
+        lng: 13.3988334
+      },
+      details: {
+        name: 'Pergamon Museum',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2.5
+      }
+    }, {
+      address: {
+        street: 'Bernauer Strasse 111/119',
+        city: 'Berlin',
+        zipcode: '13355'
+      },
+      coordinates: {
+        lat: 52.53523,
+        lng: 13.38943
+      },
+      details: {
+        name: 'Memorial of the Berlin Wall',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
+    }, {
+      address: {
+        street: 'Platz der Republik',
+        city: 'Berlin',
+        zipcode: '11011'
+      },
+      coordinates: {
+        lat: 52.518535,
+        lng: 13.373188
+      },
+      details: {
+        name: 'Reichstag',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2.5
+      }
+    }, {
+      address: {
+        street: 'Bodestrasse',
+        city: 'Berlin',
+        zipcode: '10178'
+      },
+      coordinates: {
+        lat: 52.5199172,
+        lng: 13.3990756
+      },
+      details: {
+        name: 'Museum Island',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2.5
+      }
+    }, {
+      address: {
+        street: 'Alexander Platz',
+        city: 'Berlin',
+        zipcode: '10178'
+      },
+      coordinates: {
+        lat: 52.521918,
+        lng: 13.413215
+      },
+      details: {
+        name: 'Alexanderplatz',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
+    }, {
+      address: {
+        street: 'Strasse des 17. Juni 100',
+        city: 'Berlin',
+        zipcode: '10557'
+      },
+      coordinates: {
+        lat: 52.512906,
+        lng: 13.3267274
+      },
+      details: {
+        name: 'Tiergarten',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
+    }, {
+      address: {
+        street: 'Gendarmenmarkt',
+        city: 'Berlin',
+        zipcode: '10117'
+      },
+      coordinates: {
+        lat: 52.513722,
+        lng: 13.39267
+      },
+      details: {
+        name: 'Gendarmenmarkt',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
+    }, {
+      address: {
+        street: 'Panoramastrasse 1A',
+        city: 'Berlin',
+        zipcode: '10178'
+      },
+      coordinates: {
+        lat: 52.52086,
+        lng: 13.4093
+      },
+      details: {
+        name: 'Television Tower',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
+    }, {
+      address: {
+        street: 'Trebbiner Strasse 9',
+        city: 'Berlin',
+        zipcode: '10963'
+      },
+      coordinates: {
+        lat: 52.4986278,
+        lng: 13.3768443
+      },
+      details: {
+        name: 'German Museum of Technology',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 3
+      }
+    }, {
+      address: {
+        street: 'Spandauer Damm 20-24',
+        city: 'Berlin',
+        zipcode: '14059'
+      },
+      coordinates: {
+        lat: 52.5242681,
+        lng: 13.2918291
+      },
+      details: {
+        name: 'Charlottenburg Palace',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 3
+      }
+    }, {
+      address: {
+        street: 'Karl-Liebknecht-Strasse 1',
+        city: 'Berlin',
+        zipcode: '10178'
+      },
+      coordinates: {
+        lat: 52.519133,
+        lng: 13.402634
+      },
+      details: {
+        name: 'DDR Museum',
+        //category: Category.findBy{ Name, "Shopping"},
+        description: '',
+        pictures: ['',''],
+        duration: 2
+      }
     }, function() {
     console.log('finished populating locations');
     });
