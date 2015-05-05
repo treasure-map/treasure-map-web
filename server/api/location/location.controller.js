@@ -15,19 +15,27 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 
 // Get list of locations
 exports.index = function(req, res) {
-  Location.find(function (err, locations) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, locations);
-  });
+  Location.find()
+    .populate('details.category')
+    .exec(function (err, locations) {
+      if(err) { return handleError(res, err); }
+      return res.json(200, locations);
+    });
+  //Location.find(function (err, locations) {
+  //  if(err) { return handleError(res, err); }
+  //  return res.json(200, locations);
+  //});
 };
 
 // Get a single location
 exports.show = function(req, res) {
-  Location.findById(req.params.id, function (err, location) {
-    if(err) { return handleError(res, err); }
-    if(!location) { return res.send(404); }
-    return res.json(location);
-  });
+  Location.findById(req.params.id)
+    .populate('details.category')
+    .exec(function(err, location) {
+      if(err) { return handleError(res, err); }
+      if(!location) { return res.send(404); }
+      return res.json(location);
+    });
 };
 
 // Creates a new location in the DB.

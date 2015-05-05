@@ -15,7 +15,7 @@ var LocationSchema = new Schema({
 	},
   	details: {
   		name: String,
-  		category: { 
+  		category: {
   			type: Schema.ObjectId,
   			ref: 'Category'
   		},
