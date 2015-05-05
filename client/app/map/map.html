@@ -1,8 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
-  <h1>Map</h1>
-  <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+<div class="map">
+  <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
 
   	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'" doCluster='true'>
 

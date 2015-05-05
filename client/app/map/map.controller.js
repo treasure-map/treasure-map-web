@@ -9,7 +9,23 @@ angular.module('treasuremapApp')
       });
     }
 
+    var style = [
+      {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "stylers": [
+          { "gamma": 0.4 }
+        ]
+      }
+    ]
+
     $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
+
+    $scope.options = { styles: style };
 
     $scope.locations = [];
 
