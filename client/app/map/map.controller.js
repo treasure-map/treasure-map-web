@@ -23,17 +23,18 @@ angular.module('treasuremapApp')
         var link = location.details.name
           .toLowerCase()
           .replace(/[^\w\säöüß]/gi, '')
-          .replace(/\s/g,"-")
-          .replace(/--/g,"-")
-          .replace(/ä/g,"ae")
-          .replace(/ö/g,"oe")
-          .replace(/ü/g,"ue")
-          .replace(/ß/g,"ss");
+          .replace(/\s/g,'-')
+          .replace(/--/g,'-')
+          .replace(/ä/g,'ae')
+          .replace(/ö/g,'oe')
+          .replace(/ü/g,'ue')
+          .replace(/ß/g,'ss');
         location.link = link;
     	 	location.title = location.details.name;
         location.street = location.address.street;
         location.zipcode = location.address.zipcode
         location.city = location.address.city;
+        location.category = locations.details.category.name;
         location.duration = location.details.duration;
     	});
     });
