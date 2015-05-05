@@ -1,0 +1,10 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <h1>{{category.name}}</h1>
+  <img class="pull-right" ng-src="{{category.imgUrl}}" alt=""/>
+
+  <ul>
+    <li class="location" ng-repeat="l in locations"><a ng-href="locations/{{l._id}}">{{l.details.name}}</a> <span class="loc-address">{{l.address.street}}, {{l.address.zipcode }} {{l.address.city}}</span></li>
+  </ul>
+</div>
