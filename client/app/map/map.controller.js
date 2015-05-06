@@ -21,38 +21,39 @@ angular.module('treasuremapApp')
         ]
       },{
         'stylers': [
-          { 'gamma': 0.4 }
+          { 'gamma': 0.5 },
+          { 'saturation': -1 }
         ]
       },{
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#21C2B8" }
+        'featureType': 'water',
+        'elementType': 'geometry.fill',
+        'stylers': [
+          { 'color': '#21C2B8' }
         ]
       },{
-        "featureType": "water",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "weight": 0.25 }
+        'featureType': 'water',
+        'elementType': 'geometry.stroke',
+        'stylers': [
+          { 'weight': 0.25 }
           
         ]
       },{
-        "featureType": "road.highway",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#FF931E" }
+        'featureType': 'road.highway',
+        'elementType': 'geometry.fill',
+        'stylers': [
+          { 'color': '#FF931E' }
         ]
       },{
-        "featureType": "road.highway",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "weight": 0.25 }
+        'featureType': 'road.highway',
+        'elementType': 'geometry.stroke',
+        'stylers': [
+          { 'weight': 0.25 }
         ]
       },{
-        "featureType": "landscape.natural",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#39B54A" }
+        'featureType': 'landscape.natural',
+        'elementType': 'geometry.fill',
+        'stylers': [
+          { 'color': '#39B54A' }
         ]
       }
     ];
@@ -79,6 +80,7 @@ angular.module('treasuremapApp')
           .replace(/ö/g,'oe')
           .replace(/ü/g,'ue')
           .replace(/ß/g,'ss');
+
         location.link = link;
     	 	location.title = location.details.name;
         location.street = location.address.street;
@@ -86,8 +88,19 @@ angular.module('treasuremapApp')
         location.city = location.address.city;
         location.category = location.details.category.name;
         location.duration = location.details.duration;
-        location.id = location.details.category.id;
-        location.icon = location.details.category.imgUrl;
+        location.id = location.details.category._id;
+
+        location.cluster = {
+          styles: { url: 'assets/images/Cluster.png' }
+        };
+
+        location.icon = {
+          url: location.details.category.imgUrl,
+          size: new google.maps.Size(50, 62),
+          origin: new google.maps.Point(0,0),
+          anchor: new google.maps.Point(0, 17)
+        };     
+
     	});
     });
 
