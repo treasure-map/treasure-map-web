@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationsCtrl', function ($scope) {
-    $scope.message = 'Hello';
+  .controller('LocationsCtrl', function ($scope, Location) {
+    $scope.locations = Location.query();
+
   });
