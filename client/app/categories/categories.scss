@@ -1,0 +1,12 @@
+.categories {
+  list-style: none;
+
+  & > li {
+    margin-bottom: $padding-large-vertical;
+  }
+
+  .cat-name {
+    display: inline;
+    margin-left: 10px;
+  }
+}
