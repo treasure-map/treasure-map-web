@@ -87,6 +87,7 @@ angular.module('treasuremapApp')
         location.category = location.details.category.name;
         location.duration = location.details.duration;
         location.id = location.details.category.id;
+        location.icon = location.details.category.imgUrl;
     	});
     });
 
