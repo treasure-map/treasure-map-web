@@ -3,15 +3,15 @@
 <div class="map">
   <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
 
-  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'" doCluster='true' icon='icon'>
+  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'" doCluster='true' clusterOptions='cluster' icon="'icon'" click='onClick();'>
 
   		<ui-gmap-windows show="show">
         <div ng-non-bindable>
           <a ng-href='/locations/{{link}}'>
             <strong>{{title}}</strong>
             <p>{{street}}<br/>{{zipcode}} {{city}}</p>
-            <p>Duration {{duration}}h</p> 
           </a>
+          <p>Duration {{duration}}h</p> 
           <a ng-href='/categories/{{id}}'><i>{{category}}</i></a>
         </div>
       </ui-gmap-windows>
