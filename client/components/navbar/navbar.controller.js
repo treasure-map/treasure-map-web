@@ -4,7 +4,7 @@ angular.module('treasuremapApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/map'
+      'link': '/'
     }];
 
     $scope.isCollapsed = true;
