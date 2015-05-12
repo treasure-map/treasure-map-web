@@ -83,15 +83,15 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     	}
     }
 
-    .isVisible {
-		right: 0;
-	}
-
     footer {
     	width: 100%;
     	position: absolute;
     	bottom: 25px;
     }
+}
+
+.isVisible {
+	right: 0;
 }
 
 // Component styles are injected through grunt
@@ -102,7 +102,6 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'categories/categories.scss';
 @import 'categories/category/category.scss';
 @import 'locations/locations.scss';
-@import 'main/main.scss';
 @import 'map/map.scss';
 @import 'new/new.scss';
 @import 'modal/modal.scss';
