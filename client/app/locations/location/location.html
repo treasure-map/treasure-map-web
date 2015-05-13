@@ -1,0 +1,25 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container location">
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>{{location.details.name}}</h1>
+
+      <a ng-href="categories/{{location.details.category._id}}"><h3>{{location.details.category.name}}</h3></a>
+
+    <span
+      class="loc-address">{{location.address.street}}, {{location.address.zipcode }} {{location.address.city}}</span>
+    </div>
+
+    <div class="col-sm-6">
+      <ui-gmap-google-map
+        center="map.center"
+        zoom="map.zoom"
+        pan="map.pan"
+        options="map.options">
+        <ui-gmap-marker coords="location" idkey="1" icon="'location.details.category.imgUrl'">
+        </ui-gmap-marker>
+      </ui-gmap-google-map>
+    </div>
+  </div>
+</div>
