@@ -3,15 +3,6 @@
 angular.module('treasuremapApp')
   	.controller('MapCtrl', function ($scope, $http) {
 
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-          $scope.map.center = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          };
-      });
-    }
-
     var style = [
       {
         'featureType': 'poi',
@@ -58,9 +49,35 @@ angular.module('treasuremapApp')
       }
     ];
 
-    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
+    var cluster = {
+        title: 'Hi I am a Cluster!',
+        gridSize: 60, 
+        ignoreHidden: true,
+        minimumClusterSize: 2,
+        imageExtension: 'png',
+        imagePath: 'assets/images/Cluster', 
+        imageSizes: [72]
+      };
 
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition( function(pos) {
+        var latLong = pos.coords;
+
+        $scope.$apply(function () {
+          $scope.map = {
+            center: latLong,
+            zoom: 14
+          };
+        });
+      });
+    }else{
+      console.log('No support of geolocation')
+    }
+
+    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 },zoom: 14 };
     $scope.options = { styles: style };
+    $scope.map.clusterOptions = angular.toJson(cluster);
+ 
 
     $scope.locations = [];
 
@@ -96,9 +113,9 @@ angular.module('treasuremapApp')
 
         location.icon = {
           url: location.details.category.imgUrl,
-          size: new google.maps.Size(50, 62),
-          origin: new google.maps.Point(0,0),
-          anchor: new google.maps.Point(0, 17)
+          // size: new google.maps.Size(50, 62),
+          // origin: new google.maps.Point(0,0),
+          // anchor: new google.maps.Point(0, 17)
         };     
 
     	});
