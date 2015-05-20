@@ -1,6 +1,6 @@
 <div class="navbar navbar-default navbar-static-top">
   <div class="container">
-    <div class="navbar-header">      
+    <div class="navbar-header">
       <a href="/" class="navbar-brand">
         <img src="assets/images/yeoman.png" alt="treasuremap"/>
       </a>
@@ -8,7 +8,7 @@
 
     <div id="navbar-main">
 
-      <a id="menu" href="#menu" class="nav-icon navbar-right">&#9776;</a>     
+      <a id="menu" href="#menu" class="nav-icon navbar-right">&#9776;</a>
 
     </div>
   </div>
@@ -24,6 +24,7 @@
     <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ng-href="{{item.link}}">{{item.title}}</a>
     </li>
+    <li ng-show="isLoggedIn()"><a href="" ng-click="openModal()">New Location</a></li>
   </ul>
 
   <footer>
