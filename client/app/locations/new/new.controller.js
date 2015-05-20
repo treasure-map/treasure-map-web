@@ -14,8 +14,9 @@ angular.module('treasuremapApp')
       .success(function (categories) {
         $scope.categories = categories;
       })
-      .error(function (data, status, headers, config) {
-        console.log('Error!');
+      .error(function (data, status) {
+        console.log('Error!' + status);
+        console.log(data);
       });
 
     $scope.addLocation = function (form) {
