@@ -15,10 +15,10 @@ angular.module('treasuremapApp')
       //if (form.$valid) {
         $http.post('/api/locations', $scope.newLocation).
           success(function(data, status, headers, config) {
-            console.log("Success!");
+            console.log('Success!');
           }).
           error(function(data, status, headers, config) {
-            console.log("Error!");
+            console.log('Error!');
           });
       //}
     };
