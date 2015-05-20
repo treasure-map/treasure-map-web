@@ -15,6 +15,85 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+.navbar {
+	margin-bottom: 0 !important;
+	z-index: 0;
+
+	img {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+}
+
+.nav-icon {
+	position: relative;
+	display: block;
+	padding: 15px; 
+	font-size: 28px;
+	height: 50px;
+	line-height: 20px;
+	color: #777;
+
+	&:hover {
+		color: #000;
+		text-decoration: none;
+	}
+}
+
+.sidebar-nav {
+	position: absolute;
+	right: -20%;
+	top: 0;
+	width: 20%;
+	height: 100%;
+	background: #000;
+	opacity: 0.85;
+	z-index: 9;
+	transition: all .5s ease-in;
+    -webkit-transition: all .5s ease-in; 
+    -moz-transition: all .5s ease-in; 
+    -o-transition: all .5s ease-in; 
+
+    h1 {
+    	color: #888; //rgb(255, 147, 30);
+    	font-size: 24px;
+    	text-align: center;
+    	margin: 12px;
+    }
+
+    hr {
+    	margin: 0;
+    	padding: 0 10px;
+    }
+
+    ul {
+
+    	width: 100%;
+    	text-align: center;
+
+    	li {
+    		float: none;
+    		clear: both;
+
+    		a {
+    			color: #888; //rgb(33, 194, 184);
+    		}
+    	}
+    }
+
+    footer {
+    	width: 100%;
+    	position: absolute;
+    	bottom: 25px;
+    }
+}
+
+.isVisible {
+	right: 0;
+}
+
 // Component styles are injected through grunt
 // injector
 @import '_variables.scss';

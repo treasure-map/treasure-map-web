@@ -93,7 +93,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Epicure',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[2]._id,
       description: '',
       pictures: ['', ''],
       duration: 2
@@ -110,7 +110,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Restaurant VOLT',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[2]._id,
       description: '',
       pictures: ['', ''],
       duration: 3
@@ -127,7 +127,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Vox Restaurant',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[2]._id,
       description: '',
       pictures: ['', ''],
       duration: 1.5
@@ -144,7 +144,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Gasthaus Zur Rippe',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[2]._id,
       description: "",
       pictures: "",
       duration: 4
@@ -161,7 +161,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Zur Gerichtslaube',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[2]._id,
       description: '',
       pictures: ['', ''],
       duration: 1
@@ -178,7 +178,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Sage Restaurant',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[2]._id,
       description: '',
       pictures: ['', ''],
       duration: 2.5
@@ -195,7 +195,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Park Center Treptow',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[4]._id,
       description: '',
       pictures: ['', ''],
       duration: 2
@@ -212,7 +212,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Zentrum Schöneweide',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[4]._id,
       description: '',
       pictures: ['', ''],
       duration: 1.5
@@ -229,7 +229,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Ring-Center Berlin',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[4]._id,
       description: '',
       pictures: ['', ''],
       duration: 3
@@ -246,7 +246,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Alexa Berlin',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[4]._id,
       description: '',
       pictures: ['', ''],
       duration: 4
@@ -263,7 +263,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Forum Köpenick',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[4]._id,
       description: '',
       pictures: ['', ''],
       duration: 2.5
@@ -280,7 +280,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Brandenburg Gate',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 1
@@ -297,7 +297,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Pergamon Museum',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2.5
@@ -314,7 +314,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Memorial of the Berlin Wall',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2
@@ -331,7 +331,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Reichstag',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2.5
@@ -348,7 +348,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Museum Island',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2.5
@@ -365,14 +365,14 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Alexanderplatz',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2
     }
   }, {
     address: {
-      street: 'Strasse des 17. Juni 100',
+      street: 'Strasse des 17. Juni',
       city: 'Berlin',
       zipcode: '10557'
     },
@@ -382,7 +382,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Tiergarten',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2
@@ -399,7 +399,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Gendarmenmarkt',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2
@@ -416,7 +416,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Television Tower',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2
@@ -433,7 +433,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'German Museum of Technology',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 3
@@ -450,7 +450,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'Charlottenburg Palace',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 3
@@ -467,7 +467,7 @@ location.find({}).remove(function () {
     },
     details: {
       name: 'DDR Museum',
-      category: categories[Math.floor((Math.random() * 7))]._id,
+      category: categories[1]._id,
       description: '',
       pictures: ['', ''],
       duration: 2

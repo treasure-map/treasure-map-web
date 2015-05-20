@@ -6,13 +6,18 @@
 	width: 100%; 
 	height: calc(100vh - 50px); 
 
+	div {
+		color: #000;
+	}
+
 	a {
 		color: initial; 
 		text-decoration: none;
 
 		&:hover {
 			color: initial; 
-			text-decoration: none;
+			text-decoration: underline;
+			cursor: pointer;
 		}
 	}
 }
