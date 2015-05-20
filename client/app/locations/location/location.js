@@ -3,9 +3,13 @@
 angular.module('treasuremapApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('location', {
-        url: '/locations/:id',
-        templateUrl: 'app/locations/location/location.html',
-        controller: 'LocationCtrl'
+      .state('locations.location', {
+        url: '/:id',
+        views: {
+          '@': {
+            templateUrl: 'app/locations/location/location.html',
+            controller: 'LocationCtrl'
+          }
+        }
       });
   });
