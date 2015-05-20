@@ -2,6 +2,8 @@
 
 <div class="container">
 
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
   <form class="form" name="form" novalidate>
 
     <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
@@ -99,16 +101,6 @@
         <p class="help-block" ng-show="form.zipcode.$error.mongoose">
           {{ errors.zipcode }}
         </p>
-      </div>
-
-      <div>
-        <h4>Rating</h4>
-        <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
-                on-leave="overStar = null"></rating>
-        <span class="label"
-              ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
-              ng-show="overStar && !isReadonly">{{percent}}%</span>
-        <hr/>
       </div>
 
     </div>

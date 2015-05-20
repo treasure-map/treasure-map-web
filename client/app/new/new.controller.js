@@ -4,6 +4,11 @@ angular.module('treasuremapApp')
   .controller('NewCtrl', function ($scope, $http) {
     $scope.message = 'Hello';
     $scope.newLocation = {};
+    $scope.alerts = [];
+
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
+    };
 
     $http.get('/api/categories')
       .success(function (categories) {
@@ -25,30 +30,13 @@ angular.module('treasuremapApp')
         .success(function (data, status) {
           console.log('Success!' + status);
           console.log(data);
+          $scope.alerts.push({type: 'success', msg: 'New Location successfully added!'});
         })
         .error(function (data, status) {
-          console.log('Error!' + status);
+          console.log('Error!' + status);          $scope.alerts.push({type: 'danger', msg: 'Couln\'t add new location!'});
         });
       //}
     };
-
-    $scope.rate = 7;
-    $scope.max = 10;
-    $scope.isReadonly = false;
-
-    $scope.hoveringOver = function (value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
-    };
-
-    $scope.ratingStates = [
-      {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-      {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-      {stateOn: 'glyphicon-heart'},
-      {stateOff: 'glyphicon-off'}
-    ];
-
 
   });
 
