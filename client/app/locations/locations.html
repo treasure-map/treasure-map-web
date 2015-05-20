@@ -1,3 +1,7 @@
-<div class="col-md-12">
-This is the locations view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+<ul>
+  <li class="location" ng-repeat="l in locations"><a ng-href="locations/{{l._id}}">{{l.details.name}}</a> - <a ng-href="categories/{{l.details.category._id}}" class="loc-category">{{l.details.category.name}}</a> - <span class="loc-address">{{l.address.street}}, {{l.address.zipcode }} {{l.address.city}}</span></li>
+</ul>
 </div>
