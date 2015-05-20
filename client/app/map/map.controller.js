@@ -71,7 +71,7 @@ angular.module('treasuremapApp')
         });
       });
     }else{
-      console.log('No support of geolocation')
+      console.log('No support of geolocation');
     }
 
     $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 },zoom: 14 };
@@ -98,7 +98,7 @@ angular.module('treasuremapApp')
           .replace(/ü/g,'ue')
           .replace(/ß/g,'ss');
 
-        location.link = link;
+        location.link = location._id;
     	 	location.title = location.details.name;
         location.street = location.address.street;
         location.zipcode = location.address.zipcode;

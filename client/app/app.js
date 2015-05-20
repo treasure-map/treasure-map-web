@@ -14,11 +14,22 @@ angular.module('treasuremapApp', [
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
+
+    $urlRouterProvider.rule(function($injector, $location) {
+
+      var path = $location.path();
+      var hasTrailingSlash = path[path.length-1] === '/';
+
+      if(hasTrailingSlash) {
+        return path.substr(0, path.length - 1);
+      }
+
+    });
   })
 
   .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
+        // key: 'your api key',
         v: '3.17',
         libraries: 'weather,geometry,visualization'
     });
@@ -49,6 +60,17 @@ angular.module('treasuremapApp', [
       }
     };
   })
+
+  //.run(['$rootScope', function($rootScope) {
+  //  $rootScope.page = {
+  //    setTitle: function(title) {
+  //      this.title = title + ' | Site Name';
+  //    }
+  //  };
+  //  $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+  //    $rootScope.page.setTitle(current.$route.title || 'Default Title');
+  //  });
+  //}]);
 
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
