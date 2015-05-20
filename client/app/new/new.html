@@ -10,90 +10,106 @@
 
       <input type="text" name="name" class="form-control" ng-model="newLocation.name"
              required/>
+
       <p class="help-block" ng-show="form.name.$error.required && submitted">
         Name required
       </p>
     </div>
 
     <div>
-    <h4>Category</h4>
-    
-    <div class="btn-group">
-        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Culture'">Culture</label>
-        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Leisure'">Leisure</label>
-        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Restaurant'">Restaurant</label>
-        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Geocaches'">Geocaches</label>
     </div>
-    
-</div>
 
-     <div class="form-group" ng-class="{ 'has-success': form.duration.$valid && submitted,
+    <div class="form-group" ng-class="{ 'has-success': form.category.$valid && submitted,
+                                            'has-error': form.category.$invalid && submitted }">
+      <label>Category</label>
+
+      <div class="btn-group">
+        <label ng-repeat="c in categories"
+               name="category"
+               class="btn btn-primary"
+               ng-model="newLocation.details.category"
+               btn-radio="'{{c._id}}'"
+               required>{{c.name}}</label>
+
+        <p class="help-block" ng-show="form.category.$error.required && submitted">
+          Category required
+        </p>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-success': form.duration.$valid && submitted,
                                             'has-error': form.duration.$invalid && submitted }">
       <label>Duration</label>
 
       <input type="text" name="duration" class="form-control" ng-model="newLocation.duration"
              required/>
+
       <p class="help-block" ng-show="form.duration.$error.required && submitted">
-        Name required
+        Duration required
       </p>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-success': form.address.street.$valid && submitted,
-                                            'has-error': form.address.street.$invalid && submitted }">
+    <div class="form-group" ng-class="{ 'has-success': form.street.$valid && submitted,
+                                            'has-error': form.street.$invalid && submitted }">
       <label>Street</label>
 
       <input type="address" name="street" class="form-control" ng-model="newLocation.address.street"
              required
              mongoose-error/>
-      <p class="help-block" ng-show="form.address.street.$error.required && submitted">
+
+      <p class="help-block" ng-show="form.street.$error.required && submitted">
         Street required
       </p>
-      <p class="help-block" ng-show="form.address.street.$error.mongoose">
-        {{ errors.address.street }}
+
+      <p class="help-block" ng-show="form.street.$error.mongoose">
+        {{ errors.street }}
       </p>
     </div>
 
     <div class="row">
-      <div class="form-group col-md-6" ng-class="{ 'has-success': form.address.city.$valid && submitted,
-                                                'has-error': form.address.city.$invalid && submitted }">
+      <div class="form-group col-md-6" ng-class="{ 'has-success': form.city.$valid && submitted,
+                                                'has-error': form.city.$invalid && submitted }">
         <label>City</label>
 
         <input type="address" name="city" class="form-control" ng-model="newLocation.address.city"
                required
                mongoose-error/>
 
-        <p class="help-block" ng-show="form.address.city.$error.required && submitted">
+        <p class="help-block" ng-show="form.city.$error.required && submitted">
           City required
         </p>
 
-        <p class="help-block" ng-show="form.address.city.$error.mongoose">
-          {{ errors.address.city }}
+        <p class="help-block" ng-show="form.city.$error.mongoose">
+          {{ errors.city }}
         </p>
       </div>
 
-      <div class="form-group col-md-6" ng-class="{ 'has-success': form.address.zipcode.$valid && submitted,
-                                                'has-error': form.address.zipcode.$invalid && submitted }">
+      <div class="form-group col-md-6" ng-class="{ 'has-success': form.zipcode.$valid && submitted,
+                                                'has-error': form.zipcode.$invalid && submitted }">
         <label>Zipcode</label>
 
         <input type="address" name="zipcode" class="form-control" ng-model="newLocation.address.zipcode"
                required
                mongoose-error/>
 
-        <p class="help-block" ng-show="form.address.zipcode.$error.required && submitted">
-          Straße erforderlich
+        <p class="help-block" ng-show="form.zipcode.$error.required && submitted">
+          Zipcode required
         </p>
 
-        <p class="help-block" ng-show="form.address.zipcode.$error.mongoose">
-          {{ errors.address.zipcode }}
+        <p class="help-block" ng-show="form.zipcode.$error.mongoose">
+          {{ errors.zipcode }}
         </p>
       </div>
 
-<div>
-    <h4>Rating</h4>
-    <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
-    <hr />
-</div>
+      <div>
+        <h4>Rating</h4>
+        <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
+                on-leave="overStar = null"></rating>
+        <span class="label"
+              ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
+              ng-show="overStar && !isReadonly">{{percent}}%</span>
+        <hr/>
+      </div>
 
     </div>
 
