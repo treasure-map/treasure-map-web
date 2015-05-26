@@ -6,7 +6,8 @@ angular.module('treasuremapApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
-  'uiGmapgoogle-maps'
+  'uiGmapgoogle-maps',
+  'ngFileUpload'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -59,4 +60,37 @@ angular.module('treasuremapApp', [
         }
       });
     });
-  });
+  })
+
+  .controller('UploadCtrl', ['$scope', 'Upload', function ($scope, Upload) {
+    $scope.$watch('files', function () {
+      $scope.upload($scope.files);
+    });
+
+    $scope.upload = function (files) {
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          Upload.upload({
+            url: 'https://treasure-map.s3.amazonaws.com/',
+            method: 'POST',
+            fields : {
+              key: file.name,
+              AWSAccessKeyId: 'AKIAJTIPCXDWAFSGFM3A',
+              acl: 'private',
+              policy: $scope.policy,
+              signature: $scope.signature,
+              "Content-Type": file.type != '' ? file.type : 'application/octet-stream',
+              filename: file.name
+            },
+            file: file
+          }).progress(function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+          }).success(function (data, status, headers, config) {
+            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+          });
+        }
+      }
+    };
+  }]);
