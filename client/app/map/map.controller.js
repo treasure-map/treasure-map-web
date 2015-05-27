@@ -61,20 +61,20 @@ angular.module('treasuremapApp')
 
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition( function(pos) {
-        var latLong = pos.coords;
+        var currPos = pos.coords;
 
         $scope.$apply(function () {
           $scope.map = {
-            center: latLong,
+            center: { latitude: currPos.latitude, longitude: currPos.longitude },
             zoom: 14
           };
         });
       });
     }else{
-      console.log('No support of geolocation')
+      console.log('No support of geolocation');
     }
 
-    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 },zoom: 14 };
+    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
     $scope.options = { styles: style };
     $scope.map.clusterOptions = angular.toJson(cluster);
 
