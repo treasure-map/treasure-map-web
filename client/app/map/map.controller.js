@@ -26,7 +26,7 @@ angular.module('treasuremapApp')
         'elementType': 'geometry.stroke',
         'stylers': [
           { 'weight': 0.25 }
-          
+
         ]
       },{
         'featureType': 'road.highway',
@@ -51,33 +51,33 @@ angular.module('treasuremapApp')
 
     var cluster = {
         title: 'Hi I am a Cluster!',
-        gridSize: 60, 
+        gridSize: 60,
         ignoreHidden: true,
         minimumClusterSize: 2,
         imageExtension: 'png',
-        imagePath: 'assets/images/Cluster', 
+        imagePath: 'assets/images/Cluster',
         imageSizes: [72]
       };
 
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition( function(pos) {
-        var latLong = pos.coords;
+        var currPos = pos.coords;
 
         $scope.$apply(function () {
           $scope.map = {
-            center: latLong,
+            center: { latitude: currPos.latitude, longitude: currPos.longitude },
             zoom: 14
           };
         });
       });
     }else{
-      console.log('No support of geolocation')
+      console.log('No support of geolocation');
     }
 
-    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 },zoom: 14 };
+    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
     $scope.options = { styles: style };
     $scope.map.clusterOptions = angular.toJson(cluster);
- 
+
 
     $scope.locations = [];
 
@@ -116,7 +116,7 @@ angular.module('treasuremapApp')
           // size: new google.maps.Size(50, 62),
           // origin: new google.maps.Point(0,0),
           // anchor: new google.maps.Point(0, 17)
-        };     
+        };
 
     	});
     });
