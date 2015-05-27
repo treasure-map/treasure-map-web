@@ -3,6 +3,7 @@ public
 .tmp
 .sass-cache
 .idea
+*.iml
 client/bower_components
 dist
 /server/config/local.env.js
