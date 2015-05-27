@@ -26,7 +26,7 @@ angular.module('treasuremapApp')
         'elementType': 'geometry.stroke',
         'stylers': [
           { 'weight': 0.25 }
-          
+
         ]
       },{
         'featureType': 'road.highway',
@@ -51,11 +51,11 @@ angular.module('treasuremapApp')
 
     var cluster = {
         title: 'Hi I am a Cluster!',
-        gridSize: 60, 
+        gridSize: 60,
         ignoreHidden: true,
         minimumClusterSize: 2,
         imageExtension: 'png',
-        imagePath: 'assets/images/Cluster', 
+        imagePath: 'assets/images/Cluster',
         imageSizes: [72]
       };
 
@@ -77,7 +77,7 @@ angular.module('treasuremapApp')
     $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 },zoom: 14 };
     $scope.options = { styles: style };
     $scope.map.clusterOptions = angular.toJson(cluster);
- 
+
 
     $scope.locations = [];
 
@@ -98,7 +98,7 @@ angular.module('treasuremapApp')
           .replace(/ü/g,'ue')
           .replace(/ß/g,'ss');
 
-        location.link = link;
+        location.link = location._id;
     	 	location.title = location.details.name;
         location.street = location.address.street;
         location.zipcode = location.address.zipcode;
@@ -116,7 +116,7 @@ angular.module('treasuremapApp')
           // size: new google.maps.Size(50, 62),
           // origin: new google.maps.Point(0,0),
           // anchor: new google.maps.Point(0, 17)
-        };     
+        };
 
     	});
     });
