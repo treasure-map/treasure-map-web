@@ -7,7 +7,8 @@ angular.module('treasuremapApp', [
   'ui.router',
   'ui.bootstrap',
   'uiGmapgoogle-maps',
-  'ngFileUpload'
+  'ngFileUpload',
+  'ngStorage'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -62,10 +63,26 @@ angular.module('treasuremapApp', [
     });
   })
 
-  .controller('UploadCtrl', ['$scope', 'Upload', function ($scope, Upload) {
+  .controller('UploadCtrl', function ($scope, Upload) {
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
     });
+
+    /*
+    $scope.policy = {
+      'expiration': '2016-03-01T00:00:00Z',
+      'conditions': [
+        {'bucket': ***REMOVED***},
+        ['starts-with', '$key', 'images/'],
+        {'acl': 'private'},
+        //{'success_action_redirect': 'http://localhost/'},
+        ['starts-with', '$Content-Type', ''],
+        ['content-length-range', 0, 5242880]
+      ]
+    };
+
+    $scope.signature = CryptoJS.HmacSHA1( CryptoJS.enc.Base64.stringify( $scope.policy ), 'OAiEQA8MY7o+kGPhYIB9M4W1tqKQokTun2xZehsg' );
+    console.log('sha1 ' + $scope.signature); */
 
     $scope.upload = function (files) {
       if (files && files.length) {
@@ -78,9 +95,9 @@ angular.module('treasuremapApp', [
               key: file.name,
               AWSAccessKeyId: 'AKIAJTIPCXDWAFSGFM3A',
               acl: 'private',
-              policy: $scope.policy,
-              signature: $scope.signature,
-              "Content-Type": file.type != '' ? file.type : 'application/octet-stream',
+              policy: CryptoJS.enc.Base64.stringify( $scope.policy ),
+              signature: CryptoJS.enc.Base64.stringify( $scope.signature ),
+              'Content-Type': file.type !== '' ? file.type : 'application/octet-stream',
               filename: file.name
             },
             file: file
@@ -93,4 +110,4 @@ angular.module('treasuremapApp', [
         }
       }
     };
-  }]);
+  });

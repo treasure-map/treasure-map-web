@@ -3,7 +3,7 @@
 describe('Service: Category', function () {
 
   // load the service's module
-  beforeEach(module('jayMapApp'));
+  beforeEach(module('treasuremapApp'));
 
   // instantiate service
   var Category;
