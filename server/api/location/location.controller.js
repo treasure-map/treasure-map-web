@@ -14,17 +14,45 @@ var extra = {
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 
 // Get list of locations
-exports.index = function(req, res) {
-  Location.find()
-    .populate('details.category')
-    .exec(function (err, locations) {
-      if(err) { return handleError(res, err); }
-      return res.json(200, locations);
-    });
-  //Location.find(function (err, locations) {
-  //  if(err) { return handleError(res, err); }
-  //  return res.json(200, locations);
-  //});
+exports.index = function (req, res) {
+  if (req.query.longitude && req.query.latitude) {
+    var limit = req.query.limit || 0;
+
+    // get the max distance or set it to 10 kilometers
+    var maxDistance = req.query.distance || 10;
+
+    // we need to convert the distance to radians
+    // the radius of Earth is approximately 6371 kilometers
+    maxDistance /= 6371;
+
+    // get coordinates [ <longitude> , <latitude> ]
+    var coords = [];
+    coords[0] = req.query.longitude || 0;
+    coords[1] = req.query.latitude || 0;
+
+    // find a location
+    Location.find({
+      coordinates: {
+        $near: coords,
+        $maxDistance: maxDistance
+      }
+    })
+      .populate('details.category')
+      .limit(limit)
+      .exec(function (err, locations) {
+        if (err) {
+          return handleError(res, err);
+        }
+        return res.json(200, locations);
+      });
+  } else {
+    Location.find()
+      .populate('details.category')
+      .exec(function (err, locations) {
+        if(err) { return handleError(res, err); }
+        return res.json(200, locations);
+      });
+    }
 };
 
 // Get a single location
