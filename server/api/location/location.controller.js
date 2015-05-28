@@ -16,25 +16,18 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 // Get list of locations
 exports.index = function (req, res) {
   if (req.query.longitude && req.query.latitude) {
-    var limit = req.query.limit || 0;
+    var limit = req.query.limit || 100;
+    var maxDistance = req.query.distance || 10000;
 
-    // get the max distance or set it to 10 kilometers
-    var maxDistance = req.query.distance || 10;
-
-    // we need to convert the distance to radians
-    // the radius of Earth is approximately 6371 kilometers
-    maxDistance /= 6371;
-
-    // get coordinates [ <longitude> , <latitude> ]
-    var coords = [];
-    coords[0] = req.query.longitude || 0;
-    coords[1] = req.query.latitude || 0;
-
-    // find a location
     Location.find({
       coordinates: {
-        $near: coords,
-        $maxDistance: maxDistance
+        $near: {
+          $geometry: {
+            type: "Point" ,
+            coordinates: [req.query.longitude, req.query.latitude]
+          },
+          $maxDistance: maxDistance * 1
+        }
       }
     })
       .populate('details.category')
