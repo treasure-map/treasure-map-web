@@ -621,7 +621,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'env:all',
         'env:test',
-        'shell:mongo',
+        //'shell:mongo',
         'mochaTest'
       ]);
     }
