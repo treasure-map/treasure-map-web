@@ -7,6 +7,7 @@ before_script:
   - gem install sass
   - bower install
 services: mongodb
+sudo: false
 notifications:
   slack:
     secure: inykKseCGMnaYx3pvA4fQQ/5PXb/H9kG+wQadFu1KKQOPW6Smr2KSGzZZJTKzExgkViIV6ZMnb04rPXxk8soKjGLv7XZTCGCwGysXnDU4eYK/tcxzl1u5ycj1th7OgA/gQ224vHUrszEfzd1wplGWK6gWHUDDhwA5hdElAxy1jI=
