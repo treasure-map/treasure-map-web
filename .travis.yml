@@ -1,16 +1,32 @@
+sudo: false
 language: node_js
 node_js:
 - '0.10'
 - '0.11'
 before_script:
-  - npm install -g bower grunt-cli
-  - gem install sass
-  - bower install
+- npm install -g bower grunt-cli
+- gem install sass
+- bower install
+after_success:
+- grunt buildcontrol:stage
+env:
+- NODE_ENV=production
 services: mongodb
-sudo: false
 notifications:
   slack:
     secure: inykKseCGMnaYx3pvA4fQQ/5PXb/H9kG+wQadFu1KKQOPW6Smr2KSGzZZJTKzExgkViIV6ZMnb04rPXxk8soKjGLv7XZTCGCwGysXnDU4eYK/tcxzl1u5ycj1th7OgA/gQ224vHUrszEfzd1wplGWK6gWHUDDhwA5hdElAxy1jI=
 cache:
   directories:
-    - node_modules
+  - node_modules
+  - bower_components
+deploy:
+  provider: heroku
+  strategy: git
+  skip_cleanup: true
+  api_key:
+    secure: tWDFeHs6YlbegrJBUaV4yJrp2DZLaJhQ3NP25L6/lMOCzuduQg497Md19qgBIW/SaMYavAql4hudb9AT3aKeuzYI54NIKCd2fxXqBvYit/4iyJA5ts80e8fBaATUkIu/jEEM081bhLEkqNDxO3NrGS6keQHP6mxr6hwQujl2gLs=
+  app:
+    develop: treasuremap-stage
+    master: treasuremap
+  on:
+    node: '0.11'
