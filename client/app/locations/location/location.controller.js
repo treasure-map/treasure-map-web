@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationCtrl', function ($scope, $stateParams, Location) {
+  .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth) {
     $scope.location = Location.get({ id: $stateParams.id }, function() {
       $scope.map.center.latitude = $scope.location.coordinates.lat;
       $scope.map.center.longitude = $scope.location.coordinates.lng;
       $scope.location.latitude = $scope.location.coordinates.lat;
       $scope.location.longitude = $scope.location.coordinates.lng;
     });
+
+    $scope.user = Auth.getCurrentUser;
 
     $scope.map = {
       center: {
