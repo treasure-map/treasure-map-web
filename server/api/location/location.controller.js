@@ -17,16 +17,18 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 exports.index = function (req, res) {
   if (req.query.longitude && req.query.latitude) {
     var limit = req.query.limit || 100;
-    var maxDistance = req.query.distance || 10000;
+    var maxDistance = (req.query.distance * 1000) || 10000; // distance in KM!
 
     Location.find({
       coordinates: {
         $near: {
           $geometry: {
             type: "Point" ,
-            coordinates: [req.query.longitude, req.query.latitude]
+            coordinates: [req.query.latitude, req.query.longitude]
           },
-          $maxDistance: maxDistance * 1
+          $maxDistance: maxDistance,
+          //$spherical: true, // not doing anything?
+          //$distanceMultiplier: 6378.1
         }
       }
     })

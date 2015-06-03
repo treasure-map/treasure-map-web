@@ -88,8 +88,8 @@ location.find({}).remove(function () {
       zipcode: '75008'
     },
     coordinates: {
-      lat: 48.8718282,
-      lng: 2.31499899
+      latitude: 48.8718282,
+      longitude: 2.31499899
     },
     details: {
       name: 'Epicure',
@@ -105,8 +105,8 @@ location.find({}).remove(function () {
       zipcode: '10999'
     },
     coordinates: {
-      lat: 52.4942,
-      lng: 13.42957
+      latitude: 52.4942,
+      longitude: 13.42957
     },
     details: {
       name: 'Restaurant VOLT',
@@ -122,8 +122,8 @@ location.find({}).remove(function () {
       zipcode: '10785'
     },
     coordinates: {
-      lat: 52.508116,
-      lng: 13.372982
+      latitude: 52.508116,
+      longitude: 13.372982
     },
     details: {
       name: 'Vox Restaurant',
@@ -139,8 +139,8 @@ location.find({}).remove(function () {
       zipcode: '10178'
     },
     coordinates: {
-      lat: 52.51631,
-      lng: 13.40784
+      latitude: 52.51631,
+      longitude: 13.40784
     },
     details: {
       name: 'Gasthaus Zur Rippe',
@@ -156,8 +156,8 @@ location.find({}).remove(function () {
       zipcode: '10178'
     },
     coordinates: {
-      lat: 52.517241,
-      lng: 13.4064
+      latitude: 52.517241,
+      longitude: 13.4064
     },
     details: {
       name: 'Zur Gerichtslaube',
@@ -173,8 +173,8 @@ location.find({}).remove(function () {
       zipcode: '10997'
     },
     coordinates: {
-      lat: 52.505579,
-      lng: 13.432972
+      latitude: 52.505579,
+      longitude: 13.432972
     },
     details: {
       name: 'Sage Restaurant',
@@ -190,8 +190,8 @@ location.find({}).remove(function () {
       zipcode: '12435'
     },
     coordinates: {
-      lat: 52.4904928,
-      lng: 13.4578314
+      latitude: 52.4904928,
+      longitude: 13.4578314
     },
     details: {
       name: 'Park Center Treptow',
@@ -207,8 +207,8 @@ location.find({}).remove(function () {
       zipcode: '12439'
     },
     coordinates: {
-      lat: 52.45685,
-      lng: 13.50842
+      latitude: 52.45685,
+      longitude: 13.50842
     },
     details: {
       name: 'Zentrum Schöneweide',
@@ -224,8 +224,8 @@ location.find({}).remove(function () {
       zipcode: '10247'
     },
     coordinates: {
-      lat: 52.5141263,
-      lng: 13.4745089
+      latitude: 52.5141263,
+      longitude: 13.4745089
     },
     details: {
       name: 'Ring-Center Berlin',
@@ -241,8 +241,8 @@ location.find({}).remove(function () {
       zipcode: '10179'
     },
     coordinates: {
-      lat: 2.519187,
-      lng: 13.41597
+      latitude: 2.519187,
+      longitude: 13.41597
     },
     details: {
       name: 'Alexa Berlin',
@@ -258,8 +258,8 @@ location.find({}).remove(function () {
       zipcode: '12555'
     },
     coordinates: {
-      lat: 52.4581599,
-      lng: 13.57750229
+      latitude: 52.4581599,
+      longitude: 13.57750229
     },
     details: {
       name: 'Forum Köpenick',
@@ -275,8 +275,8 @@ location.find({}).remove(function () {
       zipcode: '10117'
     },
     coordinates: {
-      lat: 52.5158566,
-      lng: 13.3784283
+      latitude: 52.5158566,
+      longitude: 13.3784283
     },
     details: {
       name: 'Brandenburg Gate',
@@ -292,8 +292,8 @@ location.find({}).remove(function () {
       zipcode: '10178'
     },
     coordinates: {
-      lat: 52.5194894,
-      lng: 13.3988334
+      latitude: 52.5194894,
+      longitude: 13.3988334
     },
     details: {
       name: 'Pergamon Museum',
@@ -309,8 +309,8 @@ location.find({}).remove(function () {
       zipcode: '13355'
     },
     coordinates: {
-      lat: 52.53523,
-      lng: 13.38943
+      latitude: 52.53523,
+      longitude: 13.38943
     },
     details: {
       name: 'Memorial of the Berlin Wall',
@@ -326,8 +326,8 @@ location.find({}).remove(function () {
       zipcode: '11011'
     },
     coordinates: {
-      lat: 52.518535,
-      lng: 13.373188
+      latitude: 52.518535,
+      longitude: 13.373188
     },
     details: {
       name: 'Reichstag',
@@ -343,8 +343,8 @@ location.find({}).remove(function () {
       zipcode: '10178'
     },
     coordinates: {
-      lat: 52.5199172,
-      lng: 13.3990756
+      latitude: 52.5199172,
+      longitude: 13.3990756
     },
     details: {
       name: 'Museum Island',
@@ -360,8 +360,8 @@ location.find({}).remove(function () {
       zipcode: '10178'
     },
     coordinates: {
-      lat: 52.521918,
-      lng: 13.413215
+      latitude: 52.521918,
+      longitude: 13.413215
     },
     details: {
       name: 'Alexanderplatz',
@@ -377,8 +377,8 @@ location.find({}).remove(function () {
       zipcode: '10557'
     },
     coordinates: {
-      lat: 52.512906,
-      lng: 13.3267274
+      latitude: 52.512906,
+      longitude: 13.3267274
     },
     details: {
       name: 'Tiergarten',
@@ -394,8 +394,8 @@ location.find({}).remove(function () {
       zipcode: '10117'
     },
     coordinates: {
-      lat: 52.513722,
-      lng: 13.39267
+      latitude: 52.513722,
+      longitude: 13.39267
     },
     details: {
       name: 'Gendarmenmarkt',
@@ -411,8 +411,8 @@ location.find({}).remove(function () {
       zipcode: '10178'
     },
     coordinates: {
-      lat: 52.52086,
-      lng: 13.4093
+      latitude: 52.52086,
+      longitude: 13.4093
     },
     details: {
       name: 'Television Tower',
@@ -428,8 +428,8 @@ location.find({}).remove(function () {
       zipcode: '10963'
     },
     coordinates: {
-      lat: 52.4986278,
-      lng: 13.3768443
+      latitude: 52.4986278,
+      longitude: 13.3768443
     },
     details: {
       name: 'German Museum of Technology',
@@ -445,8 +445,8 @@ location.find({}).remove(function () {
       zipcode: '14059'
     },
     coordinates: {
-      lat: 52.5242681,
-      lng: 13.2918291
+      latitude: 52.5242681,
+      longitude: 13.2918291
     },
     details: {
       name: 'Charlottenburg Palace',
@@ -462,8 +462,8 @@ location.find({}).remove(function () {
       zipcode: '10178'
     },
     coordinates: {
-      lat: 52.519133,
-      lng: 13.402634
+      latitude: 52.519133,
+      longitude: 13.402634
     },
     details: {
       name: 'DDR Museum',

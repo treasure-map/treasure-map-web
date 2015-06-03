@@ -10,9 +10,9 @@ var LocationSchema = new Schema({
 		zipcode: String
 	},
 	coordinates: {
-		lat: Number,
-		lng: Number
-	},
+    longitude: Number,
+    latitude: Number
+  },
   	details: {
   		name: String,
   		category: {
