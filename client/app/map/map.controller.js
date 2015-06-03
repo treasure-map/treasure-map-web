@@ -64,61 +64,73 @@ angular.module('treasuremapApp')
         var currPos = pos.coords;
 
         $scope.$apply(function () {
+          $scope.userLocation = {
+            latitude: currPos.latitude,
+            longitude: currPos.longitude
+          };
           $scope.map = {
             center: { latitude: currPos.latitude, longitude: currPos.longitude },
             zoom: 14
           };
         });
+        $scope.getLocations($scope.userLocation, $scope.searchRadius);
       });
     }else{
+      $scope.getLocations($scope.map.center, $scope.searchRadius);
       console.log('No support of geolocation');
     }
 
     $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
     $scope.options = { styles: style };
     $scope.map.clusterOptions = angular.toJson(cluster);
-
+    $scope.searchRadius = 5;
+    $scope.userLocation = $scope.map.center;
 
     $scope.locations = [];
 
-    $http.get('/api/locations').success(function(locations) {
-      $scope.labels = '';
-    	$scope.locations = locations;
-    	 _.each($scope.locations, function(location){
-    	 	location.coordinates.latitude = location.coordinates.lat;
-    	 	location.coordinates.longitude = location.coordinates.lng;
+    $scope.getLocations = function(coords, distance) {
+      $http.get('/api/locations', {
+        params: {
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          distance: distance
+        }
+      }).success(function(locations) {
+        $scope.labels = '';
+        $scope.locations = locations;
+        _.each($scope.locations, function(location){
 
-        var link = location.details.name
-          .toLowerCase()
-          .replace(/[^\w\säöüß]/gi, '')
-          .replace(/\s/g,'-')
-          .replace(/--/g,'-')
-          .replace(/ä/g,'ae')
-          .replace(/ö/g,'oe')
-          .replace(/ü/g,'ue')
-          .replace(/ß/g,'ss');
+          var link = location.details.name
+            .toLowerCase()
+            .replace(/[^\w\säöüß]/gi, '')
+            .replace(/\s/g,'-')
+            .replace(/--/g,'-')
+            .replace(/ä/g,'ae')
+            .replace(/ö/g,'oe')
+            .replace(/ü/g,'ue')
+            .replace(/ß/g,'ss');
 
-        location.link = location._id;
-    	 	location.title = location.details.name;
-        location.street = location.address.street;
-        location.zipcode = location.address.zipcode;
-        location.city = location.address.city;
-        location.category = location.details.category.name;
-        location.duration = location.details.duration;
-        location.id = location.details.category._id;
+          location.link = location._id;
+          location.title = location.details.name;
+          location.street = location.address.street;
+          location.zipcode = location.address.zipcode;
+          location.city = location.address.city;
+          location.category = location.details.category.name;
+          location.duration = location.details.duration;
+          location.id = location.details.category._id;
 
-        location.cluster = {
-          styles: { url: 'assets/images/Cluster.png' }
-        };
+          location.cluster = {
+            styles: { url: 'assets/images/Cluster.png' }
+          };
 
-        location.icon = {
-          url: location.details.category.imgUrl,
-          // size: new google.maps.Size(50, 62),
-          // origin: new google.maps.Point(0,0),
-          // anchor: new google.maps.Point(0, 17)
-        };
+          location.icon = {
+            url: location.details.category.imgUrl,
+            // size: new google.maps.Size(50, 62),
+            // origin: new google.maps.Point(0,0),
+            // anchor: new google.maps.Point(0, 17)
+          };
 
-    	});
-    });
-
+        });
+      });
+    };
  });
