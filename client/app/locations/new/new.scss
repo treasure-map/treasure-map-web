@@ -1,3 +1,14 @@
+.modal-content {
+  .angular-google-map-container {
+    height: 600px;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+}
+
+
 .drop-box {
   background: #F8F8F8;
   border: 5px dashed #DDD;
@@ -10,3 +21,9 @@
 .dragover {
   border: 5px dashed blue;
 }
+
+.pac-container {
+  z-index: 10000 !important;
+}
+
+
