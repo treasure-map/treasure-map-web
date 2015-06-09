@@ -24,7 +24,7 @@
     <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ng-href="{{item.link}}">{{item.title}}</a>
     </li>
-    <li ng-show="isLoggedIn()"><a href="" ng-click="openModal()">New Location</a></li>
+    <li ng-show="isLoggedIn()"><a href="" ng-click="openModal('lg')">New Location</a></li>
   </ul>
 
   <footer>

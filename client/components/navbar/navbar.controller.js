@@ -11,7 +11,8 @@ angular.module('treasuremapApp')
 
       var modalInstance = $modal.open({
         templateUrl: 'app/locations/new/new.html',
-        controller: 'NewCtrl'
+        controller: 'NewCtrl',
+        size: size
       });
 
       modalInstance.result.then(function (selectedItem) {
@@ -44,4 +45,4 @@ angular.module('treasuremapApp')
       }
     });
 
-  }); 
+  });
