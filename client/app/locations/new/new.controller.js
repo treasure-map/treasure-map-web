@@ -32,6 +32,8 @@ angular.module('treasuremapApp')
           console.log('Success!' + status);
           console.log(data);
           $scope.alerts.push({type: 'success', msg: 'New Location successfully added!'});
+          window.location.reload();
+
         })
         .error(function (data, status) {
           console.log('Error!' + status);          $scope.alerts.push({type: 'danger', msg: 'Couln\'t add new location!'});
