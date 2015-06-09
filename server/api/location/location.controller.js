@@ -46,7 +46,10 @@ exports.create = function(req, res) {
     var address = req.body.address;
     geocoder.geocode(address.street + ', ' + address.zipcode + ' ' + address.city)
       .then(function(addr) {
-        //console.log(addr);
+        if (addr.length > 1) {
+          return res.status(400).json({ error: 'unprecise address' });
+        }
+
         req.body.coordinates = {
           lat: addr[0].latitude,
           lng: addr[0].longitude
@@ -60,6 +63,11 @@ exports.create = function(req, res) {
       .catch(function(err) {
         console.log(err);
       });
+  } else {
+    Location.create(req.body, function(err, location) {
+      if(err) { return handleError(res, err); }
+      return res.json(201, location);
+    });
   }
 };
 
