@@ -25,59 +25,9 @@
       </ui-gmap-google-map>
     </div>
 
-    <div id="disqus_thread" class="comments col-sm-12"></div>
+    <div id="disqus_thread" class="comments col-sm-12" ng-controller="DisqusCtrl"></div>
 
-    <script type="text/javascript">
-        var DISQUS_SECRET = ***REMOVED***;
-        var DISQUS_PUBLIC = ***REMOVED***;
-        var DISQUS_SHORTNAME = ***REMOVED***;
-        var BASEURL = 'http://localhost';
-
-        function disqusSignon(user) {
-          var disqusData = {
-            id: user.id,
-            username: user.username,
-            email: user.email
-          };
-
-          var disqusStr = JSON.stringify(disqusData);
-          var timestamp = Math.round(+new Date() / 1000);
-
-          var message = new Buffer(disqusStr).toString('base64');
-
-          var result = CryptoJS.HmacSHA1(message + " " + timestamp, DISQUS_SECRET);
-          var hexsig = CryptoJS.enc.Hex.stringify(result);
-
-          return {
-            key: DISQUS_PUBLIC,
-            auth: message + " " + hexsig + " " + timestamp
-          };
-        }
-
-        var disqus_config = function () {
-          this.page.remote_auth_s3 = disqusSignon(scope.getCurrentUser()).auth;
-          this.page.api_key = disqusSignon(scope.getCurrentUser()).key;
-        }
-
-        this.sso = {
-          name:   'TreasureMap',
-          button: BASEURL + '/images/samplenews.gif',
-          icon:   BASEURL + '/favicon.png',
-          url:    BASEURL + '/login',
-          logout: BASEURL + '/logout',
-          width:  '800',
-          height: '400'
-        };
-
-        (function() {
-          console.log(disqusSignon(scope.getCurrentUser()).auth);
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + DISQUS_SHORTNAME + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript" rel="nofollow">Disqus</a>.</noscript>
 
   </div>
 </div>
