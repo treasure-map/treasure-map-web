@@ -29,5 +29,11 @@
     font-size: 3.5em;
     line-height: 0.8em;
     box-shadow: 1px 1px 5px #222;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: 4px 4px 7px #222;
+      transition: box-shadow 0.3s;
+    }
   }
 }
