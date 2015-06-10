@@ -7,12 +7,12 @@
 
   		<ui-gmap-windows show="show">
         <div ng-non-bindable>
-          <a href='/locations/{{link}}'>
-            <strong>{{title}}</strong>
-            <p>{{street}}<br/>{{zipcode}} {{city}}</p>
+          <a href='/locations/{{_id}}'>
+            <strong>{{details.name}}</strong>
+            <p>{{address.street}}<br/>{{address.zipcode}} {{address.city}}</p>
           </a>
-          <p>Duration {{duration}}h</p>
-          <a href='/categories/{{id}}'><i>{{category}}</i></a>
+          <p>Duration {{details.duration}}h</p>
+          <a href='/categories/{{details.category._id}}'><i>{{details.category.name}}</i></a>
         </div>
       </ui-gmap-windows>
 

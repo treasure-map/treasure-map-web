@@ -13,6 +13,16 @@ angular.module('treasuremapApp')
       });
 
       modalInstance.result.then(function (newLocation) {
+        newLocation.coordinates.latitude = newLocation.coordinates.lat;
+        newLocation.coordinates.longitude = newLocation.coordinates.lng;
+        newLocation.cluster = {
+          styles: { url: 'assets/images/Cluster.png' }
+        };
+
+        newLocation.icon = {
+          url: newLocation.details.category.imgUrl
+        };
+
         $scope.locations.push(newLocation);
       }, function () {
         console.log('Modal dismissed at: ' + new Date());
@@ -104,24 +114,24 @@ angular.module('treasuremapApp')
     	 	location.coordinates.latitude = location.coordinates.lat;
     	 	location.coordinates.longitude = location.coordinates.lng;
 
-        var link = location.details.name
-          .toLowerCase()
-          .replace(/[^\w\säöüß]/gi, '')
-          .replace(/\s/g,'-')
-          .replace(/--/g,'-')
-          .replace(/ä/g,'ae')
-          .replace(/ö/g,'oe')
-          .replace(/ü/g,'ue')
-          .replace(/ß/g,'ss');
+        //var link = location.details.name
+        //  .toLowerCase()
+        //  .replace(/[^\w\säöüß]/gi, '')
+        //  .replace(/\s/g,'-')
+        //  .replace(/--/g,'-')
+        //  .replace(/ä/g,'ae')
+        //  .replace(/ö/g,'oe')
+        //  .replace(/ü/g,'ue')
+        //  .replace(/ß/g,'ss');
 
-        location.link = location._id;
-    	 	location.title = location.details.name;
-        location.street = location.address.street;
-        location.zipcode = location.address.zipcode;
-        location.city = location.address.city;
-        location.category = location.details.category.name;
-        location.duration = location.details.duration;
-        location.id = location.details.category._id;
+        //location.link = location._id;
+    	 //	location.title = location.details.name;
+        //location.street = location.address.street;
+        //location.zipcode = location.address.zipcode;
+        //location.city = location.address.city;
+        //location.category = location.details.category.name;
+        //location.duration = location.details.duration;
+        //location.id = location.details.category._id;
 
         location.cluster = {
           styles: { url: 'assets/images/Cluster.png' }
