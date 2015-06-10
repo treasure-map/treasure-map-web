@@ -81,7 +81,12 @@ angular.module('treasuremapApp')
             $scope.alerts.push({type: 'success', msg: 'New Location successfully added!'});
 
             $scope.newLocation = {};
-            $scope.$close(data);
+
+            $http.get('/api/categories/'+data.details.category)
+              .success(function (category) {
+                data.details.category = category;
+                $scope.$close(data);
+              });
           })
           .error(function (data, status) {
             console.log('Error!' + status);
