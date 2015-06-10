@@ -1,7 +1,14 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NewCtrl', function ($scope, $http) {
+  .controller('NewCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi) {
+    uiGmapGoogleMapApi.then(function (maps) {
+      $timeout(function () {
+        //maps.event.trigger($scope.mapNew, 'resize');
+          $scope.showMap = true;
+      }, 100);
+    });
+
     $scope.message = 'Hello';
     $scope.newLocation = {};
     $scope.alerts = [];
@@ -20,7 +27,8 @@ angular.module('treasuremapApp')
       options: {
         scrollwheel: false,
         disableDefaultUI: true,
-        zoomControl: true
+        zoomControl: true,
+        draggable: false
       }
     };
     $scope.searchbox = {
@@ -28,10 +36,15 @@ angular.module('treasuremapApp')
       events: {
         places_changed: function (searchBox) {
           $scope.place = searchBox.getPlaces()[0];
-          $scope.newLocation.address.zipcode = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'postal_code'); }).long_name;
-          $scope.newLocation.address.city = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'administrative_area_level_1'); }).long_name;
-          $scope.newLocation.address.street = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'route'); }).long_name + ' ' +
-                                            + _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'street_number'); }).long_name;
+
+          var zipcode = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'postal_code'); });
+          var city = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'administrative_area_level_1') || _.contains(i.types, 'locality'); });
+          var street = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'route'); });
+          var number = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'street_number'); });
+          $scope.newLocation.address.zipcode = zipcode ? zipcode.short_name : '';
+          $scope.newLocation.address.city = city ? city.long_name : '';
+          $scope.newLocation.address.street = street ? street.long_name + ' ' + number.short_name : '';
+
           $scope.newLocation.coordinates = {
             lat: $scope.place.geometry.location.lat(),
             latitude: $scope.place.geometry.location.lat(),
