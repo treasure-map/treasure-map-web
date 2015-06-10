@@ -1,23 +1,33 @@
-.angular-google-map-container { 
-	height: calc(100vh - 50px); 
+.angular-google-map-container {
+	height: calc(100vh - 50px);
 }
 
-.map { 
-	width: 100%; 
-	height: calc(100vh - 50px); 
+.map {
+	width: 100%;
+	height: calc(100vh - 50px);
 
 	div {
 		color: #000;
 	}
 
 	a {
-		color: initial; 
+		color: initial;
 		text-decoration: none;
 
 		&:hover {
-			color: initial; 
+			color: initial;
 			text-decoration: underline;
 			cursor: pointer;
 		}
 	}
+
+  .btn-map-new {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    border-radius: 1000px;
+    font-size: 3.5em;
+    line-height: 0.8em;
+    box-shadow: 1px 1px 5px #222;
+  }
 }

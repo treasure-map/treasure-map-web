@@ -11,7 +11,7 @@
             <strong>{{title}}</strong>
             <p>{{street}}<br/>{{zipcode}} {{city}}</p>
           </a>
-          <p>Duration {{duration}}h</p> 
+          <p>Duration {{duration}}h</p>
           <a href='/categories/{{id}}'><i>{{category}}</i></a>
         </div>
       </ui-gmap-windows>
@@ -19,4 +19,8 @@
   	</ui-gmap-markers>
 
   </ui-gmap-google-map>
+
+  <button class="btn btn-primary btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()">
+    +
+  </button>
 </div>
