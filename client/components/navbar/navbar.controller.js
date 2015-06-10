@@ -7,21 +7,6 @@ angular.module('treasuremapApp')
       'link': '/'
     }];
 
-    $scope.openModal = function (size) {
-
-      var modalInstance = $modal.open({
-        templateUrl: 'app/locations/new/new.html',
-        controller: 'NewCtrl',
-        size: size
-      });
-
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
-      }, function () {
-        console.log('Modal dismissed at: ' + new Date());
-      });
-    };
-
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
