@@ -7,11 +7,11 @@
 
       <a ng-href="categories/{{location.details.category._id}}"><h3>{{location.details.category.name}}</h3></a>
 
-      <span class="loc-address">{{location.address.street}}, {{location.address.zipcode }} {{location.address.city}}</span>
+      <p class="loc-address">{{location.address.street}}, {{location.address.zipcode }} {{location.address.city}}</p>
 
-      <strong class="description">{{location.details.description}}</strong>
+      <p class="loc-duration">Duration: {{location.details.duration}}h</p>
 
-      <p class="duration">Duration: {{location.details.duration}}h</p>
+      <p class="loc-description">{{location.details.description}}</p>
     </div>
 
     <div class="col-sm-6">
@@ -25,20 +25,34 @@
       </ui-gmap-google-map>
     </div>
 
-    <div id="disqus_thread" class="comments col-sm-12"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES * * */
-        var disqus_shortname = ***REMOVED***;
-        
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
   </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Images</h3>
+      <div class="loc-pictures">
+        <a href="{{pic}}" class="loc-picture thumbnail" ng-repeat="pic in location.details.pictures">
+          <img src="{{pic}}" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="disqus_thread" class="comments col-sm-12"></div>
+  <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = ***REMOVED***;
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+    powered by Disqus.</a></noscript>
 </div>
