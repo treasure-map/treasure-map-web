@@ -43,7 +43,8 @@ angular.module('treasuremapApp')
           var number = _.find($scope.place.address_components, function(i) { return _.contains(i.types, 'street_number'); });
           $scope.newLocation.address.zipcode = zipcode ? zipcode.short_name : '';
           $scope.newLocation.address.city = city ? city.long_name : '';
-          $scope.newLocation.address.street = street ? street.long_name + ' ' + number.short_name : '';
+          $scope.newLocation.address.street = street ? street.long_name : '';
+          $scope.newLocation.address.street += number ? ' ' + number.short_name : '';
 
           $scope.newLocation.coordinates = {
             lat: $scope.place.geometry.location.lat(),
