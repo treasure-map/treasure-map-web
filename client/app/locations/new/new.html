@@ -106,19 +106,18 @@
       <label>Photos</label>
 
       <div ng-app="treasuremapApp" ng-controller="UploadCtrl">
-        <div ngf-no-file-drop>
-          <div class="button col-md-12" ngf-select ng-model="files" ngf-multiple="true">Select File</div>
+        <div ngf-no-file-drop class="col-md-12">
+          <div class="button" ngf-select ng-model="files" ngf-multiple="false">Select File</div>
         </div>
         <div ngf-drop ngf-select ng-model="files" class="drop-box col-md-6"
-             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+             ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="false"
              accept="image/*">Drop images here or click to upload</div>
-        <img class="col-md-6" gf-src="files[0]" ngf-default-src="'/thumb.jpg'" ngf-accept="'image/*'">
-        Files:
+        <img class="col-md-6" ngf-src="files[0]" ngf-default-src="'assets/images/thumb.jpg'" ngf-accept="'image/*'">
         <ul>
           <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
         </ul>
-        Upload Log:
-        <pre>{{log}}</pre>
+        <!-- TODO: urls in array for database -->
+        <input type="text" name="pictures" ng-model="newLocation.details.pictures" value="{{urls}}" />
       </div>
 
     </div>
