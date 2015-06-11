@@ -41,13 +41,22 @@ angular.module('treasuremapApp')
 
   })
   .controller('UploadCtrl', function ($scope, Upload) {
-    var getExpiryTime;
+    var getExpiryTime,
+        getTodayShort,
+        getToday,
+        date;
 
+    date = new Date();
     getExpiryTime = function () {
-      var date = new Date();
       return '' + (date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' +
         (date.getDate() + 1) + 'T' + (date.getHours() + 3) + ':' + '00:00.000Z';
     };
+    getToday = function () {
+      return date.toISOString();
+    }
+    getTodayShort = function () {
+      return date.toISOString().substring(0, 10).replace(/-/g,'');
+    }
 
     var S3_SECRET_KEY = 'OAiEQA8MY7o+kGPhYIB9M4W1tqKQokTun2xZehsg',
         S3_ACCESS_KEY = 'AKIAJTIPCXDWAFSGFM3A',
@@ -57,7 +66,11 @@ angular.module('treasuremapApp')
       'conditions': [
       {'bucket': S3_BUCKET},
       {'acl': 'private'},
+      ['starts-with', '$Content-Type', 'image/'],
       ['content-length-range', 0, 5242880],
+      {'x-amz-credential': S3_ACCESS_KEY + '/' + getTodayShort() + '/eu-central-1/s3/aws4_request'},
+      {'x-amz-algorithm': 'AWS4-HMAC-SHA256'},
+      {'x-amz-date': getToday() }
     ]};
 
     var s3 = new AWS.S3({accessKeyId: S3_ACCESS_KEY, secretAccessKey: S3_SECRET_KEY, region: ***REMOVED***, signatureVersion: 'v4'});
@@ -65,7 +78,21 @@ angular.module('treasuremapApp')
     var policy_string = JSON.stringify(S3_POLICY);
     var policy_base64 = window.btoa(policy_string);
 
-    var signature = CryptoJS.HmacSHA1(policy_base64, 'AWS4' + S3_SECRET_KEY);
+    function sign(msg, key) {
+      return CryptoJS.HmacSHA256( key, msg );
+    }
+
+    //var signature = CryptoJS.HmacSHA1(policy_base64, S3_SECRET_KEY);
+    function getSignatureKey(key, dateStamp, regionName, serviceName) {
+
+      var kDate = sign(dateStamp, 'AWS4' + key);
+      var kRegion = sign(regionName, kDate);
+      var kService = sign(serviceName, kRegion);
+      var kSigning = sign('aws4_request', kService);
+
+      return kSigning;
+    }
+    var signature = getSignatureKey(S3_SECRET_KEY, getTodayShort(), ***REMOVED***, 's3');
     var signature_base64 = window.btoa(signature);
 
     /*
@@ -88,8 +115,13 @@ angular.module('treasuremapApp')
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
+          /*var params = {Bucket: S3_BUCKET, Key: file.name, ContentType: file.type, Body: file};
+            s3.upload(params, function (err, data) {
+              if (err) console.log(err, err.stack);
+              else     console.log(data);
+            });*/
           Upload.upload({
-            url: 'https://' + S3_BUCKET + '.s3.amazonaws.com',
+            url: 'https://' + S3_BUCKET + '.s3.eu-central-1.amazonaws.com',
             method: 'POST',
             transformRequest: function (data, headersGetter) {
               var headers = headersGetter();
