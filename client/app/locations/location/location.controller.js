@@ -27,7 +27,7 @@ angular.module('treasuremapApp')
         var DISQUS_SECRET = ***REMOVED***,
             DISQUS_PUBLIC = ***REMOVED***,
             DISQUS_SHORTNAME = ***REMOVED***,
-            BASEURL = 'http://127.0.0.1:9000';
+            BASEURL = 'http://treasuremap-stage.herokuapp.com';
 
         function disqusSignon(user) {
           var disqusData = {
