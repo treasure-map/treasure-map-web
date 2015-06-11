@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationCtrl', function ($scope, $stateParams, Location) {
+  .controller('LocationCtrl', function ($scope, $stateParams, Location, Page) {
+
+    $scope.Page = Page;
 
     $scope.location = Location.get({ id: $stateParams.id }, function() {
-      $scope.page.setTitle($scope.details.name);
+      Page.setTitle($scope.location.details.name);
       $scope.map.center.latitude = $scope.location.coordinates.lat;
       $scope.map.center.longitude = $scope.location.coordinates.lng;
       $scope.location.latitude = $scope.location.coordinates.lat;

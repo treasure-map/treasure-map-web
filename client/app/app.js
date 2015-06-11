@@ -61,16 +61,13 @@ angular.module('treasuremapApp', [
     };
   })
 
-  //.run(['$rootScope', function($rootScope) {
-  //  $rootScope.page = {
-  //    setTitle: function(title) {
-  //      this.title = title + ' | Site Name';
-  //    }
-  //  };
-  //  $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
-  //    $rootScope.page.setTitle(current.$route.title || 'Default Title');
-  //  });
-  //}]);
+  .factory('Page', function() {
+    var title = 'Treasure Map';
+    return {
+      title: function() { return title; },
+      setTitle: function(newTitle) { title = newTitle }
+    };
+  })
 
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
