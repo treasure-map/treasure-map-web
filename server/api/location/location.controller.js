@@ -1,5 +1,6 @@
 'use strict';
 
+var config = require('../../config/environment');
 var _ = require('lodash');
 var Location = require('./location.model');
 
@@ -12,6 +13,7 @@ var extra = {
 };
 
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
+var request = require('request');
 
 // Get list of locations
 exports.index = function(req, res) {
@@ -66,6 +68,7 @@ exports.create = function(req, res) {
   } else {
     Location.create(req.body, function(err, location) {
       if(err) { return handleError(res, err); }
+      if (config) sendLocationToSlack(location, 'created');
       return res.json(201, location);
     });
   }
@@ -80,6 +83,7 @@ exports.update = function(req, res) {
     var updated = _.merge(location, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
+      if (config) sendLocationToSlack(location, 'updated');
       return res.json(200, location);
     });
   });
@@ -92,6 +96,7 @@ exports.destroy = function(req, res) {
     if(!location) { return res.send(404); }
     location.remove(function(err) {
       if(err) { return handleError(res, err); }
+      if (config) sendLocationToSlack(location, 'deleted');
       return res.send(204);
     });
   });
@@ -99,4 +104,21 @@ exports.destroy = function(req, res) {
 
 function handleError(res, err) {
   return res.send(500, err);
+}
+
+function sendLocationToSlack(location, method) {
+  request({
+    method: 'POST',
+    url: ***REMOVED***,
+      body: JSON.stringify({
+        "text": "A new location has been " + method + "! <" + config.DOMAIN + "/locations/" + location._id + "|Click here> for details!",
+        "username": "New Location Bot",
+        "icon_emoji": ":round_pushpin:"
+      })
+  }, function (error, response, body) {
+    if (error) {
+      return console.error('sending message to Slack failed:', error);
+    }
+    console.log('sending message to Slack successful!  Server responded with:', body);
+  });
 }

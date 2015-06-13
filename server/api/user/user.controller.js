@@ -4,6 +4,7 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var request = require('request');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -31,6 +32,7 @@ exports.create = function (req, res, next) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
     res.json({ token: token });
+    if (config) sendUserToSlack(user, 'created');
   });
 };
 
@@ -54,6 +56,7 @@ exports.show = function (req, res, next) {
 exports.destroy = function(req, res) {
   User.findByIdAndRemove(req.params.id, function(err, user) {
     if(err) return res.send(500, err);
+    if (config) sendUserToSlack(user, 'deleted');
     return res.send(204);
   });
 };
@@ -72,6 +75,7 @@ exports.changePassword = function(req, res, next) {
       user.save(function(err) {
         if (err) return validationError(res, err);
         res.send(200);
+        if (config) sendUserToSlack(user, 'updated');
       });
     } else {
       res.send(403);
@@ -99,3 +103,20 @@ exports.me = function(req, res, next) {
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
 };
+
+function sendUserToSlack(user, method) {
+  request({
+    method: 'POST',
+    url: ***REMOVED***,
+    body: JSON.stringify({
+      "text": "A new user has been " + method + "! <" + config.DOMAIN + "/users/" + user._id + "|Click here> for details!",
+      "username": "New User Bot",
+      "icon_emoji": ":bust_in_silhouette:"
+    })
+  }, function (error, response, body) {
+    if (error) {
+      return console.error('sending message to Slack failed:', error);
+    }
+    console.log('sending message to Slack successful!  Server responded with:', body);
+  });
+}
