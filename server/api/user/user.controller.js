@@ -32,7 +32,7 @@ exports.create = function (req, res, next) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
     res.json({ token: token });
-    if (config) sendUserToSlack(user, 'created');
+    if (process.env.DOMAIN) sendUserToSlack(user, 'created');
   });
 };
 
@@ -56,7 +56,7 @@ exports.show = function (req, res, next) {
 exports.destroy = function(req, res) {
   User.findByIdAndRemove(req.params.id, function(err, user) {
     if(err) return res.send(500, err);
-    if (config) sendUserToSlack(user, 'deleted');
+    if (process.env.DOMAIN) sendUserToSlack(user, 'deleted');
     return res.send(204);
   });
 };
@@ -75,7 +75,7 @@ exports.changePassword = function(req, res, next) {
       user.save(function(err) {
         if (err) return validationError(res, err);
         res.send(200);
-        if (config) sendUserToSlack(user, 'updated');
+        if (process.env.DOMAIN) sendUserToSlack(user, 'updated');
       });
     } else {
       res.send(403);
@@ -109,7 +109,7 @@ function sendUserToSlack(user, method) {
     method: 'POST',
     url: ***REMOVED***,
     body: JSON.stringify({
-      "text": "A new user has been " + method + "! <" + config.DOMAIN + "/users/" + user._id + "|Click here> for details!",
+      "text": "A new user has been " + method + "! <" + process.env.DOMAIN + "/users/" + user._id + "|Click here> for details!",
       "username": "New User Bot",
       "icon_emoji": ":bust_in_silhouette:"
     })

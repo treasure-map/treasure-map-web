@@ -19,10 +19,12 @@ cache:
   directories:
   - node_modules
   - bower_components
+before_deploy: "grunt build"
 deploy:
   provider: heroku
-  strategy: git
+#  strategy: git
   skip_cleanup: true
+  local_dir: dist
   api_key:
     secure: tWDFeHs6YlbegrJBUaV4yJrp2DZLaJhQ3NP25L6/lMOCzuduQg497Md19qgBIW/SaMYavAql4hudb9AT3aKeuzYI54NIKCd2fxXqBvYit/4iyJA5ts80e8fBaATUkIu/jEEM081bhLEkqNDxO3NrGS6keQHP6mxr6hwQujl2gLs=
   app:
