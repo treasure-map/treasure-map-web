@@ -7,8 +7,6 @@ before_script:
 - npm install -g bower grunt-cli
 - gem install sass
 - bower install
-after_success:
-- grunt buildcontrol:stage
 env:
 - NODE_ENV=production
 services: mongodb
@@ -19,10 +17,10 @@ cache:
   directories:
   - node_modules
   - bower_components
-before_deploy: "grunt build"
+before_deploy:
+- grunt build
 deploy:
   provider: heroku
-#  strategy: git
   skip_cleanup: true
   local_dir: dist
   api_key:
