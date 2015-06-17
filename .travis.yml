@@ -21,7 +21,6 @@ before_deploy:
 - grunt build
 deploy:
   provider: heroku
-  #strategy: git
   skip_cleanup: true
   local_dir: dist
   api_key:
