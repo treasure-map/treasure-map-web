@@ -3,7 +3,11 @@
 angular.module('treasuremapApp')
   .controller('NewCtrl', function ($scope, $http) {
     $scope.message = 'Hello';
-    $scope.newLocation = {};
+    $scope.newLocation = {
+      details: {
+        pictures : []
+      }
+    };
     $scope.alerts = [];
 
     $scope.closeAlert = function(index) {
@@ -40,29 +44,26 @@ angular.module('treasuremapApp')
       //}
     };
 
-  })
-  .controller('UploadCtrl', function ($scope) {
     var S3_SECRET_KEY = 'OAiEQA8MY7o+kGPhYIB9M4W1tqKQokTun2xZehsg',
-        S3_ACCESS_KEY = 'AKIAJTIPCXDWAFSGFM3A',
-        S3_BUCKET = ***REMOVED***,
-        S3 = new AWS.S3({accessKeyId: S3_ACCESS_KEY, secretAccessKey: S3_SECRET_KEY, region: ***REMOVED***, signatureVersion: 'v4'});
+      S3_ACCESS_KEY = 'AKIAJTIPCXDWAFSGFM3A',
+      S3_BUCKET = ***REMOVED***,
+      S3 = new AWS.S3({accessKeyId: S3_ACCESS_KEY, secretAccessKey: S3_SECRET_KEY, region: ***REMOVED***, signatureVersion: 'v4'});
 
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
     });
 
-    $scope.urls = [];
-
     $scope.upload = function (files) {
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          var params = {Bucket: S3_BUCKET, Key: 'images/' + file.name, ContentType: file.type, Body: file};
+          var random = Math.floor((Math.random() * 1000000) + 1);
+          var params = {Bucket: S3_BUCKET, Key: 'images/' + random + file.name, ContentType: file.type, Body: file};
           S3.upload(params, function (err, data) {
             if (err) {
               console.log(err, err.stack);
             } else {
-              $scope.urls.push(data.Location);
+              $scope.newLocation.details.pictures.push(data.Location);
             }
           });
         }
