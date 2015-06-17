@@ -3,7 +3,6 @@
 
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
-
 <div class="row">
 
   <form class="form col-md-6" name="form" novalidate>
@@ -56,7 +55,7 @@
       </div>
 
       <p class="help-block" ng-show="form.category.$error.required && submitted">
-      Category required
+        Category required
       </p>
     </div>
 
@@ -78,35 +77,35 @@
         Duration required
       </p>
     </div>
-  </div>
 
-  <div class="row form-group uploadForm">
-    <div class="">
+    <div class="row form-group uploadForm">
 
-      <label class="col-sm-12">Photos</label>
+        <label class="col-sm-12">Photos</label>
 
-      <div class="col-sm-6">
-        <div ngf-no-file-drop>
-          <div class="button" ngf-select ng-model="files" ngf-multiple="false">Select File</div>
-        </div>
-        <div ngf-drop ngf-select ng-model="files" class="drop-box"
-             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="false"
-             accept="image/*">
-          Drop images here or click to upload
-        </div>
+        <div class="col-sm-6">
+          <div ngf-no-file-drop>
+            <div class="button" ngf-select ng-model="files" ngf-multiple="false">Select File</div>
+          </div>
+          <div ngf-drop ngf-select ng-model="files" class="drop-box"
+               ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="false"
+               accept="image/*">
+            Drop images here or click to upload
+          </div>
 
-        <!--<ul>-->
+          <!--<ul>-->
           <!--<li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>-->
-        <!--</ul>-->
-        <!-- TODO: urls in array for database -->
-        <!--<input type="text" name="pictures" ng-model="newLocation.details.pictures" value="{{urls}}" />-->
-      </div>
+          <!--</ul>-->
+          <!-- TODO: urls in array for database -->
+          <!--<input type="text" name="pictures" ng-model="newLocation.details.pictures" value="{{urls}}" />-->
+        </div>
 
-      <ul class="pictures col-sm-6" ng-show="files">
-        <li>
-          <img class="pic" ng-repeat="f in files" ngf-src="f" ngf-default-src="'assets/images/thumb.jpg'" ngf-accept="'image/*'">
-        </li>
-      </ul>
+        <ul class="pictures col-sm-6" ng-show="files">
+          <li>
+            <img class="pic" ng-repeat="f in files" ngf-src="f" ngf-default-src="'assets/images/thumb.jpg'"
+                 ngf-accept="'image/*'">
+          </li>
+        </ul>
+
     </div>
 
     <div class="form-row">

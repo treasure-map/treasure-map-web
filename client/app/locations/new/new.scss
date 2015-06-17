@@ -1,11 +1,3 @@
-.uploadForm {
-  .drop-box {
-    background: #F8F8F8;
-    border: 5px dashed #DDD;
-    height: 100px;
-    text-align: center;
-    padding-top: 25px;
-  }
 .modal-content {
   .angular-google-map-container {
     height: 600px;
@@ -21,15 +13,14 @@
   }
 }
 
-
-.drop-box {
-  background: #F8F8F8;
-  border: 5px dashed #DDD;
-  height: 100px;
-  text-align: center;
-  padding-top: 25px;
-  margin: 10px;
-}
+.uploadForm {
+  .drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    height: 100px;
+    text-align: center;
+    padding-top: 25px;
+  }
 
   .dragover {
     border: 5px dashed blue;
