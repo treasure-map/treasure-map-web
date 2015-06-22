@@ -15,17 +15,40 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 var request = require('request');
 
 // Get list of locations
-exports.index = function(req, res) {
-  Location.find()
-    .populate('details.category')
-    .exec(function (err, locations) {
-      if(err) { return handleError(res, err); }
-      return res.json(200, locations);
-    });
-  //Location.find(function (err, locations) {
-  //  if(err) { return handleError(res, err); }
-  //  return res.json(200, locations);
-  //});
+exports.index = function (req, res) {
+  if (req.query.longitude && req.query.latitude) {
+    var limit = req.query.limit || 100;
+    var maxDistance = (req.query.distance * 1000) || 10000; // distance in KM!
+
+    Location.find({
+      coordinates: {
+        $near: {
+          $geometry: {
+            type: "Point" ,
+            coordinates: [req.query.latitude, req.query.longitude]
+          },
+          $maxDistance: maxDistance,
+          //$spherical: true, // not doing anything?
+          //$distanceMultiplier: 6378.1
+        }
+      }
+    })
+      .populate('details.category')
+      .limit(limit)
+      .exec(function (err, locations) {
+        if (err) {
+          return handleError(res, err);
+        }
+        return res.json(200, locations);
+      });
+  } else {
+    Location.find()
+      .populate('details.category')
+      .exec(function (err, locations) {
+        if(err) { return handleError(res, err); }
+        return res.json(200, locations);
+      });
+    }
 };
 
 // Get a single location

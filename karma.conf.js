@@ -25,6 +25,7 @@ module.exports = function(config) {
       'client/bower_components/ng-file-upload-shim/ng-file-upload-shim.js',
       'client/bower_components/crypto-js/crypto-js.js',
       'client/bower_components/ngstorage/ngStorage.js',
+      'client/bower_components/aws-sdk-js/dist/aws-sdk.min.js',
       'client/app/app.js',
       'client/app/**/*.js',
       'client/components/**/*.js',

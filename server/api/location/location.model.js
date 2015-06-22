@@ -10,9 +10,9 @@ var LocationSchema = new Schema({
 		zipcode: String
 	},
 	coordinates: {
-		lat: Number,
-		lng: Number
-	},
+    longitude: Number,
+    latitude: Number
+  },
   	details: {
   		name: String,
   		category: {
@@ -24,5 +24,6 @@ var LocationSchema = new Schema({
   		duration: Number
   	}
 });
+LocationSchema.index({ coordinates: '2dsphere'});
 
 module.exports = mongoose.model('Location', LocationSchema);

@@ -18,9 +18,26 @@
 
   	</ui-gmap-markers>
 
+    <ui-gmap-marker coords="userLocation" idkey="1"></ui-gmap-marker>
+    <ui-gmap-circle center="userLocation" radius="searchRadius * 1000"></ui-gmap-circle>
+
   </ui-gmap-google-map>
 
   <button class="btn btn-primary btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()">
     &#43;
   </button>
+
+  <form class="form-inline searchRadius">
+    <div class="form-group">
+      <label class="sr-only" for="searchRadius">Search Radius (in km)</label>
+
+      <div class="input-group">
+        <div class="input-group-addon">Search Radius (in km)</div>
+        <input ng-model="searchRadius" type="number" name="searchRadius" class="form-control"
+               placeholder="Search Radius" min="1" max="100" step="1" ng-change="getLocations(userLocation, searchRadius)">
+      </div>
+    </div>
+  </form>
+
+
 </div>
