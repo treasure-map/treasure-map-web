@@ -32,7 +32,7 @@ exports.create = function (req, res, next) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
     res.json({ token: token });
-    if (process.env.DOMAIN) sendUserToSlack(user, 'created');
+    if (process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendUserToSlack(user, 'created');
   });
 };
 
@@ -56,7 +56,7 @@ exports.show = function (req, res, next) {
 exports.destroy = function(req, res) {
   User.findByIdAndRemove(req.params.id, function(err, user) {
     if(err) return res.send(500, err);
-    if (process.env.DOMAIN) sendUserToSlack(user, 'deleted');
+    if (process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendUserToSlack(user, 'deleted');
     return res.send(204);
   });
 };
@@ -75,7 +75,7 @@ exports.changePassword = function(req, res, next) {
       user.save(function(err) {
         if (err) return validationError(res, err);
         res.send(200);
-        if (process.env.DOMAIN) sendUserToSlack(user, 'updated');
+        if (process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendUserToSlack(user, 'updated');
       });
     } else {
       res.send(403);
