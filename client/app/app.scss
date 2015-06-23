@@ -9,8 +9,9 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  */
 
 body {
-  width: 100vw;
+  //width: 100vw;
   overflow-x: hidden;
+  margin-top: $navbar-height + $navbar-margin-bottom;
 }
 
 .browsehappy {
@@ -22,7 +23,7 @@ body {
 
 .navbar {
 	//margin-bottom: 0 !important;
-	z-index: 0;
+	z-index: 10;
 
 	img {
 		height: 100%;
@@ -32,71 +33,85 @@ body {
 
 }
 
+.navbar-header {
+  width: 100%;
+}
+
 .nav-icon {
-	position: relative;
-	display: block;
+  display: block;
+  float: right;
 	padding: 15px;
+  margin-right: -15px;
 	font-size: 28px;
-	height: 50px;
+	height: $navbar-height;
 	line-height: 20px;
 	color: #777;
+  cursor: pointer;
 
 	&:hover {
 		color: #000;
 		text-decoration: none;
 	}
+
+  &:before {
+    content: "\2630";
+    transition: content 0.5s;
+  }
+
+  &.isVisible {
+    &:before {
+      content: "\2715";
+      transition: content 0.5s;
+    }
+  }
 }
 
 .sidebar-nav {
-	position: absolute;
-	right: -20%;
+	position: fixed;
+	right: -250px;
 	top: 0;
-	width: 20%;
-	height: 100%;
-	background: #000;
-	opacity: 0.85;
+	width: 250px;
+	height: 100vh;
+  padding-top: $navbar-height;
+	background: rgba(0, 0, 0, 0.8);
 	z-index: 9;
 	transition: all .5s ease-in;
-    -webkit-transition: all .5s ease-in;
-    -moz-transition: all .5s ease-in;
-    -o-transition: all .5s ease-in;
 
-    h1 {
-    	color: #888; //rgb(255, 147, 30);
-    	font-size: 24px;
-    	text-align: center;
-    	margin: 12px;
+  h1 {
+    color: #888; //rgb(255, 147, 30);
+    font-size: 24px;
+    text-align: center;
+    margin: 12px;
+  }
+
+  hr {
+    margin: 0;
+    padding: 0 10px;
+  }
+
+  ul {
+    width: 100%;
+    text-align: center;
+
+    li {
+      float: none;
+      clear: both;
+
+      a {
+        color: #888; //rgb(33, 194, 184);
+      }
     }
+  }
 
-    hr {
-    	margin: 0;
-    	padding: 0 10px;
-    }
+  footer {
+    width: 100%;
+    position: absolute;
+    bottom: 25px;
+  }
 
-    ul {
-
-    	width: 100%;
-    	text-align: center;
-
-    	li {
-    		float: none;
-    		clear: both;
-
-    		a {
-    			color: #888; //rgb(33, 194, 184);
-    		}
-    	}
-    }
-
-    footer {
-    	width: 100%;
-    	position: absolute;
-    	bottom: 25px;
-    }
-}
-
-.isVisible {
-	right: 0;
+  &.isVisible {
+    right: 0;
+  }
 }
 
 // Component styles are injected through grunt
