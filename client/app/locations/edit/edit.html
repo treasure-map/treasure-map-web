@@ -11,9 +11,8 @@
     <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
 
-      <h1>{{edit.details.name}}</h1>
 
-      <label>Name</label>
+      <label>{{editLocation.details.name}}</label>
 
       <input type="text"
              name="name"
@@ -32,7 +31,7 @@
 
     <div class="form-group" ng-class="{ 'has-success': form.address.$valid && submitted,
                                             'has-error': form.address.$invalid && submitted }">
-      <label>Address</label>
+      <label>{{editLocation.address.street}}, {{editLocation.address.zipcode }} {{editLocation.address.city}}</label>
 
       <div id="address-search"></div>
 
@@ -47,7 +46,7 @@
 
     <div class="form-group" ng-class="{ 'has-success': form.category.$valid && submitted,
                                             'has-error': form.category.$invalid && submitted }">
-      <label>Category</label>
+      <label>{{editLocation.details.category.name}}</label>
 
       <div class="btn-group">
         <label ng-repeat="c in categories"
@@ -65,7 +64,7 @@
 
     <div class="form-group" ng-class="{ 'has-success': form.duration.$valid && submitted,
                                             'has-error': form.duration.$invalid && submitted }">
-      <label>Duration</label>
+      <label>{{editLocation.details.duration}}</label>
 
       <input type="number"
              name="duration"
@@ -85,6 +84,10 @@
     <div class="form-group clearfix">
 
       <label>Photos</label>
+
+      <a href="{{pic}}" class="loc-picture thumbnail" ng-repeat="pic in editLocation.details.pictures">
+        <img src="{{pic}}" alt="">
+      </a>
 
       <div ng-app="treasuremapApp" ng-controller="UploadCtrl">
         <div ngf-no-file-drop>

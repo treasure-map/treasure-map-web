@@ -18,7 +18,7 @@ angular.module('treasuremapApp')
           size: size
         });
 
-        modalInstance.result.then(function (newLocation) {
+        modalInstance.result.then(function (editLocation) {
           editLocation.coordinates.latitude = editLocation.coordinates.lat;
           editLocation.coordinates.longitude = editLocation.coordinates.lng;
           editLocation.cluster = {

@@ -2,11 +2,11 @@
 
 angular.module('treasuremapApp')
   .config(function ($stateProvider) {
-    //$stateProvider
-    //  .state('new', {
-    //    url: '/locations/new',
-    //    templateUrl: 'app/locations/new/new.html',
-    //    controller: 'NewCtrl',
-    //    authenticate: true
-    //  });
+    $stateProvider
+      .state('edit', {
+        url: '/locations/edit/:id',
+        templateUrl: 'app/locations/edit/edit.html',
+        controller: 'EditCtrl',
+        authenticate: true
+      });
   });

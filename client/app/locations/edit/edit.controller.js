@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Location) {
+  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Location, $stateParams) {
     uiGmapGoogleMapApi.then(function (maps) {
       $timeout(function () {
         //maps.event.trigger($scope.mapNew, 'resize');
@@ -10,7 +10,7 @@ angular.module('treasuremapApp')
     });
 
     $scope.message = 'Hello';
-    $scope.editLocation = {};
+    $scope.editLocation = Location.get({ id: $stateParams.id });
     $scope.alerts = [];
 
     $scope.closeAlert = function (index) {
