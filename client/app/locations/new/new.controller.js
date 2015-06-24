@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NewCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi) {
+  .controller('NewCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, AWS) {
     uiGmapGoogleMapApi.then(function (maps) {
       $timeout(function () {
         //maps.event.trigger($scope.mapNew, 'resize');

@@ -5,6 +5,7 @@ angular.module('treasuremapApp')
     $scope.location = Location.get({ id: $stateParams.id }, function() {
       $scope.map.center.latitude = $scope.location.coordinates.latitude;
       $scope.map.center.longitude = $scope.location.coordinates.longitude;
+      $scope.location.details.category.url = $scope.location.details.category.imgUrl;
     });
 
     $scope.map = {
@@ -21,7 +22,7 @@ angular.module('treasuremapApp')
       }
     };
   })
-    .controller('DisqusCtrl', function ($scope, $stateParams, Auth) {
+    .controller('DisqusCtrl', function ($scope, $stateParams, Auth, CryptoJS) {
         var DISQUS_SECRET = ***REMOVED***,
             DISQUS_PUBLIC = ***REMOVED***,
             DISQUS_SHORTNAME = ***REMOVED***,
@@ -39,12 +40,12 @@ angular.module('treasuremapApp')
 
           var message = window.btoa(disqusStr);
 
-          var result = CryptoJS.HmacSHA1(message + " " + timestamp, DISQUS_SECRET);
+          var result = CryptoJS.HmacSHA1(message + ' ' + timestamp, DISQUS_SECRET);
           var hexsig = CryptoJS.enc.Hex.stringify(result);
 
           return {
             key: DISQUS_PUBLIC,
-            auth: message + " " + hexsig + " " + timestamp
+            auth: message + ' ' + hexsig + ' ' + timestamp
           };
         }
 

@@ -20,13 +20,13 @@
         zoom="map.zoom"
         pan="map.pan"
         options="map.options">
-        <ui-gmap-marker coords="location" idkey="1" icon="'location.details.category.imgUrl'">
+        <ui-gmap-marker coords="location.coordinates" idkey="1" icon="location.details.category">
         </ui-gmap-marker>
       </ui-gmap-google-map>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" ng-show="location.details.pictures.length >= 1">
     <div class="col-sm-12">
       <h3>Images</h3>
       <div class="loc-pictures">

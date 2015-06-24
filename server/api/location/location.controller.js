@@ -90,7 +90,7 @@ exports.create = function(req, res) {
   } else {
     Location.create(req.body, function(err, location) {
       if(err) { return handleError(res, err); }
-      if (process.env.DOMAIN) sendLocationToSlack(location, 'created');
+      if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'created');
       return res.json(201, location);
     });
   }
@@ -105,7 +105,7 @@ exports.update = function(req, res) {
     var updated = _.merge(location, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      if (process.env.DOMAIN) sendLocationToSlack(location, 'updated');
+      if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'updated');
       return res.json(200, location);
     });
   });
@@ -118,7 +118,7 @@ exports.destroy = function(req, res) {
     if(!location) { return res.send(404); }
     location.remove(function(err) {
       if(err) { return handleError(res, err); }
-      if (process.env.DOMAIN) sendLocationToSlack(location, 'deleted');
+      if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'deleted');
       return res.send(204);
     });
   });

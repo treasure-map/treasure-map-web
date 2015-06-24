@@ -5,6 +5,9 @@ angular.module('treasuremapApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
+    }, {
+      'title': 'Locations',
+      'link': '/locations'
     }];
 
     $scope.isCollapsed = true;
@@ -21,13 +24,5 @@ angular.module('treasuremapApp')
       return route === $location.path();
     };
 
-    $( '#menu' ).click(function() {
-      $( '.sidebar-nav' ).toggleClass( 'isVisible' );
-      if( $( '.sidebar-nav' ).hasClass( 'isVisible' ) ) {
-        $( this ).html( '&#10005;' );
-      } else {
-        $( this ).html( '&#9776;' );
-      }
-    });
-
+    $scope.showSidebar = false;
   });
