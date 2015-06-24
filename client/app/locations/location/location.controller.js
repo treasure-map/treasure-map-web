@@ -1,12 +1,39 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationCtrl', function ($scope, $stateParams, Location) {
+  .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth, $modal) {
     $scope.location = Location.get({ id: $stateParams.id }, function() {
       $scope.map.center.latitude = $scope.location.coordinates.lat;
       $scope.map.center.longitude = $scope.location.coordinates.lng;
       $scope.location.latitude = $scope.location.coordinates.lat;
       $scope.location.longitude = $scope.location.coordinates.lng;
+
+      $scope.isLoggedIn = Auth.isLoggedIn;
+
+      $scope.openModal = function (size) {
+
+        var modalInstance = $modal.open({
+          templateUrl: 'app/locations/edit/edit.html',
+          controller: 'EditCtrl',
+          size: size
+        });
+
+        modalInstance.result.then(function (newLocation) {
+          editLocation.coordinates.latitude = editLocation.coordinates.lat;
+          editLocation.coordinates.longitude = editLocation.coordinates.lng;
+          editLocation.cluster = {
+            styles: { url: 'assets/images/Cluster.png' }
+          };
+
+          editLocation.icon = {
+            url: editLocation.details.category.imgUrl
+          };
+
+          $scope.locations.push(editLocation);
+        }, function () {
+          console.log('Modal dismissed at: ' + new Date());
+        });
+      };
     });
 
     $scope.map = {
