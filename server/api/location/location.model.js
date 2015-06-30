@@ -27,7 +27,10 @@ var LocationSchema = new Schema({
          url: String
       }],
   		duration: Number
-  	}
+  	},
+createdAt: { type: Date, default: Date.now },
+updatedAt: { type: Date, default: Date.now },
+updatedBy: { type: Schema.ObjectId, ref: 'User' }
 });
 LocationSchema.index({ coordinates: '2dsphere'});
 
