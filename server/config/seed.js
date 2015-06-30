@@ -62,23 +62,28 @@ Thing.find({}).remove(function () {
   });
 });
 
+var test = new User({
+  provider: 'local',
+  name: 'Test User',
+  email: 'test@test.com',
+  password: 'test'
+});
+var admin = new User({
+  provider: 'local',
+  role: 'admin',
+  name: 'Admin',
+  email: 'admin@admin.com',
+  password: 'admin',
+  friends: [test._id]
+});
+admin.friends.push(admin._id);
+var users = [test, admin];
+
 User.find({}).remove(function () {
-  User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, function () {
+  User.create(users, function () {
     console.log('finished populating users');
   });
 });
-
 
 location.find({}).remove(function () {
   location.create([{
