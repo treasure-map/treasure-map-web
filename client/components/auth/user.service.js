@@ -12,7 +12,7 @@ angular.module('treasuremapApp')
           controller:'password'
         }
       },
-      get: {
+      me: {
         method: 'GET',
         params: {
           id:'me'

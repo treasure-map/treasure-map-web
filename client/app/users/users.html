@@ -1,0 +1,10 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <h1>Users</h1>
+
+  <ul class="users">
+    <li ng-repeat="u in users"><a href="/users/{{u._id}}">{{u.name}}</a> <span ng-if="u._id == currentUser._id">me</span></li>
+  </ul>
+
+</div>

@@ -4,7 +4,7 @@ angular.module('treasuremapApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
     if($cookieStore.get('token')) {
-      currentUser = User.get();
+      currentUser = User.me();
     }
 
     return {
@@ -26,7 +26,7 @@ angular.module('treasuremapApp')
         }).
         success(function(data) {
           $cookieStore.put('token', data.token);
-          currentUser = User.get();
+          currentUser = User.me();
           deferred.resolve(data);
           return cb();
         }).
@@ -62,7 +62,7 @@ angular.module('treasuremapApp')
         return User.save(user,
           function(data) {
             $cookieStore.put('token', data.token);
-            currentUser = User.get();
+            currentUser = User.me();
             return cb(user);
           },
           function(err) {

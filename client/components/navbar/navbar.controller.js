@@ -8,6 +8,9 @@ angular.module('treasuremapApp')
     }, {
       'title': 'Locations',
       'link': '/locations'
+    }, {
+      'title': 'Users',
+      'link': '/users'
     }];
     
     $scope.search = search;
