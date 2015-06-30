@@ -46,13 +46,13 @@
 
     <div class="form-group" ng-class="{ 'has-success': form.category.$valid && submitted,
                                             'has-error': form.category.$invalid && submitted }">
-      <label>{{editLocation.details.category.name}}</label>
+      <label>Category</label>
 
       <div class="btn-group">
         <label ng-repeat="c in categories"
                name="category"
                class="btn btn-default"
-               ng-model="editLocation.details.category"
+               ng-model="editLocation.details.category._id"
                btn-radio="'{{c._id}}'"
                required>{{c.name}}</label>
       </div>
@@ -64,7 +64,7 @@
 
     <div class="form-group" ng-class="{ 'has-success': form.duration.$valid && submitted,
                                             'has-error': form.duration.$invalid && submitted }">
-      <label>{{editLocation.details.duration}}</label>
+      <label>Duration</label>
 
       <input type="number"
              name="duration"
