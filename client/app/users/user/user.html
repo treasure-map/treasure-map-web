@@ -1,0 +1,23 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="profile container">
+  <div class="row">
+    <div class="col-sm-10">
+      <h1>{{user.name}} <small ng-if="user._id == currentUser._id">me</small></h1>
+      <!--<p>Email: {{user.email}}</p>-->
+    </div>
+
+    <div class="col-sm-2">
+    </div>
+  </div>
+
+  <div class="row" ng-show="user.friends.length > 0">
+    <div class="col-sm-12">
+      <h3>Friends</h3>
+      <ul class="user-friends">
+        <li class="user-friend" ng-repeat="f in user.friends"><a href="/users/{{f._id}}">{{f.name}}</a> <span ng-if="f._id == currentUser._id">me</span></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
