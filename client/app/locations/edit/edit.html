@@ -26,8 +26,6 @@
       </p>
     </div>
 
-    <div>
-    </div>
 
     <div class="form-group" ng-class="{ 'has-success': form.address.$valid && submitted,
                                             'has-error': form.address.$invalid && submitted }">
@@ -80,6 +78,27 @@
         Duration required
       </p>
     </div>
+
+
+    <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
+                                            'has-error': form.description.$invalid && submitted }">
+
+
+      <label>Description</label>
+
+      <textarea
+             name="description"
+             class="form-control"
+             ng-model="editLocation.details.description"
+             autofocus
+             required>
+      </textarea>
+
+      <p class="help-block" ng-show="form.name.$error.required && submitted">
+        Name required
+      </p>
+    </div>
+
 
     <div class="form-group clearfix">
 
