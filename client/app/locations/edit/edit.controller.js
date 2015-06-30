@@ -59,6 +59,12 @@ angular.module('treasuremapApp')
       }
     };
 
+    $scope.removePicture = function(pic) {
+      var index = $scope.editLocation.details.pictures.indexOf(pic);
+      $scope.editLocation.details.pictures.splice(index, 1);
+      console.log($scope.editLocation.details.pictures);
+    };
+
     $http.get('/api/categories')
       .success(function (categories) {
         $scope.categories = categories;

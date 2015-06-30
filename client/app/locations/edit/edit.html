@@ -85,9 +85,12 @@
 
       <label>Photos</label>
 
-      <a href="{{pic}}" class="loc-picture thumbnail" ng-repeat="pic in editLocation.details.pictures">
-        <img src="{{pic}}" alt="">
-      </a>
+      <div ng-repeat="pic in editLocation.details.pictures">
+        <a href="{{pic}}" class="loc-picture thumbnail">
+          <img src="{{pic}}" alt="">
+        </a>
+        <span ng-click="removePicture(pic)">Delete?</span>
+      </div>
 
       <div ng-app="treasuremapApp" ng-controller="UploadCtrl">
         <div ngf-no-file-drop>
