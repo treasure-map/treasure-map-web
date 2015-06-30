@@ -8,33 +8,35 @@ angular.module('treasuremapApp')
       $scope.location.latitude = $scope.location.coordinates.lat;
       $scope.location.longitude = $scope.location.coordinates.lng;
 
-      $scope.isLoggedIn = Auth.isLoggedIn;
-
-      $scope.openModal = function (size) {
-
-        var modalInstance = $modal.open({
-          templateUrl: 'app/locations/edit/edit.html',
-          controller: 'EditCtrl',
-          size: size
-        });
-
-        modalInstance.result.then(function (editLocation) {
-          editLocation.coordinates.latitude = editLocation.coordinates.lat;
-          editLocation.coordinates.longitude = editLocation.coordinates.lng;
-          editLocation.cluster = {
-            styles: { url: 'assets/images/Cluster.png' }
-          };
-
-          editLocation.icon = {
-            url: editLocation.details.category.imgUrl
-          };
-
-          $scope.locations.push(editLocation);
-        }, function () {
-          console.log('Modal dismissed at: ' + new Date());
-        });
-      };
     });
+
+    $scope.isLoggedIn = Auth.isLoggedIn;
+
+    $scope.openModal = function (size) {
+
+      var modalInstance = $modal.open({
+        templateUrl: 'app/locations/edit/edit.html',
+        controller: 'EditCtrl',
+        size: size
+      });
+
+      modalInstance.result.then(function (editLocation) {
+        $scope.location = editLocation;
+        //editLocation.coordinates.latitude = editLocation.coordinates.lat;
+        //editLocation.coordinates.longitude = editLocation.coordinates.lng;
+        //editLocation.cluster = {
+        //  styles: { url: 'assets/images/Cluster.png' }
+        //};
+        //
+        //editLocation.icon = {
+        //  url: editLocation.details.category.imgUrl
+        //};
+        //
+        //$scope.locations.push(editLocation);
+      }, function () {
+        console.log('Modal dismissed at: ' + new Date());
+      });
+    };
 
     $scope.map = {
       center: {

@@ -11,6 +11,8 @@ angular.module('treasuremapApp')
 
     $scope.message = 'Hello';
     $scope.editLocation = Location.get({ id: $stateParams.id });
+
+    console.log($scope.editLocation);
     $scope.alerts = [];
 
     $scope.closeAlert = function (index) {
@@ -74,7 +76,10 @@ angular.module('treasuremapApp')
       }
 
       if (form.$valid && $scope.editLocation.coordinates) {
-        $http.post('/api/locations', $scope.editLocation)
+        $scope.editLocation.details.category = $scope.editLocation.details.category._id;
+        $scope.editLocation.coordinates = { latitude: $scope.editLocation.coordinates.lat, longitude: $scope.editLocation.coordinates.lng };
+        console.log($scope.editLocation);
+        $http.put('/api/locations/' + $scope.editLocation._id, $scope.editLocation, { headers: { 'Content-Type': 'application/json'}})
           .success(function (data, status) {
             console.log('Success! ' + status);
             console.log(data);
