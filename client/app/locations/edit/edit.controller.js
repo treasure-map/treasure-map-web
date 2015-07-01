@@ -83,6 +83,7 @@ angular.module('treasuremapApp')
 
       if (form.$valid && $scope.editLocation.coordinates) {
         $scope.editLocation.coordinates = { latitude: $scope.editLocation.coordinates.lat, longitude: $scope.editLocation.coordinates.lng };
+        $scope.editLocation.details.category = $scope.editLocation.details.category._id;
         console.log($scope.editLocation);
         $http.put('/api/locations/' + $scope.editLocation._id, $scope.editLocation, { headers: { 'Content-Type': 'application/json'}})
           .success(function (data, status) {
