@@ -22,7 +22,7 @@ angular.module('treasuremapApp')
       }
     };
   })
-    .controller('DisqusCtrl', function ($scope, $stateParams, Auth, CryptoJS) {
+    .controller('DisqusCtrl', function ($scope, $stateParams, Auth) {
         var DISQUS_SECRET = ***REMOVED***,
             DISQUS_PUBLIC = ***REMOVED***,
             DISQUS_SHORTNAME = ***REMOVED***,
@@ -74,4 +74,3 @@ angular.module('treasuremapApp')
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
     });
-
