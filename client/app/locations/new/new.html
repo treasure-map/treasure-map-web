@@ -78,6 +78,26 @@
       </p>
     </div>
 
+    <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
+                                            'has-error': form.description.$invalid && submitted }">
+
+
+      <label>Description</label>
+
+      <textarea
+        rows="10"
+        name="description"
+        class="form-control"
+        ng-model="editLocation.details.description"
+        autofocus
+        required>
+      </textarea>
+
+      <p class="help-block" ng-show="form.description.$error.required && submitted">
+        Description required
+      </p>
+    </div>
+
     <div class="row form-group uploadForm">
 
         <label class="col-sm-12">Photos</label>
