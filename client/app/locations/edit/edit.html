@@ -1,20 +1,23 @@
 <div class="row">
-  <h1 class="col-md-12">New Location</h1>
+  <h1 class="col-md-12">Edit Location</h1>
 
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
+
 <div class="row">
 
   <form class="form col-md-6" name="form" novalidate>
 
     <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
+
+
       <label>Name</label>
 
       <input type="text"
              name="name"
              class="form-control"
-             ng-model="newLocation.details.name"
+             ng-model="editLocation.details.name"
              autofocus
              required/>
 
@@ -23,12 +26,10 @@
       </p>
     </div>
 
-    <div>
-    </div>
 
     <div class="form-group" ng-class="{ 'has-success': form.address.$valid && submitted,
                                             'has-error': form.address.$invalid && submitted }">
-      <label>Address</label>
+      <label>{{editLocation.address.street}}, {{editLocation.address.zipcode }} {{editLocation.address.city}}</label>
 
       <div id="address-search"></div>
 
@@ -49,13 +50,13 @@
         <label ng-repeat="c in categories"
                name="category"
                class="btn btn-default"
-               ng-model="newLocation.details.category"
+               ng-model="editLocation.details.category._id"
                btn-radio="'{{c._id}}'"
                required>{{c.name}}</label>
       </div>
 
       <p class="help-block" ng-show="form.category.$error.required && submitted">
-        Category required
+      Category required
       </p>
     </div>
 
@@ -70,13 +71,14 @@
              step="0.5"
              placeholder="duration in hours"
              class="form-control"
-             ng-model="newLocation.details.duration"
+             ng-model="editLocation.details.duration"
              required/>
 
       <p class="help-block" ng-show="form.duration.$error.required && submitted">
         Duration required
       </p>
     </div>
+
 
     <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
                                             'has-error': form.description.$invalid && submitted }">
@@ -85,12 +87,12 @@
       <label>Description</label>
 
       <textarea
-        rows="10"
-        name="description"
-        class="form-control"
-        ng-model="editLocation.details.description"
-        autofocus
-        required>
+             rows="10"
+             name="description"
+             class="form-control"
+             ng-model="editLocation.details.description"
+             autofocus
+             required>
       </textarea>
 
       <p class="help-block" ng-show="form.description.$error.required && submitted">
@@ -98,33 +100,34 @@
       </p>
     </div>
 
-    <div class="row form-group uploadForm">
 
-        <label class="col-sm-12">Photos</label>
+    <div class="form-group clearfix">
 
-        <div class="col-sm-6">
-          <div ngf-no-file-drop>
-            <div class="button" ngf-select ng-model="files" ngf-multiple="false">Select File</div>
-          </div>
-          <div ngf-drop ngf-select ng-model="files" class="drop-box"
-               ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="false"
-               accept="image/*">
-            Drop images here or click to upload
-          </div>
+      <label>Photos</label>
 
-          <!--<ul>-->
-          <!--<li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>-->
-          <!--</ul>-->
-          <!-- TODO: urls in array for database -->
-          <!--<input type="text" name="pictures" ng-model="newLocation.details.pictures" value="{{urls}}" />-->
+      <div ng-repeat="pic in editLocation.details.pictures">
+        <a href="{{pic}}" class="loc-picture thumbnail">
+          <img src="{{pic}}" alt="">
+        </a>
+        <span ng-click="removePicture(pic)">Delete?</span>
+      </div>
+
+      <div ng-app="treasuremapApp" ng-controller="UploadCtrl">
+        <div ngf-no-file-drop>
+          <div class="button col-md-12" ngf-select ng-model="files" ngf-multiple="true">Select File</div>
         </div>
-
-        <ul class="pictures col-sm-6" ng-show="files">
-          <li>
-            <img class="pic" ng-repeat="f in files" ngf-src="f" ngf-default-src="'assets/images/thumb.jpg'"
-                 ngf-accept="'image/*'">
-          </li>
+        <div ngf-drop ngf-select ng-model="files" class="drop-box col-md-6"
+             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+             accept="image/*">Drop images here or click to upload
+        </div>
+        <img class="col-md-6" gf-src="files[0]" ngf-default-src="'/thumb.jpg'" ngf-accept="'image/*'">
+        Files:
+        <ul>
+          <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
         </ul>
+        Upload Log:
+        <pre>{{log}}</pre>
+      </div>
 
     </div>
 
@@ -154,11 +157,11 @@
       <ui-gmap-google-map center="mapNew.center"
                           zoom="mapNew.zoom"
                           options="mapNew.options">
-        <ui-gmap-marker coords="newLocation.coordinates" idkey="1"></ui-gmap-marker>
+        <ui-gmap-marker coords="editLocation.coordinates" idkey="1"></ui-gmap-marker>
         <ui-gmap-search-box template="searchbox.template"
                             events="searchbox.events"
                             parentdiv="'address-search'"
-                            ng-model="newLocation.address.readable"></ui-gmap-search-box>
+                            ng-model="ediLocation.address.readable"></ui-gmap-search-box>
       </ui-gmap-google-map>
     </div>
   </div>
