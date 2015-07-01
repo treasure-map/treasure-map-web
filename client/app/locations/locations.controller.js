@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationsCtrl', function ($scope, Auth, Location, $modal) {
+  .controller('LocationsCtrl', function ($scope, Auth, Location, $modal, search) {
     $scope.isLoggedIn = Auth.isLoggedIn;
 
+    $scope.search = search;
     $scope.locations = Location.query();
 
     $scope.openModal = function (size) {

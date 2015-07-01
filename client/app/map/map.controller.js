@@ -1,8 +1,18 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  	.controller('MapCtrl', function ($scope, $http, Auth, $modal) {
+  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter) {
     $scope.isLoggedIn = Auth.isLoggedIn;
+
+    $scope.search = search;
+
+    $scope.$watch("search.searchTerm", function(searchTerm){
+      $scope.filteredMarkers = $filter("filter")($scope.locations, searchTerm);
+      if (!$scope.filteredMarkers){
+        return;
+      }
+      console.log($scope.filteredMarkers);
+    });
 
     $scope.openModal = function (size) {
 
