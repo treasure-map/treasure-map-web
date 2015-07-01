@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NewCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, AWS) {
+  .controller('NewCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Auth) {
     uiGmapGoogleMapApi.then(function (maps) {
       $timeout(function () {
         //maps.event.trigger($scope.mapNew, 'resize');
@@ -101,10 +101,39 @@ angular.module('treasuremapApp')
       }
     };
 
-    var S3_SECRET_KEY = 'OAiEQA8MY7o+kGPhYIB9M4W1tqKQokTun2xZehsg',
-      S3_ACCESS_KEY = 'AKIAJTIPCXDWAFSGFM3A',
-      S3_BUCKET = ***REMOVED***,
-      S3 = new AWS.S3({accessKeyId: S3_ACCESS_KEY, secretAccessKey: S3_SECRET_KEY, region: ***REMOVED***, signatureVersion: 'v4'});
+    var S3_BUCKET = ***REMOVED***;
+    var creds = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: ***REMOVED***,
+    });
+
+    AWS.config.update({
+      region: ***REMOVED***,
+      credentials: creds
+    });
+
+    // TODO: User Auth for Cognito
+    /*
+    if(Auth.isLoggedIn){
+      if(Auth.getCurrentUser().provider == 'local'){
+         console.log(Auth.getToken());
+         //userLoggedIn('treasuremapApp', Auth.getToken());
+         userLoggedIn('treasuremap-stage.herokuapp.com', Auth.getToken());
+      } else {
+         userLoggedIn(Auth.getCurrentUser().provider, Auth.getToken());
+      }
+   }
+
+    function userLoggedIn(providerName, token) {
+      creds.params.Logins = {};
+      creds.params.Logins[providerName] = token;
+      creds.expired = true;
+      creds.refresh(function(err, data) {
+        if (err) console.log(err, err.stack);
+        else console.log(data);
+      });
+   }*/
+
+    var S3 = new AWS.S3({region: ***REMOVED***});
 
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
@@ -114,8 +143,8 @@ angular.module('treasuremapApp')
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          var random = Math.floor((Math.random() * 1000000) + 1);
-          var params = {Bucket: S3_BUCKET, Key: 'images/' + random + file.name, ContentType: file.type, Body: file};
+          var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
+          var params = {Bucket: S3_BUCKET, Key: 'images/' + filename, ContentType: file.type, Body: file};
           S3.upload(params, function (err, data) {
             if (err) {
               console.log(err, err.stack);
@@ -127,7 +156,3 @@ angular.module('treasuremapApp')
       }
     };
   });
-
-
-
-
