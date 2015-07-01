@@ -10,8 +10,6 @@
 
     <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
-
-
       <label>Name</label>
 
       <input type="text"
@@ -26,6 +24,8 @@
       </p>
     </div>
 
+    <div>
+    </div>
 
     <div class="form-group" ng-class="{ 'has-success': form.address.$valid && submitted,
                                             'has-error': form.address.$invalid && submitted }">
@@ -79,7 +79,6 @@
       </p>
     </div>
 
-
     <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
                                             'has-error': form.description.$invalid && submitted }">
 
@@ -100,36 +99,47 @@
       </p>
     </div>
 
+    <label class="col-sm-12">Photos</label>
 
-    <div class="form-group clearfix">
-
-      <label>Photos</label>
-
-      <div ng-repeat="pic in editLocation.details.pictures">
+    <div class="row">
+      <div class="col-sm-12">
+        <div ng-repeat="pic in editLocation.details.pictures">
         <a href="{{pic}}" class="loc-picture thumbnail">
           <img src="{{pic}}" alt="">
         </a>
         <span ng-click="removePicture(pic)">Delete?</span>
       </div>
-
-      <div ng-app="treasuremapApp" ng-controller="UploadCtrl">
-        <div ngf-no-file-drop>
-          <div class="button col-md-12" ngf-select ng-model="files" ngf-multiple="true">Select File</div>
-        </div>
-        <div ngf-drop ngf-select ng-model="files" class="drop-box col-md-6"
-             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-             accept="image/*">Drop images here or click to upload
-        </div>
-        <img class="col-md-6" gf-src="files[0]" ngf-default-src="'/thumb.jpg'" ngf-accept="'image/*'">
-        Files:
-        <ul>
-          <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
-        </ul>
-        Upload Log:
-        <pre>{{log}}</pre>
       </div>
-
     </div>
+
+    <div class="row form-group uploadForm">
+
+        <div class="col-sm-6">
+          <div ngf-no-file-drop>
+            <div class="button" ngf-select ng-model="files" ngf-multiple="false">Select File</div>
+          </div>
+          <div ngf-drop ngf-select ng-model="files" class="drop-box"
+               ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="false"
+               accept="image/*">
+            Drop images here or click to upload
+          </div>
+
+          <!--<ul>-->
+          <!--<li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>-->
+          <!--</ul>-->
+          <!-- TODO: urls in array for database -->
+          <!--<input type="text" name="pictures" ng-model="newLocation.details.pictures" value="{{urls}}" />-->
+        </div>
+
+        <ul class="pictures col-sm-6" ng-show="files">
+          <li>
+            <img class="pic" ng-repeat="f in files" ngf-src="f" ngf-default-src="'assets/images/thumb.jpg'"
+                 ngf-accept="'image/*'">
+          </li>
+        </ul>
+
+
+      </div>
 
     <div class="form-row">
       <button class="btn btn-primary btn-lg btn-submit" type="button" ng-click="addLocation(form)">

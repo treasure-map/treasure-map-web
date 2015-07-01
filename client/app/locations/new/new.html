@@ -3,6 +3,7 @@
 
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
+
 <div class="row">
 
   <form class="form col-md-6" name="form" novalidate>
@@ -126,7 +127,8 @@
           </li>
         </ul>
 
-    </div>
+
+      </div>
 
     <div class="form-row">
       <button class="btn btn-primary btn-lg btn-submit" type="button" ng-click="addLocation(form)">
