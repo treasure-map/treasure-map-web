@@ -15,17 +15,40 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 var request = require('request');
 
 // Get list of locations
-exports.index = function(req, res) {
-  Location.find()
-    .populate('details.category')
-    .exec(function (err, locations) {
-      if(err) { return handleError(res, err); }
-      return res.json(200, locations);
-    });
-  //Location.find(function (err, locations) {
-  //  if(err) { return handleError(res, err); }
-  //  return res.json(200, locations);
-  //});
+exports.index = function (req, res) {
+  if (req.query.longitude && req.query.latitude) {
+    var limit = req.query.limit || 100;
+    var maxDistance = (req.query.distance * 1000) || 10000; // distance in KM!
+
+    Location.find({
+      coordinates: {
+        $near: {
+          $geometry: {
+            type: "Point" ,
+            coordinates: [req.query.latitude, req.query.longitude]
+          },
+          $maxDistance: maxDistance,
+          //$spherical: true, // not doing anything?
+          //$distanceMultiplier: 6378.1
+        }
+      }
+    })
+      .populate('details.category')
+      .limit(limit)
+      .exec(function (err, locations) {
+        if (err) {
+          return handleError(res, err);
+        }
+        return res.json(200, locations);
+      });
+  } else {
+    Location.find()
+      .populate('details.category')
+      .exec(function (err, locations) {
+        if(err) { return handleError(res, err); }
+        return res.json(200, locations);
+      });
+    }
 };
 
 // Get a single location
@@ -67,7 +90,7 @@ exports.create = function(req, res) {
   } else {
     Location.create(req.body, function(err, location) {
       if(err) { return handleError(res, err); }
-      if (process.env.DOMAIN) sendLocationToSlack(location, 'created');
+      if (process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendLocationToSlack(location, 'created');
       return res.json(201, location);
     });
   }
@@ -82,7 +105,7 @@ exports.update = function(req, res) {
     var updated = _.merge(location, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      if (process.env.DOMAIN) sendLocationToSlack(location, 'updated');
+      if (process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendLocationToSlack(location, 'updated');
       return res.json(200, location);
     });
   });
@@ -95,7 +118,7 @@ exports.destroy = function(req, res) {
     if(!location) { return res.send(404); }
     location.remove(function(err) {
       if(err) { return handleError(res, err); }
-      if (process.env.DOMAIN) sendLocationToSlack(location, 'deleted');
+      if (process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendLocationToSlack(location, 'deleted');
       return res.send(204);
     });
   });

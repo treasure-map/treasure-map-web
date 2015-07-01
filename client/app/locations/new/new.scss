@@ -13,18 +13,28 @@
   }
 }
 
+.uploadForm {
+  .drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    height: 100px;
+    text-align: center;
+    padding-top: 25px;
+  }
 
-.drop-box {
-  background: #F8F8F8;
-  border: 5px dashed #DDD;
-  height: 100px;
-  text-align: center;
-  padding-top: 25px;
-  margin: 10px;
-}
+  .dragover {
+    border: 5px dashed blue;
+  }
 
-.dragover {
-  border: 5px dashed blue;
+  .pictures {
+    list-style: none;
+
+    .pic {
+      max-width: 50px;
+      height: auto;
+      margin: 0 5px 5px 0;
+    }
+  }
 }
 
 .pac-container {

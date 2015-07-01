@@ -3,11 +3,9 @@
 angular.module('treasuremapApp')
   .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth, $modal) {
     $scope.location = Location.get({ id: $stateParams.id }, function() {
-      $scope.map.center.latitude = $scope.location.coordinates.lat;
-      $scope.map.center.longitude = $scope.location.coordinates.lng;
-      $scope.location.latitude = $scope.location.coordinates.lat;
-      $scope.location.longitude = $scope.location.coordinates.lng;
-
+      $scope.map.center.latitude = $scope.location.coordinates.latitude;
+      $scope.map.center.longitude = $scope.location.coordinates.longitude;
+      $scope.location.details.category.url = $scope.location.details.category.imgUrl;
     });
 
     $scope.isLoggedIn = Auth.isLoggedIn;
