@@ -29,5 +29,10 @@
   "resolutions": {
     "angular": "1.4.0",
     "lodash": "~2.4.1"
+  },
+  "overrides": {
+    "crypto-js": {
+      "main": "crypto-js.js"
+    }
   }
 }
