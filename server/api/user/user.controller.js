@@ -83,11 +83,42 @@ exports.changePassword = function(req, res, next) {
       user.save(function(err) {
         if (err) return validationError(res, err);
         res.send(200);
-        if (process.env.DOMAIN && process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendUserToSlack(user, 'updated');
       });
     } else {
       res.send(403);
     }
+  });
+};
+
+/**
+ * Add a new friend
+ */
+exports.addFriend = function(req, res, next) {
+  var userId = req.user._id;
+  var friendId = String(req.body.friendId);
+
+  User.findById(userId, function (err, user) {
+    user.friends.push(friendId);
+    user.save(function (err) {
+      if (err) return validationError(res, err);
+      res.send(200);
+    });
+  });
+};
+
+/**
+ * Add a new friend
+ */
+exports.removeFriend = function(req, res, next) {
+  var userId = req.user._id;
+  var friendId = String(req.body.friendId);
+
+  User.findById(userId, function (err, user) {
+    user.friends.splice(user.friends.indexOf(friendId), 1);
+    user.save(function (err) {
+      if (err) return validationError(res, err);
+      res.send(200);
+    });
   });
 };
 

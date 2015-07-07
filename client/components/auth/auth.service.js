@@ -93,6 +93,44 @@ angular.module('treasuremapApp')
       },
 
       /**
+       * Add Friend
+       *
+       * @param  {String}   friendId
+       * @param  {Function} callback    - optional
+       * @return {Promise}
+       */
+      addFriend: function(friendId, callback) {
+        var cb = callback || angular.noop;
+
+        return User.addFriend({ id: currentUser._id }, {
+          friendId: friendId
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+
+      /**
+       * Remove Friend
+       *
+       * @param  {String}   friendId
+       * @param  {Function} callback    - optional
+       * @return {Promise}
+       */
+      removeFriend: function(friendId, callback) {
+        var cb = callback || angular.noop;
+
+        return User.removeFriend({ id: currentUser._id }, {
+          friendId: friendId
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+
+      /**
        * Gets all available info on authenticated user
        *
        * @return {Object} user
