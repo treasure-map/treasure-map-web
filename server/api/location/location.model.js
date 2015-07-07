@@ -21,11 +21,12 @@ var LocationSchema = new Schema({
     },
     description: String,
     pictures: [{ type: String, unique: true }],
-    duration: Number
+    duration: Number,
+    links: [{ type: String, unique: true }]
   },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  updatedBy: { type: Schema.ObjectId, ref: 'User' }
+  owner: { type: Schema.ObjectId, ref: 'User' }
 });
 LocationSchema.index({ coordinates: '2dsphere'});
 

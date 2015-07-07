@@ -55,6 +55,7 @@ exports.index = function (req, res) {
 exports.show = function(req, res) {
   Location.findById(req.params.id)
     .populate('details.category')
+    .populate('owner')
     .exec(function(err, location) {
       if(err) { return handleError(res, err); }
       if(!location) { return res.send(404); }
@@ -65,7 +66,9 @@ exports.show = function(req, res) {
 // Creates a new location in the DB.
 exports.create = function(req, res) {
   // no coordindates? ask the mighty geocoder
-  //console.log(req.body);
+  req.body.owner = req.user._id;
+  req.body.updatedAt = new Date();
+  console.log(req.body);
   if(!req.body.coordinates && req.body.address) {
     var address = req.body.address;
     geocoder.geocode(address.street + ', ' + address.zipcode + ' ' + address.city)
@@ -103,7 +106,7 @@ exports.update = function(req, res) {
     if (err) { return handleError(res, err); }
     if(!location) { return res.send(404); }
     location.updatedAt = new Date();
-    location.updatedBy = req.user;
+    location.owner = req.user._id;
     var updated = _.merge(location, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
