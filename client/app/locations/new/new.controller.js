@@ -143,7 +143,9 @@ angular.module('treasuremapApp')
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
+          var filehash = CryptoJS.SHA1(file);
+          var filename = filehash.toString(CryptoJS.enc.Hex) + '.' + file.name.split('.').pop();
+          console.log(filename);
           var params = {Bucket: S3_BUCKET, Key: 'images/' + filename, ContentType: file.type, Body: file};
           S3.upload(params, function (err, data) {
             if (err) {
