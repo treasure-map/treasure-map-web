@@ -12,6 +12,18 @@ angular.module('treasuremapApp')
           controller:'password'
         }
       },
+      addFriend: {
+        method: 'PUT',
+        params: {
+          controller:'addfriend'
+        }
+      },
+      removeFriend: {
+        method: 'PUT',
+        params: {
+          controller:'removefriend'
+        }
+      },
       me: {
         method: 'GET',
         params: {

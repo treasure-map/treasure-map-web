@@ -68,17 +68,28 @@ var test = new User({
   email: 'test@test.com',
   password: 'test'
 });
+var test2 = new User({
+  provider: 'local',
+  name: 'Test User 2',
+  email: 'test2@test.com',
+  password: 'test'
+});
+var test3 = new User({
+  provider: 'local',
+  name: 'Test User 3',
+  email: 'test3@test.com',
+  password: 'test'
+});
 var admin = new User({
   provider: 'local',
   role: 'admin',
   name: 'Admin',
   email: 'admin@admin.com',
   password: 'admin',
-  friends: [test._id]
+  friends: [test._id, test2._id]
 });
-admin.friends.push(admin._id);
-var users = [test, admin];
 
+var users = [admin, test, test2, test3];
 User.find({}).remove(function () {
   User.create(users, function () {
     console.log('finished populating users');

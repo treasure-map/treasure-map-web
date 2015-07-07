@@ -8,6 +8,12 @@
     </div>
 
     <div class="col-sm-2">
+      <button class="btn btn-primary"
+              ng-show="currentUser.friends.indexOf(user._id) == -1 && user._id != currentUser._id"
+              ng-click="addFriend(user)">Add as Friend</button>
+      <button class="btn btn-primary"
+              ng-show="currentUser.friends.indexOf(user._id) != -1 && user._id != currentUser._id"
+              ng-click="removeFriend(user)">Remove Friend</button>
     </div>
   </div>
 
