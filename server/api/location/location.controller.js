@@ -55,7 +55,7 @@ exports.index = function (req, res) {
 exports.show = function(req, res) {
   Location.findById(req.params.id)
     .populate('details.category')
-    .populate('owner')
+    .populate('owner', '_id name role friends')
     .exec(function(err, location) {
       if(err) { return handleError(res, err); }
       if(!location) { return res.send(404); }
