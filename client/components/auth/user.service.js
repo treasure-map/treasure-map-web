@@ -24,6 +24,13 @@ angular.module('treasuremapApp')
           controller:'removefriend'
         }
       },
+      locations: {
+        method: 'GET',
+        isArray: true,
+        params: {
+          controller:'locations'
+        }
+      },
       me: {
         method: 'GET',
         params: {

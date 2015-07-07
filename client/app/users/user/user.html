@@ -21,7 +21,18 @@
     <div class="col-sm-12">
       <h3>Friends</h3>
       <ul class="user-friends">
-        <li class="user-friend" ng-repeat="f in user.friends"><a href="/users/{{f._id}}">{{f.name}}</a> <span ng-if="f._id == currentUser._id">me</span></li>
+        <li class="user-friend" ng-repeat="f in user.friends"><a ng-href="/users/{{f._id}}">{{f.name}}</a> <span ng-if="f._id == currentUser._id">me</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" ng-show="locations.length > 0">
+    <div class="col-sm-12">
+      <h3>Locations</h3>
+      <ul class="user-locations">
+        <li class="user-location" ng-repeat="l in locations | orderBy:'-details.name':true"><a ng-href="locations/{{l._id}}">{{l.details.name}}</a> - <a
+          ng-href="categories/{{l.details.category._id}}" class="loc-category">{{l.details.category.name}}</a> - <span
+          class="loc-address">{{l.address.street}}, {{l.address.zipcode }} {{l.address.city}}</span></li>
       </ul>
     </div>
   </div>
