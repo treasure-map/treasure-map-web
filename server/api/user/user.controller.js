@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('./user.model');
+var Location = require('../location/location.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -55,6 +56,22 @@ exports.show = function (req, res, next) {
       if (!user) return res.send(401);
       res.json(user.profile);
     });
+};
+
+/**
+ * Get a single users locations
+ */
+exports.locations = function (req, res, next) {
+  var userId = req.params.id;
+
+  Location.find({ owner: userId })
+    .populate('details.category')
+    .exec(function (err, locations) {
+      if(err) { return next(err); }
+      if (!locations) return res.send(404);
+      return res.json(200, locations);
+      //res.json(locations);
+    })
 };
 
 /**

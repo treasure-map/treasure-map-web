@@ -14,6 +14,7 @@ router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.put('/:id/addfriend', auth.isAuthenticated(), controller.addFriend);
 router.put('/:id/removefriend', auth.isAuthenticated(), controller.removeFriend);
 router.get('/:id', auth.isAuthenticated(), controller.show);
+router.get('/:id/locations', auth.isAuthenticated(), controller.locations);
 router.post('/', controller.create);
 
 module.exports = router;
