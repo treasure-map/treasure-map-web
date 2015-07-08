@@ -103,12 +103,12 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <div ng-repeat="pic in editLocation.details.pictures">
-        <a href="{{pic}}" class="loc-picture thumbnail">
-          <img src="{{pic}}" alt="">
-        </a>
-        <span ng-click="removePicture(pic)">Delete?</span>
-      </div>
+        <div ng-repeat="pic in editLocation.details.pictures" class="images">
+          <a href="{{pic}}" class="loc-picture thumbnail">
+            <img src="{{pic}}" alt="">
+          </a>
+          <span class="glyphicon glyphicon-remove" ng-click="removePicture(pic)"></span>
+        </div>
       </div>
     </div>
 
