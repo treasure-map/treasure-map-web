@@ -34,6 +34,7 @@ exports.index = function (req, res) {
       }
     })
       .populate('details.category')
+      .populate('owner', '_id name role friends')
       .limit(limit)
       .exec(function (err, locations) {
         if (err) {
@@ -44,6 +45,7 @@ exports.index = function (req, res) {
   } else {
     Location.find()
       .populate('details.category')
+      .populate('owner', '_id name role friends')
       .exec(function (err, locations) {
         if(err) { return handleError(res, err); }
         return res.json(200, locations);
@@ -138,7 +140,7 @@ function sendLocationToSlack(location, method) {
     method: 'POST',
     url: ***REMOVED***,
       body: JSON.stringify({
-        "text": "A new location has been " + method + "! <" + process.env.DOMAIN + "/locations/" + location._id + "|Click here> for details!",
+        "text": "A new location has been " + method + "! <http://" + process.env.DOMAIN + "/locations/" + location._id + "|Click here> for details!",
         "username": "New Location Bot",
         "icon_emoji": ":round_pushpin:"
       })

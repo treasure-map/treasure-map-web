@@ -66,6 +66,7 @@ exports.locations = function (req, res, next) {
 
   Location.find({ owner: userId })
     .populate('details.category')
+    .populate('owner', '_id name role friends')
     .exec(function (err, locations) {
       if(err) { return next(err); }
       if (!locations) return res.send(404);
@@ -167,7 +168,7 @@ function sendUserToSlack(user, method) {
     method: 'POST',
     url: ***REMOVED***,
     body: JSON.stringify({
-      "text": "A new user has been " + method + "! <" + process.env.DOMAIN + "/users/" + user._id + "|Click here> for details!",
+      "text": "A new user has been " + method + "! <http://" + process.env.DOMAIN + "/users/" + user._id + "|Click here> for details!",
       "username": "New User Bot",
       "icon_emoji": ":bust_in_silhouette:"
     })
