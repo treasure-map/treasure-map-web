@@ -10,7 +10,10 @@ angular.module('treasuremapApp')
     });
 
     $scope.message = 'Hello';
-    $scope.editLocation = Location.get({ id: $stateParams.id });
+    $scope.editLocation = Location.get({ id: $stateParams.id }, function() {
+      $scope.mapNew.center = $scope.editLocation.coordinates;
+      $scope.editLocation.details.category.url = $scope.editLocation.details.category.imgUrl;
+    });;
 
     console.log($scope.editLocation);
     $scope.alerts = [];
@@ -101,7 +104,7 @@ angular.module('treasuremapApp')
           })
           .error(function (data, status) {
             console.log('Error!' + status);
-            $scope.alerts.push({type: 'danger', msg: 'Couln\'t add new location!'});
+            $scope.alerts.push({type: 'danger', msg: 'Couln\'t edit location!'});
           });
       } else {
         form.$valid = false;
