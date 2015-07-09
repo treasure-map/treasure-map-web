@@ -78,6 +78,26 @@ angular.module('treasuremapApp')
       }
 
       if (form.$valid && $scope.newLocation.coordinates) {
+         var name = encodeURI($scope.newLocation.details.name);
+         $http.jsonp('//de.wikipedia.org/w/api.php?action=query&titles=' + name + '&format=json&callback=JSON_CALLBACK')
+         .success(function(obj) {
+           var pageID = Object.keys(obj.query.pages)[0];
+           $http.jsonp('//de.wikipedia.org/w/api.php?action=query&pageids=' + pageID + '&prop=info&inprop=url&format=json&callback=JSON_CALLBACK')
+           .success(function(data) {
+             //var link = data.query.pages.pageid.fullurl;
+             console.log(link);
+             //$scope.newLocation.details.links = link;
+          })
+          .error(function (data, status) {
+            console.log('Error!' + status);
+            console.log(data);
+          });
+         })
+         .error(function (data, status) {
+           console.log('Error!' + status);
+           console.log(data);
+         });
+
         $http.post('/api/locations', $scope.newLocation)
           .success(function (data, status) {
             console.log('Success! ' + status);
@@ -86,7 +106,7 @@ angular.module('treasuremapApp')
 
             $scope.newLocation = {};
 
-            $http.get('/api/categories/'+data.details.category)
+            $http.get('/api/categories/' + data.details.category)
               .success(function (category) {
                 data.details.category = category;
                 $scope.$close(data);

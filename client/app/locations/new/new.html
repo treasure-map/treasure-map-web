@@ -99,6 +99,17 @@
       </p>
     </div>
 
+    <div class="form-group">
+
+      <label>Imports</label>
+
+      <p>Import Information from other Sites e.g. Wikipedia or Wikitravel</p>
+
+      <input type="checkbox" name="wikipedia" value="Wikipedia" checked>Wikipedia<br>
+      <input type="checkbox" name="wikitravel" value="Wikitravel">Wikitravel<br>
+
+    </div>
+
     <div class="row form-group uploadForm">
 
         <label class="col-sm-12">Photos</label>
@@ -113,11 +124,6 @@
             Drop images here or click to upload
           </div>
 
-          <!--<ul>-->
-          <!--<li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>-->
-          <!--</ul>-->
-          <!-- TODO: urls in array for database -->
-          <!--<input type="text" name="pictures" ng-model="newLocation.details.pictures" value="{{urls}}" />-->
         </div>
 
         <ul class="pictures col-sm-6" ng-show="files">
