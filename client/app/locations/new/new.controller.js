@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NewCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Auth) {
+  .controller('NewCtrl', function ($scope, $http, $timeout, $q, uiGmapGoogleMapApi, Auth) {
     uiGmapGoogleMapApi.then(function (maps) {
       $timeout(function () {
         //maps.event.trigger($scope.mapNew, 'resize');
@@ -12,7 +12,8 @@ angular.module('treasuremapApp')
     $scope.message = 'Hello';
     $scope.newLocation = {
       details: {
-        pictures : []
+        pictures : [],
+        links : []
       }
     };
     $scope.alerts = [];
@@ -61,6 +62,77 @@ angular.module('treasuremapApp')
       }
     };
 
+    $scope.sources = [
+     {
+        name: 'Wikipedia',
+        enabled: true
+     }
+    ];
+
+    function wikiImport() {
+      var deferred = $q.defer();
+        var name = encodeURI($scope.newLocation.details.name);
+        $http.jsonp('//de.wikipedia.org/w/api.php?action=query&titles=' + name + '&format=json&redirects&callback=JSON_CALLBACK')
+        .success(function(obj) {
+            var pageID = Object.keys(obj.query.pages)[0];
+
+            $http.jsonp('//de.wikipedia.org/w/api.php?action=query&pageids=' + pageID + '&prop=info&inprop=url&format=json&callback=JSON_CALLBACK')
+            .success(function(data) {
+               var objects = data.query.pages;
+               for(var key in objects) {
+                  var value = objects[key];
+                  //TODO: Save  into database
+                  $scope.newLocation.details.links.push(value.fullurl);
+               }
+            })
+            .error(function (data, status) {
+               console.log('Error! ' + status);
+            });
+
+            $http.jsonp('//de.wikipedia.org/w/api.php?action=parse&pageid=' + pageID + '&prop=text&section=0&format=json&callback=JSON_CALLBACK')
+            .success(function(data) {
+               var objects = data.parse.text;
+               for(var key in objects) {
+                  var value = objects[key];
+                  //TODO: Save  into database
+                  $scope.newLocation.details.description += '<br/><br/><strong>Wikipedia<strong><br/>' + value;
+               }
+            })
+            .error(function (data, status) {
+               console.log('Error! ' + status);
+            });
+
+            $http.jsonp('//de.wikipedia.org/w/api.php?action=parse&pageid=' + pageID + '&prop=images&section=0&format=json&callback=JSON_CALLBACK')
+            .success(function(data) {
+               var objects = data.parse.images;
+               for(var key in objects) {
+                  var title = encodeURI(objects[key]);
+                  $http.jsonp('//de.wikipedia.org/w/api.php?action=query&titles=Image:' + title + '&prop=imageinfo&format=json&iiprop=url&callback=JSON_CALLBACK')
+                  .success(function(data) {
+                     var objects = data.query.pages;
+                     for(var key in objects) {
+                        var value = objects[key].imageinfo[0].url;
+                        //TODO: Save  into database
+                        $scope.newLocation.details.pictures.push(value);
+                        deferred.resolve();
+                     }
+                  })
+                  .error(function (data, status) {
+                     console.log('Error! ' + status);
+                  });
+               }
+            })
+            .error(function (data, status) {
+               console.log('Error! ' + status);
+            });
+
+        })
+        .error(function (data, status) {
+            console.log('Error! ' + status);
+        });
+       return deferred.promise;
+    }
+
     $http.get('/api/categories')
       .success(function (categories) {
         $scope.categories = categories;
@@ -77,27 +149,18 @@ angular.module('treasuremapApp')
         return;
       }
 
-      if (form.$valid && $scope.newLocation.coordinates) {
-         var name = encodeURI($scope.newLocation.details.name);
-         $http.jsonp('//de.wikipedia.org/w/api.php?action=query&titles=' + name + '&format=json&callback=JSON_CALLBACK')
-         .success(function(obj) {
-           var pageID = Object.keys(obj.query.pages)[0];
-           $http.jsonp('//de.wikipedia.org/w/api.php?action=query&pageids=' + pageID + '&prop=info&inprop=url&format=json&callback=JSON_CALLBACK')
-           .success(function(data) {
-             //var link = data.query.pages.pageid.fullurl;
-             console.log(link);
-             //$scope.newLocation.details.links = link;
-          })
-          .error(function (data, status) {
-            console.log('Error!' + status);
-            console.log(data);
-          });
-         })
-         .error(function (data, status) {
-           console.log('Error!' + status);
-           console.log(data);
+      //TODO: call functions for multiple sources
+      if($scope.sources[0].enabled){
+         wikiImport().then(function() {
+            saveLocation(form);
          });
+      } else {
+         saveLocation(form);
+      }
+    };
 
+    function saveLocation (form) {
+      if (form.$valid && $scope.newLocation.coordinates) {
         $http.post('/api/locations', $scope.newLocation)
           .success(function (data, status) {
             console.log('Success! ' + status);
@@ -113,13 +176,13 @@ angular.module('treasuremapApp')
               });
           })
           .error(function (data, status) {
-            console.log('Error!' + status);
+            console.log('Error! ' + status);
             $scope.alerts.push({type: 'danger', msg: 'Couln\'t add new location!'});
           });
       } else {
         form.$valid = false;
       }
-    };
+   }
 
     var S3_BUCKET = ***REMOVED***;
     var creds = new AWS.CognitoIdentityCredentials({

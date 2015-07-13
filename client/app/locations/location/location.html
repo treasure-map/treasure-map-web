@@ -11,7 +11,11 @@
 
       <p class="loc-duration">Duration: {{location.details.duration}}h</p>
 
-      <p class="loc-description">{{location.details.description}}</p>
+      <p class="loc-description" ng-bind-html="location.details.description"></p>
+
+      <div class="loc-links" ng-show="location.details.links.length >= 1">
+        <a href="{{link}}" class="loc-links link" ng-repeat="link in location.details.links"> {{link}} </a>
+      </div>
     </div>
 
     <div class="col-sm-6">
