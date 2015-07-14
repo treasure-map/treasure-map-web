@@ -12,6 +12,7 @@ angular.module('treasuremapApp')
     $scope.message = 'Hello';
     $scope.newLocation = {
       details: {
+        imports: '',
         pictures : [],
         links : []
       }
@@ -65,23 +66,27 @@ angular.module('treasuremapApp')
     $scope.sources = [
      {
         name: 'Wikipedia',
+        url: '//de.wikipedia.org/w/',
         enabled: true
+     },{
+        name: 'Wikitravel',
+        url: '//wikitravel.org/wiki/de/',
+        enabled: false
      }
     ];
 
-    function wikiImport() {
+    function wikiImport(baseURL) {
       var deferred = $q.defer();
         var name = encodeURI($scope.newLocation.details.name);
-        $http.jsonp('//de.wikipedia.org/w/api.php?action=query&titles=' + name + '&format=json&redirects&callback=JSON_CALLBACK')
+        $http.jsonp(baseURL + 'api.php?action=query&titles=' + name + '&format=json&redirects&callback=JSON_CALLBACK')
         .success(function(obj) {
             var pageID = Object.keys(obj.query.pages)[0];
 
-            $http.jsonp('//de.wikipedia.org/w/api.php?action=query&pageids=' + pageID + '&prop=info&inprop=url&format=json&callback=JSON_CALLBACK')
+            $http.jsonp(baseURL + 'api.php?action=query&pageids=' + pageID + '&prop=info&inprop=url&format=json&callback=JSON_CALLBACK')
             .success(function(data) {
                var objects = data.query.pages;
                for(var key in objects) {
                   var value = objects[key];
-                  //TODO: Save  into database
                   $scope.newLocation.details.links.push(value.fullurl);
                }
             })
@@ -89,30 +94,28 @@ angular.module('treasuremapApp')
                console.log('Error! ' + status);
             });
 
-            $http.jsonp('//de.wikipedia.org/w/api.php?action=parse&pageid=' + pageID + '&prop=text&section=0&format=json&callback=JSON_CALLBACK')
+            $http.jsonp(baseURL + 'api.php?action=parse&pageid=' + pageID + '&prop=text&section=0&format=json&callback=JSON_CALLBACK')
             .success(function(data) {
                var objects = data.parse.text;
                for(var key in objects) {
                   var value = objects[key];
-                  //TODO: Save  into database
-                  $scope.newLocation.details.description += '<br/><br/><strong>Wikipedia<strong><br/>' + value;
+                  $scope.newLocation.details.imports += value;
                }
             })
             .error(function (data, status) {
                console.log('Error! ' + status);
             });
 
-            $http.jsonp('//de.wikipedia.org/w/api.php?action=parse&pageid=' + pageID + '&prop=images&section=0&format=json&callback=JSON_CALLBACK')
+            $http.jsonp(baseURL + 'api.php?action=parse&pageid=' + pageID + '&prop=images&section=0&format=json&callback=JSON_CALLBACK')
             .success(function(data) {
                var objects = data.parse.images;
                for(var key in objects) {
                   var title = encodeURI(objects[key]);
-                  $http.jsonp('//de.wikipedia.org/w/api.php?action=query&titles=Image:' + title + '&prop=imageinfo&format=json&iiprop=url&callback=JSON_CALLBACK')
+                  $http.jsonp(baseURL + 'api.php?action=query&titles=Image:' + title + '&prop=imageinfo&format=json&iiprop=url&callback=JSON_CALLBACK')
                   .success(function(data) {
                      var objects = data.query.pages;
                      for(var key in objects) {
                         var value = objects[key].imageinfo[0].url;
-                        //TODO: Save  into database
                         $scope.newLocation.details.pictures.push(value);
                         deferred.resolve();
                      }
@@ -149,19 +152,20 @@ angular.module('treasuremapApp')
         return;
       }
 
-      //TODO: call functions for multiple sources
-      if($scope.sources[0].enabled){
-         wikiImport().then(function() {
+      //TODO: Multiple sources
+      if($scope.sources[0].enabled) {
+         wikiImport($scope.sources[0].url).then(function() {
             saveLocation(form);
          });
       } else {
          saveLocation(form);
       }
+      
     };
 
     function saveLocation (form) {
       if (form.$valid && $scope.newLocation.coordinates) {
-        $http.post('/api/locations', $scope.newLocation)
+        $http.post('/api/locations', $scope.newLocastion)
           .success(function (data, status) {
             console.log('Success! ' + status);
             console.log(data);

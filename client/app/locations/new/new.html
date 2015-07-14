@@ -19,7 +19,7 @@
              name="name"
              class="form-control"
              ng-model="newLocation.details.name"
-             placeholder="name of venue"
+             placeholder="Name of Location"
              autofocus
              required/>
 
@@ -73,7 +73,7 @@
              min="0.5"
              max="10"
              step="0.5"
-             placeholder="duration in hours"
+             placeholder="Duration in Hours"
              class="form-control"
              ng-model="newLocation.details.duration"
              required/>
@@ -94,13 +94,12 @@
         name="description"
         class="form-control"
         ng-model="newLocation.details.description"
-        autofocus
-        required>
+        autofocus>
       </textarea>
 
-      <p class="help-block" ng-show="form.description.$error.required && submitted">
+      <!--p class="help-block" ng-show="form.description.$error.required && submitted">
         Description required
-      </p>
+     </p-->
 
     </div>
 
@@ -108,64 +107,64 @@
 
       <label>Import</label>
 
-      <p>Import Information for this Location from other Sources</p>
-
-      <label ng-repeat="source in sources">
-         <input type="checkbox" name="'{{source.name}}'" value="'{{source.name}}'" ng-model="source.enabled"> {{source.name}} <br/>
-      </label>
+      <div ng-repeat="source in sources">
+         <label>
+            <input type="checkbox" name="'{{source.name}}'" value="'{{source.name}}'" ng-model="source.enabled"> {{source.name}} <br/>
+         </label>
+      </div>
 
     </div>
 
-    <div class="row form-group uploadForm">
-
-        <label class="col-sm-12">Photos</label>
-
-        <div class="col-sm-6">
-          <div ngf-no-file-drop>
-            <div class="button" ngf-select ng-model="files" ngf-multiple="false">Select File</div>
-          </div>
-          <div ngf-drop ngf-select ng-model="files" class="drop-box"
-               ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="false"
-               accept="image/*">
-            Drop images here or click to upload
-          </div>
-
-        </div>
-
-        <ul class="pictures col-sm-6" ng-show="files">
-          <li>
-            <img class="pic" ng-repeat="f in files" ngf-src="f" ngf-default-src="'assets/images/thumb.jpg'"
-                 ngf-accept="'image/*'">
-          </li>
-        </ul>
-
-
-      </div>
    </div>
 
-      <div class="col-md-6">
-       <script type="text/ng-template" id="searchbox.tpl.html">
-         <input type="search"
-                name="address"
-                id="pac-input"
-                class="pac-controls form-control"
-                ng-model="ngModel"
-                placeholder="Search for an address"
-                required
-                mongoose-error/>
-       </script>
-       <div ng-if="showMap">
-         <ui-gmap-google-map center="mapNew.center"
-                             zoom="mapNew.zoom"
-                             options="mapNew.options">
-           <ui-gmap-marker coords="newLocation.coordinates" idkey="1"></ui-gmap-marker>
-           <ui-gmap-search-box template="searchbox.template"
-                               events="searchbox.events"
-                               parentdiv="'address-search'"
-                               ng-model="newLocation.address.readable"></ui-gmap-search-box>
-         </ui-gmap-google-map>
-       </div>
-     </div>
+   <div class="col-md-6">
+    <script type="text/ng-template" id="searchbox.tpl.html">
+      <input type="search"
+             name="address"
+             id="pac-input"
+             class="pac-controls form-control"
+             ng-model="ngModel"
+             placeholder="Search for an address"
+             required
+             mongoose-error/>
+    </script>
+    <div ng-if="showMap">
+      <ui-gmap-google-map center="mapNew.center"
+                          zoom="mapNew.zoom"
+                          options="mapNew.options">
+        <ui-gmap-marker coords="newLocation.coordinates" idkey="1"></ui-gmap-marker>
+        <ui-gmap-search-box template="searchbox.template"
+                            events="searchbox.events"
+                            parentdiv="'address-search'"
+                            ng-model="newLocation.address.readable"></ui-gmap-search-box>
+      </ui-gmap-google-map>
+    </div>
+  </div>
+
+  <div class="row form-group uploadForm col-sm-12">
+
+      <label class="col-sm-12">Photos</label>
+
+      <div class="col-sm-6">
+        <div ngf-no-file-drop>
+          <div class="button" ngf-select ng-model="files" ngf-multiple="false">Select File</div>
+        </div>
+        <div ngf-drop ngf-select ng-model="files" class="drop-box"
+             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="false"
+             accept="image/*">
+          Drop images here or click to upload
+        </div>
+
+      </div>
+
+      <ul class="pictures col-sm-6" ng-show="files">
+        <li>
+          <img class="pic col-sm-3" ng-repeat="f in files" ngf-src="f" ngf-default-src="'assets/images/thumb.jpg'"
+               ngf-accept="'image/*'">
+        </li>
+      </ul>
+
+    </div>
 
   </div>
 

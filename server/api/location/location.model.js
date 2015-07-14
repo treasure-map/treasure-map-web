@@ -20,7 +20,9 @@ var LocationSchema = new Schema({
   			ref: 'Category'
   		},
   		description: String,
-  		pictures: [String],
+      imports: String,
+  		pictures: [{ type: String, unique: true }],
+      links: [{ type: String, unique: true }],
   		duration: Number
   	}
 });
