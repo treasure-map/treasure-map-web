@@ -105,7 +105,7 @@ exports.update = function(req, res) {
     var updated = _.merge(location, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'updated');
+      //if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'updated');
       return res.json(200, location);
     });
   });

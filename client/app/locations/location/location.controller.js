@@ -20,15 +20,16 @@ angular.module('treasuremapApp')
 
       modalInstance.result.then(function (editLocation) {
         $scope.location = editLocation;
-        //editLocation.coordinates.latitude = editLocation.coordinates.lat;
-        //editLocation.coordinates.longitude = editLocation.coordinates.lng;
+
+        $scope.location.coordinates.latitude = editLocation.coordinates.latitude;
+        $scope.location.coordinates.longitude = editLocation.coordinates.longitude;
+        $scope.map.center = $scope.location.coordinates;
         //editLocation.cluster = {
         //  styles: { url: 'assets/images/Cluster.png' }
         //};
         //
-        //editLocation.icon = {
-        //  url: editLocation.details.category.imgUrl
-        //};
+        $scope.location.details.category.url = editLocation.details.category.imgUrl;
+
         //
         //$scope.locations.push(editLocation);
       }, function () {
