@@ -77,6 +77,11 @@ angular.module('treasuremapApp')
         console.log(data);
       });
 
+    $scope.setCategory = function (category) {
+      $scope.editLocation.details.category = category;
+      $scope.editLocation.details.category.url = category.imgUrl;
+    };
+
     $scope.addLocation = function (form) {
       $scope.submitted = true;
 
