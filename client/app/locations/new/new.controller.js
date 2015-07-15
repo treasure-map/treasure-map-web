@@ -97,7 +97,7 @@ angular.module('treasuremapApp')
 
                   $http.jsonp('http://wikitravel.org/wiki/de/api.php?action=query&list=search&srsearch=' + name + '&srwhat=text&continue&format=json&callback=JSON_CALLBACK')
                     .success(function(data) {
-                      if (data.search.length >= 1) {
+                      if (data.query.search.length >= 1) {
                         $scope.newLocation.details.links.push({
                           name: 'Wikitravel',
                           url: 'http://wikitravel.org/wiki/de/index.php?search=' + name
@@ -270,6 +270,7 @@ angular.module('treasuremapApp')
           var params = {
             Bucket: S3_BUCKET,
             Key: 'images/' + filename,
+            ContentLength: file.length,
             ContentType: file.type,
             Body: file
           };
