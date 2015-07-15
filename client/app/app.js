@@ -8,7 +8,8 @@ angular.module('treasuremapApp', [
   'ui.bootstrap',
   'uiGmapgoogle-maps',
   'ngFileUpload',
-  'ngStorage'
+  'ngStorage',
+  'bootstrapLightbox'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -25,6 +26,12 @@ angular.module('treasuremapApp', [
         libraries: 'weather,geometry,places'
     });
   })
+
+  .config(function (LightboxProvider) {
+    LightboxProvider.getImageUrl = function (imageUrl) {
+      return imageUrl;
+      }
+   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {

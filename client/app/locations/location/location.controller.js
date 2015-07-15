@@ -1,12 +1,17 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth, $modal) {
+  .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth, Lightbox, $modal) {
     $scope.location = Location.get({ id: $stateParams.id }, function() {
       $scope.map.center.latitude = $scope.location.coordinates.latitude;
       $scope.map.center.longitude = $scope.location.coordinates.longitude;
       $scope.location.details.category.url = $scope.location.details.category.imgUrl;
+      $scope.images = $scope.location.details.pictures;
     });
+
+    $scope.openImage = function (index) {
+      Lightbox.openModal($scope.images, index);
+   };
 
     $scope.isLoggedIn = Auth.isLoggedIn;
 
@@ -79,9 +84,6 @@ angular.module('treasuremapApp')
         }
 
         var hash = disqusSignon(Auth.getCurrentUser());
-        console.log(Auth.getCurrentUser());
-        console.log(hash.auth);
-        console.log(hash.key);
 
         var disqus_config = function () {
           this.page.remote_auth_s3 = hash.auth;
