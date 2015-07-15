@@ -9,8 +9,6 @@ angular.module('treasuremapApp')
       }, 100);
     });
 
-    $scope.message = 'Hello';
-    $scope.district = '';
     $scope.newLocation = {
       details: {
         imports: '',
@@ -55,9 +53,6 @@ angular.module('treasuremapApp')
           });
           var number = _.find($scope.place.address_components, function(i) {
             return _.contains(i.types, 'street_number');
-          });
-          $scope.district = _.find($scope.place.address_components, function(i) {
-            return _.contains(i.types, 'sublocality');
           });
           $scope.newLocation.address.zipcode = zipcode ? zipcode.short_name : '';
           $scope.newLocation.address.city = city ? city.long_name : '';
