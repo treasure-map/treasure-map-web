@@ -3,7 +3,7 @@
 <div class="map">
   <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
 
-  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'">
+  	<ui-gmap-markers models='filteredLocations' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'">
 
   		<ui-gmap-windows show="show">
         <div ng-non-bindable>
@@ -28,6 +28,14 @@
   </button>
 
   <form class="form-inline searchRadius">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="friendsFilter" ng-click="filterByFriends()"> Filter by friends
+        </label>
+      </div>
+    </div>
+
     <div class="form-group">
       <label class="sr-only" for="searchRadius">Search Radius (in km)</label>
 
