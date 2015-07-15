@@ -6,7 +6,9 @@ var Location = require('../location/location.model');
 
 // Get list of categorys
 exports.index = function(req, res) {
-  Category.find(function (err, categorys) {
+  Category.find()
+    .sort('name')
+    .exec(function (err, categorys) {
     if(err) { return handleError(res, err); }
     return res.json(200, categorys);
   });
