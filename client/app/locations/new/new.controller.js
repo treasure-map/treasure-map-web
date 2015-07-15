@@ -85,6 +85,7 @@ angular.module('treasuremapApp')
           .success(function(obj) {
             var pageID = Object.keys(obj.query.pages)[0];
 
+            if(pageID != -1) {
             $http.jsonp(baseURL + 'api.php?action=query&pageids=' + pageID + '&prop=info&inprop=url&format=json&callback=JSON_CALLBACK')
               .success(function(data) {
                 var objects = data.query.pages;
@@ -116,6 +117,7 @@ angular.module('treasuremapApp')
               })
               .error(function(data, status) {
                 console.log('Error! ' + status);
+                deferred.resolve();
               });
 
             $http.jsonp(baseURL + 'api.php?action=parse&pageid=' + pageID + '&prop=text&section=0&format=json&callback=JSON_CALLBACK')
@@ -128,6 +130,7 @@ angular.module('treasuremapApp')
               })
               .error(function(data, status) {
                 console.log('Error! ' + status);
+                deferred.resolve();
               });
 
             $http.jsonp(baseURL + 'api.php?action=parse&pageid=' + pageID + '&prop=images&section=0&format=json&callback=JSON_CALLBACK')
@@ -146,16 +149,21 @@ angular.module('treasuremapApp')
                     })
                     .error(function(data, status) {
                       console.log('Error! ' + status);
+                      deferred.resolve();
                     });
                 }
               })
               .error(function(data, status) {
                 console.log('Error! ' + status);
+                deferred.resolve();
               });
-
+           } else {
+             deferred.resolve();
+           }
           })
           .error(function(data, status) {
             console.log('Error! ' + status);
+            deferred.resolve();
           });
       }
       return deferred.promise;
@@ -181,7 +189,9 @@ angular.module('treasuremapApp')
         wikiImport($scope.sources[0]).then(function() {
           saveLocation(form);
         });
-      }
+     } else {
+        saveLocation(form);
+     }
 
     };
 
