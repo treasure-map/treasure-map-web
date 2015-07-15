@@ -1,15 +1,16 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search) {
     $scope.menu = [{
-      'title': 'Home',
+      'title': 'Map',
       'link': '/'
     }, {
       'title': 'Locations',
       'link': '/locations'
     }];
-
+    
+    $scope.search = search;
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
@@ -25,4 +26,5 @@ angular.module('treasuremapApp')
     };
 
     $scope.showSidebar = false;
-  });
+  })
+  .value('search', { searchTerm: '' });

@@ -3,7 +3,7 @@
 <div class="map">
   <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
 
-  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'">
+  	<ui-gmap-markers models='filteredMarkers' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'">
 
   		<ui-gmap-windows show="show">
         <div ng-non-bindable>

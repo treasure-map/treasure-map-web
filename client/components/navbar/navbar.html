@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <div ng-controller="NavbarCtrl">
   <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -5,17 +6,26 @@
         <a href="/" class="navbar-brand">
           <img src="assets/images/logo.png" alt="treasuremap"/>
         </a>
-
-        <a id="menu" class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
+        <p id="title" style="float:left; margin-bottom: 0px; margin-top: 18px;">treasuremap</p>
+        <div class="middlePart" style="float:left;margin-left: 650px;width: 400px;">
+          <div class="addLocation" style="float:left">
+          <a href="/" id="addNewLocation" ng-click="openModal('lg')" ng-show="isLoggedIn()" style="margin-top: 18px">Add new location</a>
+        </div>
+        <div class="search">
+          <input class="search-input" type="text" ng-model="search.searchTerm" ngMaxlength="100" autocomplete="off" placeholder="Filter" style="color: rgb(144, 144, 144); position:absolute;"/>
+        </div>
+        <div class="registration">
+            <li><a href="/login" ng-hide="isLoggedIn()" style="position:relative"> Login</a></li>
+            <li><a href="/signup" ng-hide="isLoggedIn()">Sign up</a></li>
+            <li class="logout" ng-show="isLoggedIn()"><a href="" ng-click="logout()">Logout</a></li>
+        </div>
+      </div>
+          <a id="menu" class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
       </div>
     </div>
   </div>
 
   <div class="sidebar-nav" ng-class="{'isVisible': showSidebar}">
-
-    <h1>Treasure Map</h1>
-
-    <hr/>
 
     <ul class="nav navbar-nav">
       <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
