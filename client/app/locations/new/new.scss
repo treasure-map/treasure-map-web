@@ -5,11 +5,12 @@
 
   .btn-submit,
   .btn-cancel {
-    width: 47%;
+    width: 25%;
   }
 
   .btn-submit {
-    margin-right: 5%;
+    float: right;
+    margin: 0 0 0 2%;
   }
 
   .form-control {
@@ -21,14 +22,14 @@
 
   .drop-box {
     background: #F8F8F8;
-    border: 5px dashed #DDD;
+    border: 2px dashed #DDD;
     height: 120px;
     text-align: center;
     padding-top: 25px;
   }
 
   .dragover {
-    border: 5px dashed blue;
+    border: 2px dashed blue;
   }
 
   .pictures {

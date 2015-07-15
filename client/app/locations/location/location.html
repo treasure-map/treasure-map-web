@@ -24,7 +24,7 @@
       <div class="description" ng-show="location.details.links.length >= 1">
          <h3>Links</h3>
          <div class="loc-links">
-           <a href="{{link}}" class="loc-links link" ng-repeat="link in location.details.links"> {{link}} </a>
+           <a href="{{link.url}}" class="loc-links link" ng-repeat="link in location.details.links" target="_blank">{{link.name}}<br/></a>
          </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
     <div class="col-sm-12">
       <h3>Images</h3>
       <div class="loc-pictures">
-        <a href="{{pic}}" class="loc-picture thumbnail" ng-repeat="pic in location.details.pictures">
+        <a ng-click="openImage($index)" class="loc-picture thumbnail" ng-repeat="pic in location.details.pictures">
           <img src="{{pic}}" alt="">
         </a>
       </div>

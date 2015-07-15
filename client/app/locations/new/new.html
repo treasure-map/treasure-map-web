@@ -54,7 +54,8 @@
         <label ng-repeat="c in categories"
                name="category"
                class="btn btn-default"
-               ng-model="newLocation.details.category"
+               ng-model="newLocation.details.category._id"
+               ng-click="setCategory(c)"
                btn-radio="'{{c._id}}'"
                required>{{c.name}}</label>
       </div>
@@ -132,7 +133,7 @@
       <ui-gmap-google-map center="mapNew.center"
                           zoom="mapNew.zoom"
                           options="mapNew.options">
-        <ui-gmap-marker coords="newLocation.coordinates" idkey="1"></ui-gmap-marker>
+        <ui-gmap-marker coords="newLocation.coordinates" idkey="1" icon="newLocation.details.category"></ui-gmap-marker>
         <ui-gmap-search-box template="searchbox.template"
                             events="searchbox.events"
                             parentdiv="'address-search'"

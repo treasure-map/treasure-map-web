@@ -22,7 +22,10 @@ var LocationSchema = new Schema({
   		description: String,
       imports: String,
   		pictures: [{ type: String, unique: true }],
-      links: [{ type: String, unique: true }],
+      links: [{
+         name: String,
+         url: String
+      }],
   		duration: Number
   	}
 });

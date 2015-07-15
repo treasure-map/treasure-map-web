@@ -13,8 +13,6 @@ angular.module('treasuremapApp')
       });
 
       modalInstance.result.then(function (newLocation) {
-        newLocation.coordinates.latitude = newLocation.coordinates.lat;
-        newLocation.coordinates.longitude = newLocation.coordinates.lng;
         newLocation.cluster = {
           styles: { url: 'assets/images/Cluster.png' }
         };
