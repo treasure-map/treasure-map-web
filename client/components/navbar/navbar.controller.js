@@ -11,6 +11,9 @@ angular.module('treasuremapApp')
     }, {
       'title': 'Users',
       'link': '/users'
+    }, {
+      'title': 'Friends Activity',
+      'link': '/friends'
     }];
 
     $scope.isCollapsed = true;

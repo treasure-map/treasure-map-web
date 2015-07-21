@@ -171,7 +171,7 @@ angular.module('treasuremapApp')
 
         for(var i = 0; i < $scope.currentUser.friends.length; i++) {
           $scope.currentUser.friends[i].locations = User.locations({ id: $scope.currentUser.friends[i]._id }, function (locations) {
-            _.each($scope.filteredLocations, function(location){
+            _.each(locations, function(location){
               location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
               location.icon = { url: location.details.category.imgUrl };
             });
