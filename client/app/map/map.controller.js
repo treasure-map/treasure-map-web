@@ -8,11 +8,11 @@ angular.module('treasuremapApp')
     $scope.search = search;
 
     $scope.$watch("search.searchTerm", function(searchTerm){
-      $scope.filteredMarkers = $filter("filter")($scope.locations, searchTerm);
-      if (!$scope.filteredMarkers){
+      $scope.filteredLocations = $filter("filter")($scope.locations, searchTerm);
+      if (!$scope.filteredLocations){
         return;
       }
-      console.log($scope.filteredMarkers);
+      console.log($scope.filteredLocations);
     });
 
     $scope.openModal = function (size) {
