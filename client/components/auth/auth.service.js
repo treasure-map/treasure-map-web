@@ -112,6 +112,17 @@ angular.module('treasuremapApp')
       },
 
       /**
+       * Check if user has friend
+       *
+       * @param  {String}   friendId
+       * @return {boolean}
+       */
+      isFriend: function(friendId) { // gets called 4x?
+        //console.log(_.pluck(currentUser.friends, '_id').indexOf(friendId));
+        return _.pluck(currentUser.friends, '_id').indexOf(friendId) != -1;
+      },
+
+      /**
        * Remove Friend
        *
        * @param  {String}   friendId

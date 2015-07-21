@@ -3,6 +3,7 @@
 angular.module('treasuremapApp')
 .controller('UserCtrl', function ($scope, $stateParams, Auth, User) {
     $scope.currentUser = Auth.getCurrentUser();
+    $scope.isFriend = Auth.isFriend;
     $scope.user = User.get({ id: $stateParams.id });
     $scope.locations = User.locations({ id: $stateParams.id });
 
