@@ -26,6 +26,8 @@ angular.module('treasuremapApp')
         newLocation.cluster = {
           styles: { url: 'assets/images/Cluster.png' }
         };
+        $scope.map = { center: newLocation.coordinates, zoom: 15 };
+
 
         newLocation.icon = {
           url: newLocation.details.category.imgUrl
