@@ -1,17 +1,18 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter) {
+  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User) {
     $scope.isLoggedIn = Auth.isLoggedIn;
+    $scope.currentUser = Auth.getCurrentUser();
 
     $scope.search = search;
 
     $scope.$watch("search.searchTerm", function(searchTerm){
-      $scope.filteredMarkers = $filter("filter")($scope.locations, searchTerm);
-      if (!$scope.filteredMarkers){
+      $scope.filteredLocations = $filter("filter")($scope.locations, searchTerm);
+      if (!$scope.filteredLocations){
         return;
       }
-      console.log($scope.filteredMarkers);
+      console.log($scope.filteredLocations);
     });
 
     $scope.openModal = function (size) {
@@ -135,6 +136,8 @@ angular.module('treasuremapApp')
       }).success(function(locations) {
         $scope.labels = '';
         $scope.locations = locations;
+        $scope.filteredLocations = $scope.locations;
+
         _.each($scope.locations, function(location){
 
         //var link = location.details.name
@@ -169,5 +172,25 @@ angular.module('treasuremapApp')
 
         });
       });
+    };
+
+    $scope.friendsFilter = false;
+    $scope.filterByFriends = function () {
+      if ($scope.friendsFilter) {
+        $scope.filteredLocations = [];
+
+        for(var i = 0; i < $scope.currentUser.friends.length; i++) {
+          $scope.currentUser.friends[i].locations = User.locations({ id: $scope.currentUser.friends[i]._id }, function (locations) {
+            _.each(locations, function(location){
+              location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
+              location.icon = { url: location.details.category.imgUrl };
+            });
+
+            $scope.filteredLocations = $scope.filteredLocations.concat(locations);
+          });
+        }
+      } else {
+        $scope.filteredLocations = $scope.locations;
+      }
     };
  });

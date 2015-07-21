@@ -15,7 +15,7 @@ angular.module('treasuremapApp')
       'title': 'Friends',
       'link': '/friends'
     }];
-    
+
     $scope.search = search;
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

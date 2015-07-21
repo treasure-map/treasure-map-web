@@ -28,9 +28,9 @@ var LocationSchema = new Schema({
       }],
   		duration: Number
   	},
-createdAt: { type: Date, default: Date.now },
-updatedAt: { type: Date, default: Date.now },
-owner: { type: Schema.ObjectId, ref: 'User' }
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  owner: { type: Schema.ObjectId, ref: 'User' }
 });
 LocationSchema.index({ coordinates: '2dsphere'});
 
