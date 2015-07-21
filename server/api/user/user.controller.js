@@ -116,7 +116,12 @@ exports.addFriend = function(req, res, next) {
   var friendId = String(req.body.friendId);
 
   User.findById(userId, function (err, user) {
-    user.friends.push(friendId);
+    if (user.friends.indexOf(friendId) === -1) {
+      user.friends.push(friendId);
+    } else {
+      console.error('User already has this friend4');
+      return res.send(500, 'User already has this friend4');
+    }
     user.save(function (err) {
       if (err) return validationError(res, err);
       res.send(200);
