@@ -20,6 +20,10 @@
     padding: 15px;
     overflow-y: auto;
 
+    a {
+      color: $brand-primary;
+    }
+
     > .selloc-name {
       display: block;
       position: relative;
@@ -66,20 +70,20 @@
 
   }
 
-  //div {
-  //	color: #000;
-  //}
+  div {
+  	color: #000;
+  }
 
-  //a {
-  //	color: initial;
-  //	text-decoration: none;
-  //
-  //	&:hover {
-  //		color: initial;
-  //		text-decoration: underline;
-  //		cursor: pointer;
-  //	}
-  //}
+  a {
+  	color: initial;
+  	text-decoration: none;
+
+  	&:hover {
+  		color: initial;
+  		text-decoration: underline;
+  		cursor: pointer;
+  	}
+  }
 
   & > .searchRadius {
     position: absolute;
