@@ -4,6 +4,7 @@ angular.module('treasuremapApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
+  'ngAnimate',
   'ui.router',
   'ui.bootstrap',
   'uiGmapgoogle-maps',

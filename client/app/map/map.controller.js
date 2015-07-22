@@ -1,18 +1,21 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User) {
+  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User, Lightbox) {
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.currentUser = Auth.getCurrentUser();
 
     $scope.search = search;
+
+    $scope.openImage = function (index, images) {
+      Lightbox.openModal(images, index);
+    };
 
     $scope.$watch("search.searchTerm", function(searchTerm){
       $scope.filteredLocations = $filter("filter")($scope.locations, searchTerm);
       if (!$scope.filteredLocations){
         return;
       }
-      console.log($scope.filteredLocations);
     });
 
     $scope.openModal = function (size) {
@@ -170,6 +173,8 @@ angular.module('treasuremapApp')
             // anchor: new google.maps.Point(0, 17)
           };
 
+          location.click = selectLocation;
+
         });
       });
     };
@@ -210,6 +215,8 @@ angular.module('treasuremapApp')
             _.each(locations, function(location){
               location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
               location.icon = { url: location.details.category.imgUrl };
+
+              location.click = selectLocation;
             });
 
             $scope.filteredLocations = $scope.filteredLocations.concat(locations);
@@ -219,4 +226,8 @@ angular.module('treasuremapApp')
         $scope.filteredLocations = $scope.locations;
       }
     };
+
+    function selectLocation (marker, event, location) {
+      $scope.selectedLocation = $scope.selectedLocation ? null : location;
+    }
  });
