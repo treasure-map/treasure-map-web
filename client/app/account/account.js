@@ -20,7 +20,7 @@ angular.module('treasuremapApp')
         authenticate: true
       })
       .state('friends', {
-        url: '/friends',
+        url: '/feed',
         templateUrl: 'app/account/friends/friends.html',
         controller: 'FriendsCtrl',
         authenticate: true
