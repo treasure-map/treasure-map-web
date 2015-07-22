@@ -1,12 +1,15 @@
-<div class="row">
-  <h1 class="col-md-12">Edit Location</h1>
+<div class="row modal-header ng-scope" >
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+  <h1 class="modal-title">Edit Location</h1>
 
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
 
-<div class="row">
+<div class="row modal-body ng-scope">
 
-  <form class="form col-md-6" name="form" novalidate>
+  <form class="form" name="form" novalidate>
+
+    <div class="col-md-6">
 
     <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
@@ -24,8 +27,6 @@
       </p>
     </div>
 
-    <div>
-    </div>
 
     <div class="form-group" ng-class="{ 'has-success': form.address.$valid && submitted,
                                             'has-error': form.address.$invalid && submitted }">
@@ -98,13 +99,38 @@
       <p class="help-block" ng-show="form.description.$error.required && submitted">
         Description required
       </p>
+
+      </div>
     </div>
 
-    <label class="col-sm-12">Photos</label>
+    <div class="col-md-6">
+      <script type="text/ng-template" id="searchbox.tpl.html">
+        <input type="search"
+               name="address"
+               id="pac-input"
+               class="pac-controls form-control"
+               ng-model="ngModel"
+               placeholder="Search for an address"
+               required
+               mongoose-error/>
+      </script>
+      <div ng-if="showMap">
+        <ui-gmap-google-map center="mapNew.center"
+                            zoom="mapNew.zoom"
+                            options="mapNew.options">
+          <ui-gmap-marker coords="editLocation.coordinates" idkey="1" icon="editLocation.details.category"></ui-gmap-marker>
+          <ui-gmap-search-box template="searchbox.template"
+                              events="searchbox.events"
+                              parentdiv="'address-search'"
+                              ng-model="editLocation.address.readable"></ui-gmap-search-box>
+        </ui-gmap-google-map>
+      </div>
+    </div>
 
-    <div class="row">
+    <div class="row form-group col-sm-12">
+      <label class="col-sm-12">Photos</label>
       <div class="col-sm-12">
-        <div ng-repeat="pic in editLocation.details.pictures" class="images">
+        <div ng-repeat="pic in editLocation.details.pictures" class="images col-sm-4">
           <a href="{{pic}}" class="loc-picture thumbnail">
             <img src="{{pic}}" alt="">
           </a>
@@ -113,7 +139,7 @@
       </div>
     </div>
 
-    <div class="row form-group uploadForm">
+    <div class="row form-group uploadForm col-sm-12">
 
         <div class="col-sm-6">
           <div ngf-no-file-drop>
@@ -125,11 +151,12 @@
             Drop images here or click to upload
           </div>
 
-          <!--<ul>-->
-          <!--<li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>-->
-          <!--</ul>-->
-          <!-- TODO: urls in array for database -->
-          <!--<input type="text" name="pictures" ng-model="newLocation.details.pictures" value="{{urls}}" />-->
+          <ul class="pictures col-sm-6" ng-show="files">
+            <li>
+              <img class="pic col-sm-3" ng-repeat="f in files" ngf-src="f" ngf-default-src="'assets/images/thumb.jpg'"
+                   ngf-accept="'image/*'">
+            </li>
+          </ul>
         </div>
 
         <ul class="pictures col-sm-6" ng-show="files">
@@ -141,8 +168,9 @@
 
 
       </div>
+</div>
 
-    <div class="form-row">
+    <div class="row modal-footer ng-scope">
       <button class="btn btn-primary btn-lg btn-submit" type="button" ng-click="addLocation(form)">
         Submit
       </button>
@@ -153,27 +181,5 @@
 
   </form>
 
-  <div class="col-md-6">
-    <script type="text/ng-template" id="searchbox.tpl.html">
-      <input type="search"
-             name="address"
-             id="pac-input"
-             class="pac-controls form-control"
-             ng-model="ngModel"
-             placeholder="Search for an address"
-             required
-             mongoose-error/>
-    </script>
-    <div ng-if="showMap">
-      <ui-gmap-google-map center="mapNew.center"
-                          zoom="mapNew.zoom"
-                          options="mapNew.options">
-        <ui-gmap-marker coords="editLocation.coordinates" idkey="1" icon="editLocation.details.category"></ui-gmap-marker>
-        <ui-gmap-search-box template="searchbox.template"
-                            events="searchbox.events"
-                            parentdiv="'address-search'"
-                            ng-model="editLocation.address.readable"></ui-gmap-search-box>
-      </ui-gmap-google-map>
-    </div>
-  </div>
-</div>
+
+
