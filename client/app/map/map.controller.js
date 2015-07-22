@@ -173,6 +173,32 @@ angular.module('treasuremapApp')
         });
       });
     };
+    var clicked = false;
+
+    $scope.markersEvents = {
+      mouseover: function (gMarker, eventName, model) {
+      clicked = false;
+        model.show = true;
+      $scope.$apply();
+    },
+      mouseout: function (gMarker, eventName, model) {
+        if(clicked === true){
+          model.show = true;
+
+        }
+        else {model.show = false;
+        };
+
+        $scope.$apply();
+      },
+      //click: function (gMarker, eventName, model) {
+      //  model.show = true;
+      //  clicked = true;
+      //  $scope.$apply();
+      //  console.log(clicked);
+      //
+      //}
+    };
 
     $scope.friendsFilter = false;
     $scope.filterByFriends = function () {

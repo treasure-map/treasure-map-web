@@ -3,9 +3,9 @@
 <div class="map">
   <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
 
-  	<ui-gmap-markers models='filteredLocations' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'">
+  	<ui-gmap-markers models='filteredLocations' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'" events="markersEvents">
 
-  		<ui-gmap-windows show="show">
+  		<ui-gmap-windows show="showWindow">
         <div ng-non-bindable>
           <a href='/locations/{{_id}}'>
             <strong>{{details.name}}</strong>
