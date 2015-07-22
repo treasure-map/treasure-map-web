@@ -7,6 +7,8 @@
 
       <a ng-href="categories/{{location.details.category._id}}"><h3>{{location.details.category.name}}</h3></a>
 
+      <p class="loc-owner" ng-show="location.owner">Owner: <a ng-href="/users/{{location.owner._id}}">{{location.owner.name}}</a></p>
+
       <p class="loc-address">{{location.address.street}}, {{location.address.zipcode }} {{location.address.city}}</p>
 
       <p class="loc-duration"><strong>Duration:</strong> {{location.details.duration}}h</p>

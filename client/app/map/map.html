@@ -3,9 +3,16 @@
 <div class="map">
   <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
 
-    <ui-gmap-markers models='filteredMarkers' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'">
+  	<ui-gmap-markers
+      models='filteredLocations'
+      idKey="'_id'"
+      coords="'coordinates'"
+      doCluster='true'
+      icon="'icon'"
+      click="click"
+      events="markersEvents">
 
-      <ui-gmap-windows show="show">
+  		<ui-gmap-windows show="show">
         <div ng-non-bindable>
           <a href='/locations/{{_id}}'>
             <strong>{{details.name}}</strong>
@@ -17,7 +24,7 @@
         </div>
       </ui-gmap-windows>
 
-    </ui-gmap-markers>
+  	</ui-gmap-markers>
 
     <!-- TODO:ADD current location icon -->
     <ui-gmap-marker coords="userLocation" idkey="1"></ui-gmap-marker>
@@ -25,11 +32,52 @@
 
   </ui-gmap-google-map>
 
+  <div class="selectedLocation" ng-show="selectedLocation">
+    <a class="selloc-name" href='/locations/{{selectedLocation._id}}' ng-style="{'background-image': 'linear-gradient(transparent 25%, black), url('+selectedLocation.details.pictures[0]+')'}">
+      <h2>{{selectedLocation.details.name}}</h2>
+    </a>
+
+    <p>
+      <a href='/categories/{{selectedLocation.details.category._id}}'>{{selectedLocation.details.category.name}}</a>
+    </p>
+
+    <address>
+      {{selectedLocation.address.street}} <br/>
+      {{selectedLocation.address.zipcode}} {{selectedLocation.address.city}} <br/>
+    </address>
+
+    <p ng-show="selectedLocation.details.duration">Duration: {{selectedLocation.details.duration}} h</p>
+
+    <div ng-show="selectedLocation.details.description">
+      <h3>Description:</h3>
+
+      <p>{{selectedLocation.details.description}}</p>
+    </div>
+
+    <!--<div>-->
+      <!--<h3>Images</h3>-->
+
+      <!--<a ng-click="openImage($index, selectedLocation.details.pictures)" class="selloc-picture thumbnail" ng-repeat="pic in selectedLocation.details.pictures">-->
+        <!--<img src="{{pic}}" alt="">-->
+      <!--</a>-->
+    <!--</div>-->
+
+    <span class="closer glyphicon glyphicon-remove" aria-hidden="true" ng-click="selectedLocation = null"></span>
+  </div>
+
   <button class="btn btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()">
     <span>&#43;</span>
   </button>
 
   <form class="form-inline searchRadius">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="friendsFilter" ng-click="filterByFriends()"> Filter by friends
+        </label>
+      </div>
+    </div>
+
     <div class="form-group">
       <label class="sr-only" for="searchRadius">Search Radius (in km)</label>
 

@@ -18,7 +18,8 @@ var UserSchema = new Schema({
   facebook: {},
   twitter: {},
   google: {},
-  github: {}
+  github: {},
+  friends: [{ type: Schema.Types.ObjectId, ref: 'User', unique: true }]
 });
 
 /**
@@ -40,8 +41,10 @@ UserSchema
   .virtual('profile')
   .get(function() {
     return {
+      '_id': this._id,
       'name': this.name,
-      'role': this.role
+      'role': this.role,
+      'friends': this.friends
     };
   });
 

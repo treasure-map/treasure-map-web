@@ -7,12 +7,12 @@ angular.module('treasuremapApp')
       'link': '/',
       'icon':'glyphicon-globe'
     }, {
-      'title': 'Feed',
-      'link': '/feed',
-      'icon':'glyphicon-bullhorn'
-    }, {
       'title': 'Friends',
       'link': '/friends',
+      'icon':'glyphicon-bullhorn'
+    }, {
+      'title': 'Users',
+      'link': '/users',
       'icon':'glyphicon-user'
     }, {
       'title': 'Locations',

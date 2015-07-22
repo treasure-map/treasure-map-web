@@ -11,7 +11,7 @@ angular.module('treasuremapApp')
 
     $scope.openImage = function (index) {
       Lightbox.openModal($scope.images, index);
-   };
+    };
 
     $scope.isLoggedIn = Auth.isLoggedIn;
 

@@ -7,20 +7,83 @@
   	height: calc(100vh - 80px);
   }
 
-	div {
-		color: #000;
-	}
+  .selectedLocation {
+    $sidebar-width: 25%;
 
-	a {
-		color: initial;
-		text-decoration: none;
+    position: absolute;
+    left: 0;
+    top: $navbar-height;
+    bottom: 0;
+    width: $sidebar-width;
+    min-width: 330px;
+    background-color: $navbar-default-bg;
+    padding: 15px;
+    overflow-y: auto;
 
-		&:hover {
-			color: initial;
-			text-decoration: underline;
-			cursor: pointer;
-		}
-	}
+    a {
+      color: $brand-primary;
+    }
+
+    > .selloc-name {
+      display: block;
+      position: relative;
+      height: 200px;
+      background-size: cover;
+      margin: -15px;
+      margin-bottom: 15px;
+      //padding: 15px;
+      color: white;
+
+      > h2 {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+        margin: 0;
+      }
+    }
+
+    .selloc-picture {
+      max-width: 100%;
+      height: auto;
+      //margin-right: 15px;
+      //float: left;
+
+    }
+
+    .closer {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: white;
+    }
+
+    &.ng-hide-add.ng-hide-add-active,
+    &.ng-hide-remove.ng-hide-remove-active {
+      transition: all 0.5s;
+    }
+
+    &.ng-hide {
+      opacity: 0;
+      left: -$sidebar-width;
+    }
+
+  }
+
+  div {
+  	color: #000;
+  }
+
+  a {
+  	color: initial;
+  	text-decoration: none;
+
+  	&:hover {
+  		color: initial;
+  		text-decoration: underline;
+  		cursor: pointer;
+  	}
+  }
 
   & > .searchRadius {
     position: absolute;

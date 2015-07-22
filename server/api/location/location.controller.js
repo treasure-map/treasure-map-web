@@ -27,13 +27,14 @@ exports.index = function (req, res) {
             type: "Point" ,
             coordinates: [req.query.latitude, req.query.longitude]
           },
-          $maxDistance: maxDistance,
+          $maxDistance: maxDistance
           //$spherical: true, // not doing anything?
           //$distanceMultiplier: 6378.1
         }
       }
     })
       .populate('details.category')
+      .populate('owner', '_id name role friends')
       .limit(limit)
       .exec(function (err, locations) {
         if (err) {
@@ -44,6 +45,7 @@ exports.index = function (req, res) {
   } else {
     Location.find()
       .populate('details.category')
+      .populate('owner', '_id name role friends')
       .exec(function (err, locations) {
         if(err) { return handleError(res, err); }
         return res.json(200, locations);
@@ -55,6 +57,7 @@ exports.index = function (req, res) {
 exports.show = function(req, res) {
   Location.findById(req.params.id)
     .populate('details.category')
+    .populate('owner', '_id name role friends')
     .exec(function(err, location) {
       if(err) { return handleError(res, err); }
       if(!location) { return res.send(404); }
@@ -65,7 +68,9 @@ exports.show = function(req, res) {
 // Creates a new location in the DB.
 exports.create = function(req, res) {
   // no coordindates? ask the mighty geocoder
-  //console.log(req.body);
+  req.body.owner = req.user._id;
+  req.body.updatedAt = new Date();
+  console.log(req.body);
   if(!req.body.coordinates && req.body.address) {
     var address = req.body.address;
     geocoder.geocode(address.street + ', ' + address.zipcode + ' ' + address.city)
@@ -90,7 +95,7 @@ exports.create = function(req, res) {
   } else {
     Location.create(req.body, function(err, location) {
       if(err) { return handleError(res, err); }
-      if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'created');
+      if (process.env.DOMAIN && process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendLocationToSlack(location, 'created');
       return res.json(201, location);
     });
   }
@@ -102,10 +107,12 @@ exports.update = function(req, res) {
   Location.findById(req.params.id, function (err, location) {
     if (err) { return handleError(res, err); }
     if(!location) { return res.send(404); }
+    location.updatedAt = new Date();
+    location.owner = req.user._id;
     var updated = _.merge(location, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      //if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'updated');
+      if (process.env.DOMAIN && process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendLocationToSlack(location, 'updated');
       return res.json(200, location);
     });
   });
@@ -118,7 +125,7 @@ exports.destroy = function(req, res) {
     if(!location) { return res.send(404); }
     location.remove(function(err) {
       if(err) { return handleError(res, err); }
-      if (process.env.DOMAIN.indexOf("localhost") === -1 && process.env.DOMAIN.indexOf("127.0.0.1") === -1) sendLocationToSlack(location, 'deleted');
+      if (process.env.DOMAIN && process.env.DOMAIN.indexOf("localhost") == -1 && process.env.DOMAIN.indexOf("127.0.0.1") == -1) sendLocationToSlack(location, 'deleted');
       return res.send(204);
     });
   });
@@ -133,7 +140,7 @@ function sendLocationToSlack(location, method) {
     method: 'POST',
     url: ***REMOVED***,
       body: JSON.stringify({
-        "text": "A new location has been " + method + "! <" + process.env.DOMAIN + "/locations/" + location._id + "|Click here> for details!",
+        "text": "A new location has been " + method + "! <http://" + process.env.DOMAIN + "/locations/" + location._id + "|Click here> for details!",
         "username": "New Location Bot",
         "icon_emoji": ":round_pushpin:"
       })

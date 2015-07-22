@@ -18,5 +18,11 @@ angular.module('treasuremapApp')
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl',
         authenticate: true
+      })
+      .state('friends', {
+        url: '/friends',
+        templateUrl: 'app/account/friends/friends.html',
+        controller: 'FriendsCtrl',
+        authenticate: true
       });
   });

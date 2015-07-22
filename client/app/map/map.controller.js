@@ -1,14 +1,20 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('MapCtrl', function($scope, $http, Auth, $modal, search, $filter) {
+  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User, Lightbox) {
+
     $scope.isLoggedIn = Auth.isLoggedIn;
+    $scope.currentUser = Auth.getCurrentUser();
 
     $scope.search = search;
 
-    $scope.$watch("search.searchTerm", function(searchTerm) {
-      $scope.filteredMarkers = $filter("filter")($scope.locations, searchTerm);
-      if (!$scope.filteredMarkers) {
+    $scope.openImage = function (index, images) {
+      Lightbox.openModal(images, index);
+    };
+
+    $scope.$watch("search.searchTerm", function(searchTerm){
+      $scope.filteredLocations = $filter("filter")($scope.locations, searchTerm);
+      if (!$scope.filteredLocations){
         return;
       }
     });
@@ -27,6 +33,7 @@ angular.module('treasuremapApp')
             url: 'assets/images/Cluster.png'
           }
         };
+        $scope.map = { center: newLocation.coordinates, zoom: 15 };
 
         newLocation.icon = {
           url: newLocation.details.category.imgUrl
@@ -117,7 +124,6 @@ angular.module('treasuremapApp')
       }]
     }];
 
-
     var cluster = {
       title: 'Hi I am a Cluster!',
       gridSize: 60,
@@ -178,26 +184,29 @@ angular.module('treasuremapApp')
       }).success(function(locations) {
         $scope.labels = '';
         $scope.locations = locations;
-        _.each($scope.locations, function(location) {
 
-          //var link = location.details.name
-          //  .toLowerCase()
-          //  .replace(/[^\w\säöüß]/gi, '')
-          //  .replace(/\s/g,'-')
-          //  .replace(/--/g,'-')
-          //  .replace(/ä/g,'ae')
-          //  .replace(/ö/g,'oe')
-          //  .replace(/ü/g,'ue')
-          //  .replace(/ß/g,'ss');
+        $scope.filteredLocations = $scope.locations;
 
-          //location.link = location._id;
-          //	location.title = location.details.name;
-          //location.street = location.address.street;
-          //location.zipcode = location.address.zipcode;
-          //location.city = location.address.city;
-          //location.category = location.details.category.name;
-          //location.duration = location.details.duration;
-          //location.id = location.details.category._id;
+        _.each($scope.locations, function(location){
+
+        //var link = location.details.name
+        //  .toLowerCase()
+        //  .replace(/[^\w\säöüß]/gi, '')
+        //  .replace(/\s/g,'-')
+        //  .replace(/--/g,'-')
+        //  .replace(/ä/g,'ae')
+        //  .replace(/ö/g,'oe')
+        //  .replace(/ü/g,'ue')
+        //  .replace(/ß/g,'ss');
+
+        //location.link = location._id;
+    	 //	location.title = location.details.name;
+        //location.street = location.address.street;
+        //location.zipcode = location.address.zipcode;
+        //location.city = location.address.city;
+        //location.category = location.details.category.name;
+        //location.duration = location.details.duration;
+        //location.id = location.details.category._id;
 
           location.cluster = {
             styles: {
@@ -212,7 +221,62 @@ angular.module('treasuremapApp')
             // anchor: new google.maps.Point(0, 17)
           };
 
+          location.click = selectLocation;
+
         });
       });
     };
-  });
+
+    var clicked = false;
+
+    $scope.markersEvents = {
+      mouseover: function (gMarker, eventName, model) {
+      clicked = false;
+        model.show = true;
+      $scope.$apply();
+    },
+      mouseout: function (gMarker, eventName, model) {
+        if(clicked === true){
+          model.show = true;
+
+        }
+        else {model.show = false;
+        };
+
+        $scope.$apply();
+      },
+      //click: function (gMarker, eventName, model) {
+      //  model.show = true;
+      //  clicked = true;
+      //  $scope.$apply();
+      //  console.log(clicked);
+      //
+      //}
+    };
+
+    $scope.friendsFilter = false;
+    $scope.filterByFriends = function () {
+      if ($scope.friendsFilter) {
+        $scope.filteredLocations = [];
+
+        for(var i = 0; i < $scope.currentUser.friends.length; i++) {
+          $scope.currentUser.friends[i].locations = User.locations({ id: $scope.currentUser.friends[i]._id }, function (locations) {
+            _.each(locations, function(location){
+              location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
+              location.icon = { url: location.details.category.imgUrl };
+
+              location.click = selectLocation;
+            });
+
+            $scope.filteredLocations = $scope.filteredLocations.concat(locations);
+          });
+        }
+      } else {
+        $scope.filteredLocations = $scope.locations;
+      }
+    };
+
+    function selectLocation (marker, event, location) {
+      $scope.selectedLocation = $scope.selectedLocation ? null : location;
+    }
+ });
