@@ -2,6 +2,7 @@
 
 angular.module('treasuremapApp')
   	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User, Lightbox) {
+
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.currentUser = Auth.getCurrentUser();
 
@@ -18,7 +19,7 @@ angular.module('treasuremapApp')
       }
     });
 
-    $scope.openModal = function (size) {
+    $scope.openModal = function(size) {
 
       var modalInstance = $modal.open({
         templateUrl: 'app/locations/new/new.html',
@@ -26,106 +27,150 @@ angular.module('treasuremapApp')
         size: size
       });
 
-      modalInstance.result.then(function (newLocation) {
+      modalInstance.result.then(function(newLocation) {
         newLocation.cluster = {
-          styles: { url: 'assets/images/Cluster.png' }
+          styles: {
+            url: 'assets/images/Cluster.png'
+          }
         };
         $scope.map = { center: newLocation.coordinates, zoom: 15 };
-
 
         newLocation.icon = {
           url: newLocation.details.category.imgUrl
         };
 
         $scope.locations.push(newLocation);
-      }, function () {
+      }, function() {
         console.log('Modal dismissed at: ' + new Date());
       });
     };
 
-    var style = [
-      {
-        'featureType': 'poi',
-        'elementType': 'labels',
-        'stylers': [
-          { 'visibility': 'off' }
-        ]
-      },{
-        'stylers': [
-          { 'gamma': 0.5 },
-          { 'saturation': -1 }
-        ]
-      },{
-        'featureType': 'water',
-        'elementType': 'geometry.fill',
-        'stylers': [
-          { 'color': '#21C2B8' }
-        ]
-      },{
-        'featureType': 'water',
-        'elementType': 'geometry.stroke',
-        'stylers': [
-          { 'weight': 0.25 }
-
-        ]
-      },{
-        'featureType': 'road.highway',
-        'elementType': 'geometry.fill',
-        'stylers': [
-          { 'color': '#FF931E' }
-        ]
-      },{
-        'featureType': 'road.highway',
-        'elementType': 'geometry.stroke',
-        'stylers': [
-          { 'weight': 0.25 }
-        ]
-      },{
-        'featureType': 'landscape.natural',
-        'elementType': 'geometry.fill',
-        'stylers': [
-          { 'color': '#39B54A' }
-        ]
-      }
-    ];
+    var style = [{
+      "elementType": "labels.text",
+      "stylers": [{
+        "visibility": "simplified"
+      }, {
+        "color": "#666666"
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "labels",
+      "stylers": [{
+        "visibility": "on"
+      }]
+    }, {
+      "elementType": "geometry",
+      "stylers": [{
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "labels",
+      "stylers": [{
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "landscape.natural",
+      "stylers": [{
+        "gamma": 2.5
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "water",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "lightness": 25
+      }, {
+        "gamma": 1.2
+      }]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#FF931E"
+      }, {
+        "gamma": 1.5
+      }]
+    }, {
+      "featureType": "landscape.man_made",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#f3f3f3"
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "visibility": "on"
+      }, {
+        "color": "#e9e9e9"
+      }]
+    }, {
+      "featureType": "transit",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#e3e3e3"
+      }]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "labels.icon",
+      "stylers": [{
+        "visibility": "simplified"
+      }, {
+        "gamma": 1.85
+      }]
+    }];
 
     var cluster = {
-        title: 'Hi I am a Cluster!',
-        gridSize: 60,
-        ignoreHidden: true,
-        minimumClusterSize: 2,
-        imageExtension: 'png',
-        imagePath: 'assets/images/Cluster',
-        imageSizes: [72]
-      };
+      title: 'Hi I am a Cluster!',
+      gridSize: 60,
+      ignoreHidden: true,
+      minimumClusterSize: 2,
+      imageExtension: 'png',
+      imagePath: 'assets/images/Cluster',
+      imageSizes: [72]
+    };
 
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition( function(pos) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(pos) {
         var currPos = pos.coords;
 
-        $scope.$apply(function () {
+        $scope.$apply(function() {
           $scope.userLocation = {
             latitude: currPos.latitude,
             longitude: currPos.longitude
           };
           $scope.map = {
-            center: { latitude: currPos.latitude, longitude: currPos.longitude },
+            center: {
+              latitude: currPos.latitude,
+              longitude: currPos.longitude
+            },
             zoom: 14
           };
         });
         $scope.getLocations($scope.userLocation, $scope.searchRadius);
       });
-    }else{
+    } else {
       $scope.getLocations($scope.map.center, $scope.searchRadius);
       console.log('No support of geolocation');
     }
 
-    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
-    $scope.options = { styles: style };
+    $scope.map = {
+      center: {
+        latitude: 52.5075419,
+        longitude: 13.4251364
+      },
+      zoom: 14
+    };
+    $scope.options = {
+      styles: style
+    };
     $scope.map.clusterOptions = angular.toJson(cluster);
-    $scope.searchRadius = 5;
+    $scope.searchRadius = 25;
     $scope.userLocation = $scope.map.center;
-
 
     $scope.locations = [];
 
@@ -139,6 +184,7 @@ angular.module('treasuremapApp')
       }).success(function(locations) {
         $scope.labels = '';
         $scope.locations = locations;
+
         $scope.filteredLocations = $scope.locations;
 
         _.each($scope.locations, function(location){
@@ -163,7 +209,9 @@ angular.module('treasuremapApp')
         //location.id = location.details.category._id;
 
           location.cluster = {
-            styles: { url: 'assets/images/Cluster.png' }
+            styles: {
+              url: 'assets/images/Cluster.png'
+            }
           };
 
           location.icon = {
@@ -178,6 +226,7 @@ angular.module('treasuremapApp')
         });
       });
     };
+
     var clicked = false;
 
     $scope.markersEvents = {
