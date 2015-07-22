@@ -4,23 +4,23 @@
     <div class="container">
       <div class="navbar-header">
         <a href="/" class="navbar-brand">
-          <img src="assets/images/logo.png" alt="treasuremap"/>
+          <img src="assets/images/logo.png" alt="treasuremap" />
+          <h1 class="title">Treasure Map</h1>
         </a>
-        <p id="title" style="float:left; margin-bottom: 0px; margin-top: 18px;">treasuremap</p>
-        <div class="middlePart" style="float:left;margin-left: 650px;width: 400px;">
+        <!--div class="middlePart" >
           <div class="addLocation" style="float:left">
           <a href="/" id="addNewLocation" ng-click="openModal('lg')" ng-show="isLoggedIn()" style="margin-top: 18px">Add new location</a>
-        </div>
-        <div class="search">
-          <input class="search-input" type="text" ng-model="search.searchTerm" ngMaxlength="100" autocomplete="off" placeholder="Filter" style="color: rgb(144, 144, 144); position:absolute;"/>
-        </div>
-        <div class="registration">
-            <li><a href="/login" ng-hide="isLoggedIn()" style="position:relative"> Login</a></li>
-            <li><a href="/signup" ng-hide="isLoggedIn()">Sign up</a></li>
-            <li class="logout" ng-show="isLoggedIn()"><a href="" ng-click="logout()">Logout</a></li>
-        </div>
-      </div>
-          <a id="menu" class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
+       </div-->
+       <a class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
+       <form class="navbar-form search" role="search">
+           <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+           <input class="form-control search-input" type="text" ng-model="search.searchTerm" ngMaxlength="100" autocomplete="off" placeholder="Search" />
+       </form>
+       <!--div class="registration">
+         <li><a href="/login" ng-hide="isLoggedIn()" style="position:relative"> Login</a></li>
+         <li><a href="/signup" ng-hide="isLoggedIn()">Sign up</a></li>
+         <li class="logout" ng-show="isLoggedIn()"><a href="" ng-click="logout()">Logout</a></li>
+       </div-->
       </div>
     </div>
   </div>
@@ -29,26 +29,30 @@
 
     <ul class="nav navbar-nav">
       <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-        <a ng-href="{{item.link}}">{{item.title}}</a>
+        <a ng-href="{{item.link}}"><span class="glyphicon {{item.icon}}" aria-hidden="true"></span>{{item.title}}</a>
       </li>
     </ul>
 
     <footer>
       <ul class="nav navbar-nav">
-        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login"></span> Login</a></li>
-        <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p></li>
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"></span> Settings</a>
+         <li ng-show="isLoggedIn()" class="current-user">
+           <a href="/user/me"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p></a>
+         </li>
+        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Admin</a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}">
+          <a href="/login"></span><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Login</a>
         </li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>Sign up</a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}">
+          <a href="/settings"></span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Settings</a>
+        </li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</a>
         </li>
       </ul>
 
-      <hr/>
-
       <div class="copy">
-        <p>Copyright &copy; 2015 - Treasure Map Team</p>
+        <p>Copyright &copy; {{copyright}} - Team Treasure Map</p>
+        <a href="http://www.htw-berlin.de/impressum/" target="_blank">Impressum</a>
       </div>
     </footer>
 

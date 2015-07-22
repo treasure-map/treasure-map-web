@@ -1,10 +1,10 @@
 .map {
   width: 100%;
   margin-top: -$navbar-margin-bottom;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 80px);
 
   .angular-google-map-container {
-  	height: calc(100vh - 60px);
+  	height: calc(100vh - 80px);
   }
 
 	div {
@@ -30,18 +30,25 @@
   }
 
   .btn-map-new {
+    background: #ff931e;
     position: absolute;
     bottom: 15px;
     left: 15px;
     border-radius: 1000px;
     font-size: 3.5em;
-    line-height: 0.8em;
+    line-height: 0.84em;
     box-shadow: 1px 1px 5px #222;
     transition: box-shadow 0.3s;
 
+    span {
+      color: #fff;
+    }
+
     &:hover {
-      box-shadow: 4px 4px 7px #222;
-      transition: box-shadow 0.3s;
+      background: #ccc;
+      color: $brand-primary;
+      //box-shadow: 4px 4px 7px #222;
+      //transition: box-shadow 0.3s;
     }
   }
 }

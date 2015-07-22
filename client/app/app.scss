@@ -1,167 +1,239 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
-
 @import '_variables.scss';
-
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
 
 /**
  * App-wide Styles
  */
-
 body {
   overflow-x: hidden;
   margin-top: $navbar-height + $navbar-margin-bottom;
+  font-family: Helvetica;
 }
 
 .browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }
 
 .navbar {
-	z-index: 10;
-  margin-right:0px;
-  display:inline !important;
 
-	img {
-		height: 100%;
-		margin: 0;
-		padding: 0;
-	}
-}
+  z-index: 10;
+  display: inline !important;
+  height: 80px;
 
-.navbar-default{
-  background-color:#fafafa;
-  margin-bottom:0px;
-  margin-right:0px;
-}
+  img {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-.container{
-    margin-left:0px;
-    margin-right:0px;   
 }
 
 .navbar-header {
-  width:1240px;
 
-  title{
-    margin-top:18px;
-    margin-right:20px;
-    padding-right:10px;
-    color:#000;
-    font-size:10px;
+  width: 100%;
+
+  .title {
+    margin: 15px;
+    color: #333;
+    font-size: 25px;
+    vertical-align: middle;
+    display: inline;
+    font-weight: 100;
   }
 
-  .addLocation{
-    margin-top:18px;
-    margin-right:20px;
+  .navbar-brand {
+     padding: 15px;
+   }
+
+  .addLocation {
+    margin-top: 18px;
+    margin-right: 20px;
   }
 
-  .search{
-    display:inline;
-    width:160px;
-    padding-top:15px;
-    float:left;
-    margin-right:50px;
+  .search {
+    display: inline;
+    width: 255px;
+    float: right;
+
+    span {
+      margin-right: 4px;
+      color: #999;
+      font-size: 16px;
+      vertical-align: middle;
+   }
+
+   input {
+      width: 200px;
+      font-size: 16px;
+   }
+
   }
 
-  .registration{
-    padding-left:15px;
-    padding-right:15px;
-    margin-top:18px;
-    margin-left:200px;
-    float:center;
-    li{
-      display:inline;
-      padding-right:15px;
-      padding-left:20px;   
+  .registration {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 18px;
+    margin-left: 200px;
+    float: center;
+
+    li {
+      display: inline;
+      padding-right: 15px;
+      padding-left: 20px;
     }
-    .logout{
-      position:relative;
+
+    .logout {
+      position: relative;
     }
+
   }
 
   .nav-icon {
-  display:inline !important;
-  float:right;
-  padding: 15px;
-  font-size: 30px;
-  line-height: 20px;
-  color: #21c2b8;
-  cursor: pointer;
+    display: inline !important;
+    padding: 30px;
+    font-size: 30px;
+    line-height: 18px;
+    color: $brand-primary;
+    cursor: pointer;
+    min-width: 90px;
+    min-height: 80px;
 
-  &:hover {
-    color: #ccc;
-    text-decoration: none;
-  }
-
-  &:before {
-    content: "\2630";
-    transition: content 0.5s;
-  }
-
-  &.isVisible {
-    &:before {
-      content: "\2715";
-      transition: content 0.5s;
-      }
+    &:hover {
+      color: #ccc;
+      text-decoration: none;
     }
+
+    &:before {
+      content: "\2630";
+      transition: content 0.5s;
+    }
+
+    &.isVisible {
+
+      &:before {
+        content: "\2715";
+        transition: content 0.5s;
+      }
+
+    }
+
   }
+
 }
 
 .sidebar-nav {
-	position: fixed;
-	right: -280px;
-	top: 0;
-	width: 280px;
-	height: 100vh;
+  position: fixed;
+  right: -300px;
+  top: 0;
+  min-width: 300px;
+  height: 100vh;
   padding-top: $navbar-height;
-	background: rgba(255, 255, 255, 0.8);
-	z-index: 9;
-	transition: all .5s ease-in;
-
-  h1 {
-    color: #000; //rgb(255, 147, 30);
-    font-size: 24px;
-    text-align: center;
-    margin: 12px;
-  }
-
-  hr {
-    margin: 0;
-    padding: 0 10px;
-  }
+  background: $navbar-default-bg;
+  z-index: 9;
+  transition: all 0.5s ease-in;
+  border-left: 1px solid $navbar-default-border;
 
   ul {
     width: 100%;
-    text-align: center;
 
     li {
       float: none;
       clear: both;
 
       a {
-        color: #000; //rgb(33, 194, 184);
+        color: #333; //rgb(33, 194, 184);
+        font-size: 16px;
+        float: right;
+        width: 100%;
+        text-align: center;
+        font-weight: lighter;
+        border-bottom: 1px solid $navbar-default-border;
+
+        &:hover {
+         color: $brand-primary;
+         text-decoration: none;
+       }
+
       }
+
+      p {
+         display: none;
+         font-size: 16px;
+         font-weight: normal;
+         text-align: left;
+         padding-left: 15px;
+         margin: 0;
+      }
+
+      span {
+        color: #333; //rgb(33, 194, 184);
+        font-size: 16px;
+        float: left;
+        padding-left: 15px;
+      }
+
     }
+
   }
 
   footer {
     width: 100%;
     position: absolute;
-    bottom: 25px;
-    .copy{
-      color:#000;
+    bottom: 0;
+
+    .copy {
+      clear: both;
+      text-align: center;
+      color: #333;
+      font-size: 12px;
+      padding: 20px 0;
+
+      a {
+         color: #333;
+
+         &:hover {
+          color: $brand-primary;
+          text-decoration: none;
+        }
+      }
+
     }
+
   }
 
   &.isVisible {
     right: 0;
   }
+
+}
+
+::-webkit-input-placeholder {
+    color: #999;
+    font-size: 16px;
+    font-weight: lighter;
+}
+:-moz-placeholder {
+   color: #999;
+   opacity: 1;
+   font-size: 16px;
+   font-weight: lighter;
+}
+::-moz-placeholder {
+   color: #999;
+   opacity: 1;
+   font-size: 16px;
+   font-weight: lighter;
+}
+:-ms-input-placeholder {
+   color: #999;
+   font-size: 16px;
+   font-weight: lighter;
 }
 
 // Component styles are injected through grunt
@@ -178,4 +250,3 @@ body {
 @import 'map/map.scss';
 @import 'modal/modal.scss';
 // endinjector
-
