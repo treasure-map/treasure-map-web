@@ -70,10 +70,15 @@
   </button>
 
   <form class="form-inline searchRadius">
-    <div class="form-group">
+    <div class="form-group" ng-show="isLoggedIn()">
       <div class="checkbox">
         <label>
           <input type="checkbox" ng-model="friendsFilter" ng-click="filterByFriends()"> Filter by friends
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="myLocationsFilter" ng-click="filterByMyLocations()"> Filter by my locations
         </label>
       </div>
     </div>

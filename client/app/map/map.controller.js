@@ -275,6 +275,25 @@ angular.module('treasuremapApp')
         $scope.filteredLocations = $scope.locations;
       }
     };
+    $scope.myLocationsFilter = false;
+    $scope.filterByMyLocations = function () {
+      if ($scope.myLocationsFilter) {
+        $scope.filteredLocations = [];
+
+        $scope.currentUser.locations = User.locations({ id: $scope.currentUser._id }, function (locations) {
+          _.each(locations, function(location){
+            location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
+            location.icon = { url: location.details.category.imgUrl };
+
+            location.click = selectLocation;
+          });
+
+          $scope.filteredLocations = locations;
+        });
+      } else {
+        $scope.filteredLocations = $scope.locations;
+      }
+    };
 
     function selectLocation (marker, event, location) {
       $scope.selectedLocation = $scope.selectedLocation ? null : location;
