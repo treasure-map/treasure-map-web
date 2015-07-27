@@ -20,7 +20,7 @@
     background-color: $navbar-default-bg;
     padding: 15px;
     overflow-y: auto;
-    transition: all 0.5s;
+    transition: left 0.5s;
 
     a {
       color: $brand-primary;
@@ -62,7 +62,7 @@
 
     //&.ng-hide-add.ng-hide-add-active,
     //&.ng-hide-remove.ng-hide-remove-active {
-    //  transition: all 0.5s;
+    //  transition: left 0.5s;
     //}
 
     //&.ng-hide {
@@ -72,7 +72,7 @@
 
     &.isVisible {
       left: 0;
-      transition: all 0.5s;
+      transition: left 0.5s;
     }
 
   }
