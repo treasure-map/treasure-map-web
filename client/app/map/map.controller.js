@@ -39,6 +39,8 @@ angular.module('treasuremapApp')
           url: newLocation.details.category.imgUrl
         };
 
+        //location.click = selectLocation;
+
         $scope.locations.push(newLocation);
       }, function() {
         console.log('Modal dismissed at: ' + new Date());
@@ -221,7 +223,7 @@ angular.module('treasuremapApp')
             // anchor: new google.maps.Point(0, 17)
           };
 
-          location.click = selectLocation;
+          //location.click = selectLocation;
 
         });
       });
@@ -231,27 +233,18 @@ angular.module('treasuremapApp')
 
     $scope.markersEvents = {
       mouseover: function (gMarker, eventName, model) {
-      clicked = false;
+        clicked = false;
         model.show = true;
-      $scope.$apply();
-    },
-      mouseout: function (gMarker, eventName, model) {
-        if(clicked === true){
-          model.show = true;
-
-        }
-        else {model.show = false;
-        };
-
         $scope.$apply();
       },
-      //click: function (gMarker, eventName, model) {
-      //  model.show = true;
-      //  clicked = true;
-      //  $scope.$apply();
-      //  console.log(clicked);
-      //
-      //}
+      mouseout: function (gMarker, eventName, model) {
+        model.show = clicked === true;
+        $scope.$apply();
+      },
+      click: function (gMarker, eventName, model) {
+        $scope.selectedLocation = $scope.selectedLocation === model ? null : model;
+        $scope.$apply();
+      }
     };
 
     $scope.friendsFilter = false;
@@ -265,7 +258,7 @@ angular.module('treasuremapApp')
               location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
               location.icon = { url: location.details.category.imgUrl };
 
-              location.click = selectLocation;
+              //location.click = selectLocation;
             });
 
             $scope.filteredLocations = $scope.filteredLocations.concat(locations);
@@ -285,7 +278,7 @@ angular.module('treasuremapApp')
             location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
             location.icon = { url: location.details.category.imgUrl };
 
-            location.click = selectLocation;
+            //location.click = selectLocation;
           });
 
           $scope.filteredLocations = locations;
