@@ -3,11 +3,6 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 @import 'font-awesome/scss/font-awesome';
 
-html, body{
-	min-height: 100%;
-	height: 100%;
-}
-
 body{
   	font-family: Helvetica;
 }
@@ -20,7 +15,6 @@ body{
   	background-size: cover;
   	background-repeat: no-repeat;
   	
-  	height: fill;
 	h1{
 		margin-top: 30px;
 		text-align: center;
@@ -30,11 +24,6 @@ body{
 		text-align: center;
 		margin-bottom: 30px;
 	}
-}
-
-.fill{
-	min-height: 100%;
-	height: 100%;
 }
 
 .sign{
@@ -51,13 +40,13 @@ body{
 }
 
 .signup-button{
-	width: 80px ;
+	width: 95px ;
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 20px;
 
     .btn-signup{
-    	margin-right: 30px;
+    	margin-right: 0px;
     	background-color: #21c2b8;
     	&:hover{
 			color: #fff
@@ -66,8 +55,8 @@ body{
 }
 
 .socialbar{
-	width: 140px ;
-    margin: 0 fill;
+	width: 128px ;
+    margin: 0 auto;
 }
 
 .btn-facebook{
