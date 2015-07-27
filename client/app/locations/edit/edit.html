@@ -131,7 +131,7 @@
       <label class="col-sm-12">Photos</label>
       <div class="col-sm-12">
         <div ng-repeat="pic in editLocation.details.pictures" class="images col-sm-4">
-          <a href="{{pic}}" class="loc-picture thumbnail">
+          <a ng-click="openImage($index)" class="loc-picture thumbnail">
             <img src="{{pic}}" alt="">
           </a>
           <span class="glyphicon glyphicon-remove" ng-click="removePicture(pic)"></span>
@@ -180,6 +180,3 @@
     </div>
 
   </form>
-
-
-

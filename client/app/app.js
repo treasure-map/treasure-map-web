@@ -9,7 +9,8 @@ angular.module('treasuremapApp', [
   'uiGmapgoogle-maps',
   'ngFileUpload',
   'ngStorage',
-  'bootstrapLightbox'
+  'bootstrapLightbox',
+  'ngTouch'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -28,6 +29,7 @@ angular.module('treasuremapApp', [
   })
 
   .config(function (LightboxProvider) {
+    LightboxProvider.templateUrl = 'locations/location/lightbox-modal.html';
     LightboxProvider.getImageUrl = function (imageUrl) {
       return imageUrl;
       }
