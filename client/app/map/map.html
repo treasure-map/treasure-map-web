@@ -32,7 +32,7 @@
 
   </ui-gmap-google-map>
 
-  <div class="selectedLocation" ng-show="selectedLocation">
+  <div class="selectedLocation" ng-show="selectedLocation" ng-class="{isVisible: selectedLocation}">
     <a class="selloc-name" href='/locations/{{selectedLocation._id}}' ng-style="{'background-image': 'linear-gradient(transparent 25%, black), url('+selectedLocation.details.pictures[0]+')'}">
       <h2>{{selectedLocation.details.name}}</h2>
     </a>
