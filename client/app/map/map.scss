@@ -11,14 +11,16 @@
     $sidebar-width: 25%;
 
     position: absolute;
-    left: 0;
+    left: -300px;
     top: $navbar-height;
     bottom: 0;
     width: $sidebar-width;
-    min-width: 330px;
+    min-width: 300px;
+    max-width: 25%;
     background-color: $navbar-default-bg;
     padding: 15px;
     overflow-y: auto;
+    transition: all 0.5s;
 
     a {
       color: $brand-primary;
@@ -58,14 +60,19 @@
       color: white;
     }
 
-    &.ng-hide-add.ng-hide-add-active,
-    &.ng-hide-remove.ng-hide-remove-active {
-      transition: all 0.5s;
-    }
+    //&.ng-hide-add.ng-hide-add-active,
+    //&.ng-hide-remove.ng-hide-remove-active {
+    //  transition: all 0.5s;
+    //}
 
-    &.ng-hide {
-      opacity: 0;
-      left: -$sidebar-width;
+    //&.ng-hide {
+    //  opacity: 0;
+    //  left: -$sidebar-width;
+    //}
+
+    &.isVisible {
+      left: 0;
+      transition: all 0.5s;
     }
 
   }
