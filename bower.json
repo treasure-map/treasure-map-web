@@ -26,12 +26,11 @@
     "angular-bootstrap-lightbox": "~0.6.1"
   },
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
     "angular-mocks": ">=1.4.3",
     "angular-scenario": ">=1.4.3"
-  },
-  "resolutions": {
-    "angular": ">=1.4.3",
-    "lodash": "~3.10.0"
   },
   "overrides": {
     "crypto-js": {
