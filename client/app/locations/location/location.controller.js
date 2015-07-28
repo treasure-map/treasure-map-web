@@ -1,13 +1,42 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth, Lightbox, $modal) {
+  .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth, Lightbox, $modal, $location, $filter, $http, AppConfig) {
     $scope.location = Location.get({ id: $stateParams.id }, function() {
       $scope.map.center.latitude = $scope.location.coordinates.latitude;
       $scope.map.center.longitude = $scope.location.coordinates.longitude;
       $scope.location.details.category.url = $scope.location.details.category.imgUrl;
       $scope.images = $scope.location.details.pictures;
     });
+
+    $scope.socials = [{
+      'name': 'Facebook',
+      'icon': 'assets/social/facebook.png'
+      },{
+     'name': 'Twitter',
+     'icon': 'assets/social/twitter.png'
+     },{
+       'name': 'Pinterest',
+       'icon': 'assets/social/pinterest.png'
+    }];
+
+    $scope.share = function (service) {
+        var title = $scope.location.details.name;
+        var desc = $filter('limitTo')($scope.location.details.description, 128);
+        var image = $scope.location.details.pictures[0];
+        var url = encodeURI($location.absUrl());
+        var width = 550;
+        var height = 400;
+        var top = (screen.height / 2) - (height / 2);
+        var left = (screen.width / 2) - (width / 2);
+        if(service === 'Facebook'){
+           window.open('https://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + desc + '&p[url]=' + url + '&p[images][0]=' + image, 'Share Location', 'top=' + top + ',left=' + left + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+        }else if(service === 'Twitter'){
+           window.open('https://twitter.com/home?status=' + url, 'Share Location', 'top=' + top + ',left=' + left + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+        }else if(service === 'Pinterest'){
+           window.open('https://pinterest.com/pin/create/button/?url=' + url + '&media=' + image + '&description=' + desc, 'Share Location', 'top=' + top + ',left=' + left + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+        }
+     };
 
     $scope.openImage = function (index) {
       Lightbox.openModal($scope.images, index);

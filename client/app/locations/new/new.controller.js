@@ -36,7 +36,7 @@ angular.module('treasuremapApp')
         draggable: false
       }
     };
-    $scope.searchbox = {
+    $scope.searchboxNew = {
       template: 'searchbox.tpl.html',
       events: {
         places_changed: function(searchBox) {

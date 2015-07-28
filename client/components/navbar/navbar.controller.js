@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search) {
+  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout) {
     $scope.menu = [{
       'title': 'Map',
       'link': '/',
@@ -26,6 +26,27 @@ angular.module('treasuremapApp')
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
+    $scope.locate = function () {
+       var find = Locator.locate();
+         find.then( function(currPos) {
+          $timeout(function() {
+            $scope.$apply(function() {
+              $scope.search.userLocation = {
+                latitude: currPos.latitude,
+                longitude: currPos.longitude
+              };
+              $scope.search.map = {
+                center: {
+                  latitude: currPos.latitude,
+                  longitude: currPos.longitude
+                },
+                zoom: 14
+              };
+            });
+         });
+      });
+   }
+
     $scope.logout = function () {
       Auth.logout();
       $location.path('/login');
@@ -37,5 +58,10 @@ angular.module('treasuremapApp')
 
     $scope.showSidebar = false;
     $scope.copyright = new Date().getFullYear();
+
   })
-  .value('search', { searchTerm: '' });
+  .value('search', {
+     searchTerm: '',
+     map: '',
+     userLocation: ''
+  });

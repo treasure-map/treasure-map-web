@@ -20,16 +20,16 @@ angular.module('treasuremapApp', [
     $httpProvider.interceptors.push('authInterceptor');
   })
 
-  .config(function(uiGmapGoogleMapApiProvider) {
+  .config(function(uiGmapGoogleMapApiProvider, AppConfig) {
     uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
+        //key: AppConfig.googleapi,
         v: '3.17',
         libraries: 'weather,geometry,places'
     });
   })
 
   .config(function (LightboxProvider) {
-    LightboxProvider.templateUrl = 'locations/location/lightbox-modal.html';
+    //LightboxProvider.templateUrl = 'lightbox-template.tpl.html';
     LightboxProvider.getImageUrl = function (imageUrl) {
       return imageUrl;
       }
