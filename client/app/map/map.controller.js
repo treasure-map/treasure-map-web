@@ -210,10 +210,13 @@ angular.module('treasuremapApp')
         //location.duration = location.details.duration;
         //location.id = location.details.category._id;
 
-          location.cluster = {
-            styles: {
-              url: 'assets/images/Cluster.png'
-            }
+          $scope.clusterOpt = {
+            styles: [{
+              textColor: "white",
+              height: 50,
+              url: "assets/images/ClusterPin02.png",
+              width: 50
+            }],
           };
 
           location.icon = {
