@@ -247,9 +247,8 @@ angular.module('treasuremapApp')
       }
     };
 
-    $scope.friendsFilter = false;
-    $scope.filterByFriends = function () {
-      if ($scope.friendsFilter) {
+    $scope.$watch('search.filterByFriends', function(filterByFriends){
+      if (filterByFriends) {
         $scope.filteredLocations = [];
 
         for(var i = 0; i < $scope.currentUser.friends.length; i++) {
@@ -267,10 +266,9 @@ angular.module('treasuremapApp')
       } else {
         $scope.filteredLocations = $scope.locations;
       }
-    };
-    $scope.myLocationsFilter = false;
-    $scope.filterByMyLocations = function () {
-      if ($scope.myLocationsFilter) {
+    });
+    $scope.$watch('search.filterByMyLocations', function(filterByMyLocations){
+      if (filterByMyLocations) {
         $scope.filteredLocations = [];
 
         $scope.currentUser.locations = User.locations({ id: $scope.currentUser._id }, function (locations) {
@@ -286,9 +284,5 @@ angular.module('treasuremapApp')
       } else {
         $scope.filteredLocations = $scope.locations;
       }
-    };
-
-    function selectLocation (marker, event, location) {
-      $scope.selectedLocation = $scope.selectedLocation ? null : location;
-    }
+    });
  });

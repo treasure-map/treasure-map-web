@@ -38,4 +38,8 @@ angular.module('treasuremapApp')
     $scope.showSidebar = false;
     $scope.copyright = new Date().getFullYear();
   })
-  .value('search', { searchTerm: '' });
+  .value('search', {
+    searchTerm: '',
+    filterByFriends: false,
+    filterByMyLocations: false
+  });
