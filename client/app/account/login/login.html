@@ -27,9 +27,9 @@
           <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
              Please enter your email and password.
           </p>
-          <p class="help-block" ng-show="form.email.$error.email && submitted">
+          <!--<p class="help-block" ng-show="form.email.$error.email && submitted">
              Please enter a valid email.
-          </p>
+          </p>-->
 
           <p class="help-block">{{ errors.other }}</p>
         </div>
@@ -40,7 +40,7 @@
           </button>
         </div>
         <div class="signup">
-          <p>Not a memeber yet? Sign up <a href="/signup">here</a>.</p>
+          <p>Not a member yet? Sign up <a href="/signup">here</a>.</p>
         </div>
         <div class="socialbar">
           <a class="btn-facebook" href="" ng-click="loginOauth('facebook')">
