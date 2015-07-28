@@ -11,12 +11,12 @@
     $sidebar-width: 25%;
 
     position: absolute;
-    left: -300px;
+    left: -25%;
     top: $navbar-height;
     bottom: 0;
     width: $sidebar-width;
-    min-width: 300px;
-    max-width: 25%;
+    //min-width: 25%;
+    //max-width: 25%;
     background-color: $navbar-default-bg;
     padding: 15px;
     overflow-y: auto;
