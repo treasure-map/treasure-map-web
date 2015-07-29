@@ -57,6 +57,7 @@
       position: absolute;
       top: 15px;
       right: 15px;
+<<<<<<< Updated upstream
       color: darkgray;
     }
 
@@ -68,6 +69,12 @@
         padding-bottom: 0.5em;
         border-bottom: lightgray 1px solid;
         margin-bottom: 0.5em;
+=======
+      color: white;
+      &:hover {
+        color: black;
+        text-decoration: underline;
+>>>>>>> Stashed changes
       }
     }
 
