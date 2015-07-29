@@ -11,7 +11,8 @@ $break-small: 415px;
   }
 
   .sidebar {
-    $sidebar-width: 300px;
+
+    $sidebar-width: 25%;
 
     @media screen and (min-width: $break-small) and (max-width: $break-large) {
       left: -65%;
@@ -73,7 +74,7 @@ $break-small: 415px;
 
       &:hover {
         color: black;
-        text-decoration: underline;
+        text-decoration: none;
      }
 
     }
