@@ -64,7 +64,7 @@ angular.module('treasuremapApp')
   .value('search', {
      searchTerm: '',
      map: '',
-     userLocation: ''
+     userLocation: '',
      filterByFriends: false,
      filterByMyLocations: false
   });

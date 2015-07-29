@@ -126,16 +126,6 @@ angular.module('treasuremapApp')
       }]
     }];
 
-    var cluster = {
-      title: 'Hi I am a Cluster!',
-      gridSize: 60,
-      ignoreHidden: true,
-      minimumClusterSize: 2,
-      imageExtension: 'png',
-      imagePath: 'assets/images/Cluster',
-      imageSizes: [72]
-    };
-
     var locate = Locator.locate();
     locate.then( function(currPos) {
        $timeout(function() {
@@ -166,7 +156,6 @@ angular.module('treasuremapApp')
     $scope.options = {
       styles: style
     };
-    $scope.search.map.clusterOptions = angular.toJson(cluster);
     $scope.searchRadius = 25;
     $scope.search.userLocation = $scope.search.map.center;
 
@@ -272,7 +261,6 @@ angular.module('treasuremapApp')
 
         $scope.currentUser.locations = User.locations({ id: $scope.currentUser._id }, function (locations) {
           _.each(locations, function(location){
-            location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
             location.icon = { url: location.details.category.imgUrl };
 
             //location.click = selectLocation;
@@ -283,7 +271,7 @@ angular.module('treasuremapApp')
       } else {
         $scope.filteredLocations = $scope.locations;
       }
-    };
+    });
 
     function selectLocation (marker, event, location) {
       $scope.selectedLocation = $scope.selectedLocation ? null : location;
