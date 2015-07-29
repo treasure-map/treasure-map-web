@@ -1,3 +1,6 @@
+$break-large: 600px;
+$break-small: 415px;
+
 .map {
   width: 100%;
   margin-top: -$navbar-margin-bottom;
@@ -8,15 +11,24 @@
   }
 
   .selectedLocation {
+
     $sidebar-width: 25%;
+
+    @media screen and (min-width: $break-small) and (max-width: $break-large) {
+      left: -65%;
+      width: 65%;
+    }
+    @media screen and (max-width: $break-small) {
+      left: -90%;
+      width: 90%;
+    }
 
     position: absolute;
     left: -25%;
     top: $navbar-height;
     bottom: 0;
     width: $sidebar-width;
-    //min-width: 25%;
-    //max-width: 25%;
+    min-width: 300px;
     background-color: $navbar-default-bg;
     padding: 15px;
     overflow-y: auto;
@@ -35,6 +47,7 @@
       margin-bottom: 15px;
       //padding: 15px;
       color: white;
+      background-position: center;
 
       > h2 {
         position: absolute;
@@ -96,7 +109,12 @@
     position: absolute;
     bottom: 15px;
     right: 15px;
-    //width: 75px;
+
+    @media screen and (max-width: $break-small) {
+      width: 65%;
+      float: right;
+   }    
+
   }
 
   .btn-map-new {

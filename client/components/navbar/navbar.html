@@ -12,9 +12,9 @@
           <a href="/" id="addNewLocation" ng-click="openModal('lg')" ng-show="isLoggedIn()" style="margin-top: 18px">Add new location</a>
        </div-->
        <a class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
-       <form class="navbar-form search" role="search" ng-hide="showSearch != 'map'" ng-cloak>
+       <form class="navbar-form search" role="search" ng-hide="showSearch != 'map' || smallScreen()">
            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-           <div id="address-search"></div>
+           <div ng-attr-id="{{ !smallScreen() && 'address-search' }}"></div>
            <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true"></span>
        </form>
 
@@ -31,20 +31,22 @@
 
     <ul class="nav navbar-nav">
       <li>
-        <form role="search">
-          <div class="form-group">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <input class="form-control search-input" type="text" ng-model="search.searchTerm" ngMaxlength="100"
-                   autocomplete="off" placeholder="Search"/>
-          </div>
-          <div class="form-group">
-            <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByFriends" btn-checkbox>Filter by friends</button>
-            <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByMyLocations" btn-checkbox>Filter by my locations</button>
-          </div>
-        </form>
+       <div class="form-group" ng-hide="showSearch != 'map' || !smallScreen()">
+          <form class="navbar-form search" role="search">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              <div ng-attr-id="{{ smallScreen() && 'address-search' }}"></div>
+              <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true"></span>
+          </form>
+       </div>
       </li>
       <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ng-href="{{item.link}}"><span class="glyphicon {{item.icon}}" aria-hidden="true"></span>{{item.title}}</a>
+      </li>
+      <li>
+        <div class="form-group">
+          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByFriends" btn-checkbox>Filter by friends</button>
+          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByMyLocations" btn-checkbox>Filter by my locations</button>
+        </div>
       </li>
     </ul>
 
@@ -67,7 +69,7 @@
 
       <div class="copy">
         <p>Copyright &copy; {{copyright}} - Team Treasure Map</p>
-        <a href="http://www.htw-berlin.de/impressum/" target="_blank">Impressum</a>
+        <a href="http://www.htw-berlin.de/impressum/" target="_blank">Imprint</a>
       </div>
     </footer>
 

@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: locate', function () {
+describe('Service: Locator', function () {
 
   // load the service's module
   beforeEach(module('treasuremapApp'));
 
   // instantiate service
-  var locate;
-  beforeEach(inject(function (_locate_) {
-    locate = _locate_;
+  var Locator;
+  beforeEach(inject(function (_Locator_) {
+    Locator = _Locator_;
   }));
 
   it('should do something', function () {
-    expect(!!locate).toBe(true);
+    expect(!!Locator).toBe(true);
   });
 
 });

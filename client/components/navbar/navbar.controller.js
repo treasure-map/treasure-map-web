@@ -27,6 +27,14 @@ angular.module('treasuremapApp')
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
+    $scope.smallScreen = function() {
+      if(screen.width <= 600) {
+         return true;
+      }else{
+         return false;
+      }
+    };
+
     $scope.locate = function () {
        var find = Locator.locate();
          find.then( function(currPos) {
