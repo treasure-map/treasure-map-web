@@ -10,9 +10,8 @@ $break-small: 415px;
   	height: calc(100vh - 80px);
   }
 
-  .selectedLocation {
-
-    $sidebar-width: 25%;
+  .sidebar {
+    $sidebar-width: 300px;
 
     @media screen and (min-width: $break-small) and (max-width: $break-large) {
       left: -65%;
@@ -24,7 +23,7 @@ $break-small: 415px;
     }
 
     position: absolute;
-    left: -25%;
+    left: -$sidebar-width;
     top: $navbar-height;
     bottom: 0;
     width: $sidebar-width;
@@ -38,7 +37,7 @@ $break-small: 415px;
       color: $brand-primary;
     }
 
-    > .selloc-name {
+    .selloc-name {
       display: block;
       position: relative;
       height: 200px;
@@ -70,7 +69,18 @@ $break-small: 415px;
       position: absolute;
       top: 15px;
       right: 15px;
-      color: white;
+      color: darkgray;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      > li {
+        padding-bottom: 0.5em;
+        border-bottom: lightgray 1px solid;
+        margin-bottom: 0.5em;
+      }
     }
 
     //&.ng-hide-add.ng-hide-add-active,
@@ -113,7 +123,7 @@ $break-small: 415px;
     @media screen and (max-width: $break-small) {
       width: 65%;
       float: right;
-   }    
+   }
 
   }
 

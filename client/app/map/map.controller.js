@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User, Lightbox, Locator, $timeout) {
+  	.controller('MapCtrl', function ($rootScope, $scope, $http, $state, Auth, $modal, search, $filter, User, Lightbox, $timeout, Locator) {
 
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.currentUser = Auth.getCurrentUser();
@@ -230,9 +230,13 @@ angular.module('treasuremapApp')
         $scope.$apply();
       },
       click: function (gMarker, eventName, model) {
-        $scope.selectedLocation = $scope.selectedLocation === model ? null : model;
-        $scope.$apply();
+        $state.go('map.location', { id: model._id });
       }
+    };
+
+    $scope.closeSidebar = function () {
+      $scope.showSidebar = false;
+      $state.go('^');
     };
 
     $scope.$watch('search.filterByFriends', function(filterByFriends){
@@ -273,9 +277,13 @@ angular.module('treasuremapApp')
       }
     });
 
-    function selectLocation (marker, event, location) {
-      $scope.selectedLocation = $scope.selectedLocation ? null : location;
-    }
+    $rootScope.$on('$stateChangeSuccess',
+      function (event, toState, toParams, fromState, fromParams) {
+        $scope.showSidebar = false;
+        if ($state.includes('map.*') && !$state.is('map')) {
+          $scope.showSidebar = true;
+        }
+      });
 
     $scope.searchboxNav = {
       template: 'searchbox.tpl.html',
