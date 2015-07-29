@@ -155,7 +155,9 @@ body {
       float: none;
       clear: both;
 
-      a {
+      a,
+      form {
+        display: inline;
         color: #333; //rgb(33, 194, 184);
         font-size: 16px;
         float: right;
@@ -163,6 +165,19 @@ body {
         text-align: center;
         font-weight: lighter;
         border-bottom: 1px solid $navbar-default-border;
+
+        padding: 2vh 10px;
+        margin: 0;
+
+        .form-group:last-child {
+          margin-bottom: 0;
+        }
+
+        input {
+          display: inline-block;
+          vertical-align: middle;
+          width: auto;
+        }
 
         &:hover {
          color: $brand-primary;

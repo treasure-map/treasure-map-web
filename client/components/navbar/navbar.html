@@ -30,6 +30,19 @@
   <div class="sidebar-nav" ng-class="{'isVisible': showSidebar}">
 
     <ul class="nav navbar-nav">
+      <li>
+        <form role="search">
+          <div class="form-group">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <input class="form-control search-input" type="text" ng-model="search.searchTerm" ngMaxlength="100"
+                   autocomplete="off" placeholder="Search"/>
+          </div>
+          <div class="form-group">
+            <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByFriends" btn-checkbox>Filter by friends</button>
+            <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByMyLocations" btn-checkbox>Filter by my locations</button>
+          </div>
+        </form>
+      </li>
       <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ng-href="{{item.link}}"><span class="glyphicon {{item.icon}}" aria-hidden="true"></span>{{item.title}}</a>
       </li>
