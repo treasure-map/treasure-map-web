@@ -63,7 +63,19 @@ angular.module('treasuremapApp')
             });
          });
       });
+      $scope.clearSearch();
    }
+
+   $scope.clearSearch = function () {
+      $scope.search.searchTerm = '';
+   };
+
+   $timeout(function() {
+       var popups = document.querySelectorAll('*[popover]');
+       var popup = popups[0];
+       var popupElement = angular.element(popup);
+       $(popupElement).popover('show');
+   }, 2000);
 
     $scope.logout = function () {
       Auth.logout();
