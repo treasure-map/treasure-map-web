@@ -15,5 +15,5 @@ angular.module('treasuremapApp')
          }
          return deferred.promise;
       }
-     }
+    };
   });

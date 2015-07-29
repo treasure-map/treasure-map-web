@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  	.controller('MapCtrl', function ($rootScope, $scope, $http, $state, Auth, $modal, search, $filter, User, Lightbox, $timeout) {
+  	.controller('MapCtrl', function ($rootScope, $scope, $http, $state, Auth, $modal, search, $filter, User, Lightbox, $timeout, Locator) {
 
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.currentUser = Auth.getCurrentUser();
