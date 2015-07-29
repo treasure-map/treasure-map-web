@@ -1,35 +1,6 @@
-$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
-$fa-font-path: "/bower_components/font-awesome/fonts";
-
-@import 'font-awesome/scss/font-awesome';
-
-body{
-  	font-family: Helvetica;
-}
-
-.settings-container{
-	min-height: 100vh;
-	min-width: 100%;
-	background-image: url(/assets/images/BGSettings.png); 
-  	-webkit-background-size: contain;
-  	-moz-background-size: contain;
-  	-o-background-size: contain;
-  	background-size: contain;
-  	background-repeat: no-repeat;
-  	background-attachment: fixed;
-  	background-position: center 70px;
-
-  	
-	h1{
-		margin-top: 30px;
-		text-align: center;
-		margin-bottom: 50px;
-	}
-}
-
 .settings-form{
 	width: 500px;
-	margin: 0 auto;
+	margin: 30px auto;
 
 	label{
 		display: inline-block;
@@ -39,6 +10,7 @@ body{
 		width: 500px;
 	}
 	p{
+		margin-top: 30px;
 		font-size: 10px;
 	}
 }

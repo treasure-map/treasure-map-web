@@ -62,11 +62,13 @@ angular.module('treasuremapApp', [
 
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, next) {
+    $rootScope.$on('$stateChangeStart', function (event, next, nextParams, last) {
       Auth.isLoggedInAsync(function(loggedIn) {
         if (next.authenticate && !loggedIn) {
           $location.path('/login');
         }
       });
+
+      angular.element('body').removeClass(last.name).addClass(next.name);
     });
   });
