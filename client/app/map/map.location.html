@@ -1,4 +1,4 @@
-<a class="selloc-name" href='/locations/{{location._id}}' ng-style="{'background-image': 'linear-gradient(transparent 25%, black), url('+location.details.pictures[0]+')'}">
+<a class="selloc-name" href='/locations/{{location._id}}' ng-style="getLocationBackground(location)">
   <h2>{{location.details.name}}</h2>
 </a>
 
