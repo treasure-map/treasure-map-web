@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Location, $stateParams) {
+  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Location, Lightbox, $stateParams) {
     uiGmapGoogleMapApi.then(function (maps) {
       $timeout(function () {
         //maps.event.trigger($scope.mapNew, 'resize');
@@ -13,7 +13,12 @@ angular.module('treasuremapApp')
     $scope.editLocation = Location.get({ id: $stateParams.id }, function() {
       $scope.mapNew.center = $scope.editLocation.coordinates;
       $scope.editLocation.details.category.url = $scope.editLocation.details.category.imgUrl;
+      $scope.images = $scope.editLocation.details.pictures;
     });;
+
+    $scope.openImage = function (index) {
+      Lightbox.openModal($scope.images, index);
+    };
 
     console.log($scope.editLocation);
     $scope.alerts = [];
@@ -36,7 +41,7 @@ angular.module('treasuremapApp')
         draggable: false
       }
     };
-    $scope.searchbox = {
+    $scope.searchboxEdit = {
       template: 'searchbox.tpl.html',
       events: {
         places_changed: function (searchBox) {
@@ -149,7 +154,3 @@ angular.module('treasuremapApp')
     };
 
   });
-
-
-
-

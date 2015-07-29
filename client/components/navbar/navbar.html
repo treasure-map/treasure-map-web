@@ -12,10 +12,12 @@
           <a href="/" id="addNewLocation" ng-click="openModal('lg')" ng-show="isLoggedIn()" style="margin-top: 18px">Add new location</a>
        </div-->
        <a class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
-       <form class="navbar-form search" role="search">
+       <form class="navbar-form search" role="search" ng-hide="showSearch != 'map'" ng-cloak>
            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-           <input class="form-control search-input" type="text" ng-model="search.searchTerm" ngMaxlength="100" autocomplete="off" placeholder="Search" />
+           <div id="address-search"></div>
+           <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true"></span>
        </form>
+
        <!--div class="registration">
          <li><a href="/login" ng-hide="isLoggedIn()" style="position:relative"> Login</a></li>
          <li><a href="/signup" ng-hide="isLoggedIn()">Sign up</a></li>
@@ -71,3 +73,14 @@
 
   </div>
 </div>
+
+<script type="text/ng-template" id="searchbox.tpl.html">
+<input type="search"
+       name="address"
+       id="pac-input"
+       class="pac-controls form-control"
+       ng-model="ngModel"
+       placeholder="Search a Location"
+       required
+       mongoose-error/>
+       </script>

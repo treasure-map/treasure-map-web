@@ -2,18 +2,20 @@
   "name": "treasuremap",
   "version": "0.0.1",
   "dependencies": {
-    "angular": ">=1.2.*",
+    "angular": ">=1.4.3",
+    "angular-touch": ">=1.4.3",
     "json3": "~3.3.1",
     "es5-shim": "~3.0.1",
     "jquery": "~1.11.0",
     "bootstrap-sass-official": "~3.1.1",
     "bootstrap": "~3.1.1",
-    "angular-resource": ">=1.2.*",
-    "angular-cookies": ">=1.2.*",
-    "angular-sanitize": ">=1.2.*",
+    "angular-resource": ">=1.4.3",
+    "angular-cookies": ">=1.4.3",
+    "angular-sanitize": ">=1.4.3",
+    "angular-animate": ">=1.4.3",
     "angular-bootstrap": "~0.13.0",
     "font-awesome": ">=4.1.0",
-    "lodash": "~2.4.1",
+    "lodash": "~3.10.0",
     "angular-ui-router": "~0.2.10",
     "angular-google-maps": "~2.1.0",
     "ng-file-upload": "~4.2.4",
@@ -24,12 +26,8 @@
     "angular-bootstrap-lightbox": "~0.6.1"
   },
   "devDependencies": {
-    "angular-mocks": ">=1.2.*",
-    "angular-scenario": ">=1.2.*"
-  },
-  "resolutions": {
-    "angular": ">=1.2.*",
-    "lodash": "~2.4.1"
+    "angular-mocks": ">=1.4.3",
+    "angular-scenario": ">=1.4.3"
   },
   "overrides": {
     "crypto-js": {

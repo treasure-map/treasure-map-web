@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User, Lightbox) {
+  	.controller('MapCtrl', function ($scope, $http, Auth, $modal, search, $filter, User, Lightbox, Locator, $timeout) {
 
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.currentUser = Auth.getCurrentUser();
@@ -33,7 +33,7 @@ angular.module('treasuremapApp')
             url: 'assets/images/Cluster.png'
           }
         };
-        $scope.map = { center: newLocation.coordinates, zoom: 15 };
+        $scope.search.map = { center: newLocation.coordinates, zoom: 15 };
 
         newLocation.icon = {
           url: newLocation.details.category.imgUrl
@@ -136,31 +136,27 @@ angular.module('treasuremapApp')
       imageSizes: [72]
     };
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(pos) {
-        var currPos = pos.coords;
-
-        $scope.$apply(function() {
-          $scope.userLocation = {
-            latitude: currPos.latitude,
-            longitude: currPos.longitude
-          };
-          $scope.map = {
-            center: {
-              latitude: currPos.latitude,
-              longitude: currPos.longitude
-            },
-            zoom: 14
-          };
-        });
-        $scope.getLocations($scope.userLocation, $scope.searchRadius);
+    var locate = Locator.locate();
+    locate.then( function(currPos) {
+       $timeout(function() {
+         $scope.$apply(function() {
+           $scope.search.userLocation = {
+             latitude: currPos.latitude,
+             longitude: currPos.longitude
+           };
+           $scope.search.map = {
+             center: {
+               latitude: currPos.latitude,
+               longitude: currPos.longitude
+             },
+             zoom: 14
+           };
+         });
+         $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
       });
-    } else {
-      $scope.getLocations($scope.map.center, $scope.searchRadius);
-      console.log('No support of geolocation');
-    }
+   });
 
-    $scope.map = {
+    $scope.search.map = {
       center: {
         latitude: 52.5075419,
         longitude: 13.4251364
@@ -170,9 +166,9 @@ angular.module('treasuremapApp')
     $scope.options = {
       styles: style
     };
-    $scope.map.clusterOptions = angular.toJson(cluster);
+    $scope.search.map.clusterOptions = angular.toJson(cluster);
     $scope.searchRadius = 25;
-    $scope.userLocation = $scope.map.center;
+    $scope.search.userLocation = $scope.search.map.center;
 
     $scope.locations = [];
 
@@ -287,5 +283,42 @@ angular.module('treasuremapApp')
       } else {
         $scope.filteredLocations = $scope.locations;
       }
-    });
+    };
+
+    function selectLocation (marker, event, location) {
+      $scope.selectedLocation = $scope.selectedLocation ? null : location;
+    }
+
+    $scope.searchboxNav = {
+      template: 'searchbox.tpl.html',
+      events: {
+        places_changed: function(searchBox) {
+          $scope.place = searchBox.getPlaces()[0];
+
+          var coordinates = {
+            lat: $scope.place.geometry.location.lat(),
+            latitude: $scope.place.geometry.location.lat(),
+            lng: $scope.place.geometry.location.lng(),
+            longitude: $scope.place.geometry.location.lng()
+          };
+
+          $scope.$apply(function() {
+            $scope.search.userLocation = {
+              latitude: coordinates.latitude,
+              longitude: coordinates.longitude
+            };
+            $scope.search.map = {
+              center: {
+                latitude: coordinates.latitude,
+                longitude: coordinates.longitude
+              },
+              zoom: 14
+            };
+          });
+          $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
+
+        }
+      }
+    };
+
  });

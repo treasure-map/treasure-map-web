@@ -32,7 +32,7 @@
                                             'has-error': form.address.$invalid && submitted }">
       <label>{{editLocation.address.street}}, {{editLocation.address.zipcode }} {{editLocation.address.city}}</label>
 
-      <div id="address-search"></div>
+      <div id="address-search-edit"></div>
 
       <p class="help-block" ng-show="form.address.$error.required && submitted">
         Address required
@@ -104,24 +104,24 @@
     </div>
 
     <div class="col-md-6">
-      <script type="text/ng-template" id="searchbox.tpl.html">
+      <!--script type="text/ng-template" id="searchbox.tpl.html">
         <input type="search"
                name="address"
                id="pac-input"
                class="pac-controls form-control"
                ng-model="ngModel"
-               placeholder="Search for an address"
+               placeholder="Search"
                required
                mongoose-error/>
-      </script>
+      </script-->
       <div ng-if="showMap">
         <ui-gmap-google-map center="mapNew.center"
                             zoom="mapNew.zoom"
                             options="mapNew.options">
           <ui-gmap-marker coords="editLocation.coordinates" idkey="1" icon="editLocation.details.category"></ui-gmap-marker>
-          <ui-gmap-search-box template="searchbox.template"
-                              events="searchbox.events"
-                              parentdiv="'address-search'"
+          <ui-gmap-search-box template="searchboxEdit.template"
+                              events="searchboxEdit.events"
+                              parentdiv="'address-search-edit'"
                               ng-model="editLocation.address.readable"></ui-gmap-search-box>
         </ui-gmap-google-map>
       </div>
@@ -131,7 +131,7 @@
       <label class="col-sm-12">Photos</label>
       <div class="col-sm-12">
         <div ng-repeat="pic in editLocation.details.pictures" class="images col-sm-4">
-          <a href="{{pic}}" class="loc-picture thumbnail">
+          <a ng-click="openImage($index)" class="loc-picture thumbnail">
             <img src="{{pic}}" alt="">
           </a>
           <span class="glyphicon glyphicon-remove" ng-click="removePicture(pic)"></span>
@@ -180,6 +180,3 @@
     </div>
 
   </form>
-
-
-

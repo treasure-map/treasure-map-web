@@ -58,7 +58,7 @@ body {
 
   .search {
     display: inline;
-    width: 255px;
+    width: 285px;
     float: right;
 
     span {
@@ -71,6 +71,15 @@ body {
    input {
       width: 200px;
       font-size: 16px;
+   }
+
+   .glyphicon-record {
+      margin-left: 4px;
+      cursor: pointer;
+   }
+
+   #address-search {
+     display: inline;
    }
 
   }

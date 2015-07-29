@@ -3,23 +3,26 @@
 <div class="container location">
   <div class="row">
     <div class="col-sm-6">
+       <a class="loc-edit" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()">
+         <span class="glyphicon glyphicon-edit"></span> Edit
+       </a>
       <h1>{{location.details.name}}</h1>
 
       <a ng-href="categories/{{location.details.category._id}}"><h3>{{location.details.category.name}}</h3></a>
 
-      <p class="loc-owner" ng-show="location.owner">Owner: <a ng-href="/users/{{location.owner._id}}">{{location.owner.name}}</a></p>
+      <p class="loc-owner" ng-show="location.owner">Created by: <a ng-href="/users/{{location.owner._id}}">{{location.owner.name}}</a></p>
 
       <p class="loc-address">{{location.address.street}}, {{location.address.zipcode }} {{location.address.city}}</p>
 
       <p class="loc-duration"><strong>Duration:</strong> {{location.details.duration}}h</p>
 
+      <h3 ng-show="location.details.description.length >= 1 || location.details.imports.length >= 1">Description</h3>
+
       <div class="description" ng-show="location.details.description.length >= 1">
-         <h3>Description</h3>
          <p class="loc-description">{{location.details.description}}</p>
       </div>
 
       <div class="description" ng-show="location.details.imports.length >= 1">
-         <h3>Wikipedia</h3>
          <p class="loc-imports" ng-bind-html="location.details.imports"></p>
       </div>
 
@@ -29,7 +32,12 @@
            <a href="{{link.url}}" class="loc-links link" ng-repeat="link in location.details.links" target="_blank">{{link.name}}<br/></a>
          </div>
       </div>
-    </div>
+
+      <div class="social">
+         <a ng-click="share(social.name)" ng-repeat="social in socials"><img src="{{social.icon}}" alt="{{social.name}}"></a>
+      </div>
+
+   </div>
 
     <div class="col-sm-6">
       <ui-gmap-google-map
@@ -43,20 +51,20 @@
     </div>
   </div>
 
+  <hr/>
+
   <div class="row" ng-show="location.details.pictures.length >= 1">
     <div class="col-sm-12">
       <h3>Images</h3>
-      <div class="loc-pictures">
-        <a ng-click="openImage($index)" class="loc-picture thumbnail" ng-repeat="pic in location.details.pictures">
-          <img src="{{pic}}" alt="">
-        </a>
+      <div ng-repeat="pic in location.details.pictures" class="loc-images col-sm-4">
+         <a ng-click="openImage($index)" class="loc-picture thumbnail">
+            <img src="{{pic}}" alt="">
+          </a>
       </div>
     </div>
   </div>
 
-  <button class="btn btn-primary btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()">
-    Edit
-  </button>
+  <hr/>
 
   <div id="disqus_thread" class="comments col-sm-12" ng-controller="DisqusCtrl"></div>
 
