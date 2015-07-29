@@ -276,10 +276,11 @@ angular.module('treasuremapApp')
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
+          var random = Math.floor((Math.random() * 1000000) + 1);
+          //var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
           var params = {
             Bucket: S3_BUCKET,
-            Key: 'images/' + filename,
+            Key: 'images/' + random + file.name,
             ContentLength: file.length,
             ContentType: file.type,
             Body: file
