@@ -1,0 +1,28 @@
+<h3>Users</h3>
+
+<form>
+  <div class="form-group">
+    <label class="sr-only" for="userFilter">Filter users</label>
+
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input type="text" class="form-control" id="userFilter" placeholder="Filter users" ng-model="userFilter">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="allUsers"> Show all users
+      </label>
+    </div>
+  </div>
+</form>
+
+<ul class="users">
+  <li ng-repeat="u in users | orderBy:'name' | filter:userFilter" ng-hide="!allUsers && !isFriend(u._id)"><a
+    ng-href="/users/{{u._id}}">{{u.name}}</a>
+    <span ng-show="u._id == currentUser._id">me</span>
+    <span ng-show="isFriend(u._id)">friend</span>
+  </li>
+</ul>

@@ -4,21 +4,30 @@ angular.module('treasuremapApp')
   .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout, $state) {
     $scope.menu = [{
       'title': 'Map',
-      'link': '/',
+      'link': 'map',
       'icon':'glyphicon-globe'
     }, {
       'title': 'Feed',
-      'link': '/feed',
+      'link': 'friends',
       'icon':'glyphicon-bullhorn'
     }, {
       'title': 'Friends',
-      'link': '/users',
+      'link': 'users',
       'icon':'glyphicon-user'
     }, {
       'title': 'Locations',
-      'link': '/locations',
+      'link': 'locations',
       'icon':'glyphicon-map-marker'
     }];
+
+    $scope.currentState = $state.$current.name;
+    if ($scope.currentState === 'map') {
+      _.each($scope.menu, function (item) {
+        if (item.link === 'map') return;
+        item.link = 'map.' + item.link;
+        //item.onclick = 'showSidebar = true';
+      });
+    }
 
     $scope.showSearch = $state.$current.name;
     $scope.search = search;
@@ -59,7 +68,6 @@ angular.module('treasuremapApp')
 
     $scope.showSidebar = false;
     $scope.copyright = new Date().getFullYear();
-
   })
   .value('search', {
      searchTerm: '',
