@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout) {
+  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout, $state) {
     $scope.menu = [{
       'title': 'Map',
       'link': '/',
@@ -20,6 +20,7 @@ angular.module('treasuremapApp')
       'icon':'glyphicon-map-marker'
     }];
 
+    $scope.showSearch = $state.$current.name;
     $scope.search = search;
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

@@ -12,7 +12,7 @@
           <a href="/" id="addNewLocation" ng-click="openModal('lg')" ng-show="isLoggedIn()" style="margin-top: 18px">Add new location</a>
        </div-->
        <a class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
-       <form class="navbar-form search" role="search">
+       <form class="navbar-form search" role="search" ng-hide="showSearch != 'map'" ng-cloak>
            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
            <div id="address-search"></div>
            <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true"></span>
