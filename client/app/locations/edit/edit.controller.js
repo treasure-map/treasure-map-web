@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Location, Lightbox, $stateParams) {
+  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Auth, Location, Lightbox, $stateParams) {
+    $scope.currentUser = Auth.getCurrentUser();
+
     uiGmapGoogleMapApi.then(function (maps) {
       $timeout(function () {
         //maps.event.trigger($scope.mapNew, 'resize');
@@ -14,7 +16,7 @@ angular.module('treasuremapApp')
       $scope.mapNew.center = $scope.editLocation.coordinates;
       $scope.editLocation.details.category.url = $scope.editLocation.details.category.imgUrl;
       $scope.images = $scope.editLocation.details.pictures;
-    });;
+    });
 
     $scope.openImage = function (index) {
       Lightbox.openModal($scope.images, index);
