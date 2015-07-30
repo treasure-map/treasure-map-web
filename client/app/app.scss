@@ -5,7 +5,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
 
-$break-large: 600px;
+$break-huge: 1024px;
+$break-large: 770px;
 $break-small: 415px;
 
 /**
@@ -19,7 +20,7 @@ body {
   &.settings,
   &.login,
   &.signup {
-    background: url(/assets/images/BG.png) no-repeat center;
+    background: url(/assets/images/BG.png) repeat-y top;
     background-size: contain;
     background-attachment: fixed;
 
@@ -49,7 +50,7 @@ body {
 
 .navbar {
 
-  z-index: 10;
+  z-index: 1000;
   display: inline !important;
   height: 80px;
 
@@ -59,6 +60,14 @@ body {
     padding: 0;
   }
 
+}
+
+@media screen and (max-width: $break-small) {
+   .container {
+      > .navbar-header, > .row {
+         margin: auto 0;
+      }
+   }
 }
 
 .navbar-header {
@@ -72,10 +81,29 @@ body {
     vertical-align: middle;
     display: inline;
     font-weight: 100;
+
+    @media screen and (max-width: $break-small) {
+       font-size: 18px;
+    }
+
   }
 
   .navbar-brand {
      padding: 15px;
+
+     &:hover {
+       text-decoration: none !important;
+    }
+
+    @media screen and (max-width: $break-small) {
+
+      line-height: 45px;
+
+       img {
+         height: 80%;
+       }
+    }
+
    }
 
   .addLocation {
@@ -132,8 +160,16 @@ body {
 
   .nav-icon {
 
-     @media screen and (max-width: $break-small) {
-      padding: 22px;
+     @media screen and (max-width: $break-large) {
+      padding: 15px;
+      line-height: 45px;
+      float: right;
+      min-width: 50px;
+
+      &:before {
+         float: right;
+      }
+
      }
 
     display: inline !important;
@@ -176,12 +212,13 @@ body {
   height: 100vh;
   padding-top: $navbar-height;
   background: $navbar-default-bg;
-  z-index: 9;
+  z-index: 100;
   transition: all 0.5s ease-in;
   border-left: 1px solid $navbar-default-border;
 
   ul {
     width: 100%;
+    margin: 0;
 
     li {
       float: none;
@@ -232,6 +269,37 @@ body {
         font-size: 16px;
         float: left;
         padding-left: 15px;
+      }
+
+      .search-small {
+
+         margin-bottom: 0;
+
+         form {
+            height: 100%;
+
+            #address-search {
+               float: left;
+               display: inline;
+               width: 77%;
+
+               input {
+                  width: 185px;
+                  text-align: center;
+               }
+            }
+
+            span {
+               line-height: 34px;
+            }
+
+            .locate {
+               padding: 0 15px 0 0;
+               float: right
+            }
+
+         }
+
       }
 
     }

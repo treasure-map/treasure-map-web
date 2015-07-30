@@ -37,7 +37,7 @@ angular.module('treasuremapApp')
     $scope.getCurrentUser = Auth.getCurrentUser;
 
     $scope.smallScreen = function() {
-      if(screen.width <= 600) {
+      if(screen.width <= 800) {
          return true;
       }else{
          return false;
@@ -64,6 +64,7 @@ angular.module('treasuremapApp')
          });
       });
       $scope.clearSearch();
+      $scope.search.showSidebar = false;
    };
 
    $scope.clearSearch = function () {
@@ -86,13 +87,14 @@ angular.module('treasuremapApp')
       return route === $location.path();
     };
 
-    $scope.showSidebar = false;
+    $scope.search.showSidebar = false;
     $scope.copyright = new Date().getFullYear();
   })
   .value('search', {
      searchTerm: '',
      map: '',
      userLocation: '',
+     showSidebar: false,
      filterByFriends: false,
      filterByMyLocations: false
   });

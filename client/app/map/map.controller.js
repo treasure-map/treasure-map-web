@@ -146,6 +146,13 @@ angular.module('treasuremapApp')
       });
    });
 
+   var hideUI;
+   if(screen.width <= 800) {
+      hideUI = true;
+   }else{
+      hideUI = false;
+   }
+
     $scope.search.map = {
       center: {
         latitude: 52.5075419,
@@ -154,7 +161,8 @@ angular.module('treasuremapApp')
       zoom: 14
     };
     $scope.options = {
-      styles: style
+      styles: style,
+      disableDefaultUI: hideUI
     };
     $scope.searchRadius = 25;
     $scope.search.userLocation = $scope.search.map.center;
@@ -316,6 +324,7 @@ angular.module('treasuremapApp')
             };
           });
           $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
+          $scope.search.showSidebar = false;
 
         }
       }
