@@ -1,12 +1,13 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
+<div class="container signup-container">
   <div class="row">
     <div class="col-sm-12">
       <h1>Sign up</h1>
+      <h3>and become a member of Treasure Map</h3>
     </div>
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="register(form)" novalidate>
+      <form class="form sign" name="form" ng-submit="register(form)" novalidate>
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
@@ -54,29 +55,23 @@
           </p>
         </div>
 
-        <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
+        <div class="signup-button">
+          <button class="btn btn-inverse btn-lg btn-signup" type="submit">
             Sign up
           </button>
-          <a class="btn btn-default btn-lg btn-register" href="/login">
-            Login
-          </a>
         </div>
-
-        <hr>
-        <div>
-          <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
-            <i class="fa fa-facebook"></i> Connect with Facebook
+        <div class="socialbar">
+          <a class="btn-facebook" href="" ng-click="loginOauth('facebook')">
+            <img src="/assets/images/facebook.png" alt="facebook_btn" width="40px" height="40px"/>
           </a>
-          <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
-            <i class="fa fa-google-plus"></i> Connect with Google+
+          <a class="btn-google-plus" href="" ng-click="loginOauth('google')">
+            <img src="/assets/images/googleplus.png" alt="googleplus_btn" width="40px" height="40px"/>
           </a>
-          <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
-            <i class="fa fa-twitter"></i> Connect with Twitter
+          <a class="btn-twitter" href="" ng-click="loginOauth('twitter')">
+            <img src="/assets/images/twitter.png" alt="twitter_btn" width="40px" height="40px"/>
           </a>
         </div>
       </form>
     </div>
   </div>
-  <hr>
 </div>

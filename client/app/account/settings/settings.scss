@@ -1,0 +1,21 @@
+.settings-form{
+	width: 500px;
+	margin: 30px auto;
+
+	label{
+		display: inline-block;
+		text-align: right;
+	}
+	input{
+		width: 500px;
+	}
+	p{
+		margin-top: 30px;
+		font-size: 10px;
+	}
+}
+
+.buttons{
+	margin-top: 50px;
+	text-align: center;
+}

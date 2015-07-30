@@ -1,17 +1,13 @@
-.login-container{
+.signup-container{	
 	h3{
 		text-align: center;
 		margin-bottom: 30px;
 	}
-	p{
-		text-align: center;
-		font-size: 12px;
-	}
 }
 
-.login-form{
-	width: 500px ;
-    margin: 0 auto;
+.sign{
+	width: 500px;
+	margin: 0 auto;
 
 	label{
 		display: inline-block;
@@ -25,22 +21,19 @@
 	}
 }
 
-.button-row{
-	width: 80px ;
+.signup-button{
+	width: 95px ;
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 20px;
 
-    .btn-login{
-    	margin-right: 30px;
+    .btn-signup{
+    	margin-right: 0px;
     	background-color: #21c2b8;
     	&:hover{
 			color: #fff
 		}
     }
-    /*.btn-register{
-    	margin-left: 30px;
-    }*/
 }
 
 .socialbar{

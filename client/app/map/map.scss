@@ -3,11 +3,11 @@ $break-small: 415px;
 
 .map {
   width: 100%;
-  margin-top: -$navbar-margin-bottom;
-  height: calc(100vh - 80px);
+  //margin-top: -$navbar-margin-bottom;
+  height: 100vh;
 
   .angular-google-map-container {
-  	height: calc(100vh - 80px);
+  	height: 100vh;
   }
 
   .sidebar {
