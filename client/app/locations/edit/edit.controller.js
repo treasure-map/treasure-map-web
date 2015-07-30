@@ -139,9 +139,16 @@ angular.module('treasuremapApp')
     $scope.upload = function (files) {
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
-          var params = {Bucket: S3_BUCKET, Key: 'images/' + filename, ContentType: file.type, Body: file};
+           var file = files[i];
+          var random = Math.floor((Math.random() * 1000000) + 1);
+          //var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
+          var params = {
+            Bucket: S3_BUCKET,
+            Key: 'images/' + random + file.name,
+            ContentLength: file.length,
+            ContentType: file.type,
+            Body: file
+          };
           S3.upload(params, function (err, data) {
             if (err) {
               console.log(err, err.stack);

@@ -64,7 +64,7 @@ angular.module('treasuremapApp')
          });
       });
       $scope.clearSearch();
-   }
+   };
 
    $scope.clearSearch = function () {
       $scope.search.searchTerm = '';
