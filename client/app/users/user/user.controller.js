@@ -9,7 +9,7 @@ angular.module('treasuremapApp')
 
     $scope.addFriend = function (user) {
       Auth.addFriend(user._id).then( function() {
-        $scope.currentUser.friends.push(user._id);
+        $scope.currentUser.friends.push(user);
         console.log('Friend added');
       });
     };

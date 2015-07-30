@@ -230,7 +230,11 @@ angular.module('treasuremapApp')
         $scope.$apply();
       },
       click: function (gMarker, eventName, model) {
-        $state.go('map.location', { id: model._id });
+        if ($state.params.id === model._id) {
+          $state.go('map');
+        } else {
+          $state.go('map.location', { id: model._id });
+        }
       }
     };
 
@@ -317,4 +321,21 @@ angular.module('treasuremapApp')
       }
     };
 
+    $scope.getLocationBackground = function (location) {
+      if (location.details !== undefined) {
+        if (location.details.pictures.length > 0) {
+          return {
+            'background-image': 'linear-gradient(transparent 25%, black), url(' + location.details.pictures[0] + ')',
+            'height': '200px'
+          }
+        } else {
+          return {
+            'height': '75px',
+            'margin': 0,
+            'margin-left': '-15px',
+            'color': 'black'
+          }
+        }
+      }
+    };
  });
