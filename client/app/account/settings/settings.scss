@@ -19,3 +19,14 @@
 	margin-top: 50px;
 	text-align: center;
 }
+
+.btn-save{
+  margin-right: 0px;
+  color: #fff;
+  background-color: #21c2b8;
+  &:hover{
+	  color: #333;
+	  text-decoration: none;
+	  background-color: #21c2b8;
+  }
+}

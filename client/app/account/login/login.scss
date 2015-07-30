@@ -5,7 +5,7 @@
 	}
 	p{
 		text-align: center;
-		font-size: 12px;
+		font-size: 14px;
 	}
 }
 
@@ -34,13 +34,23 @@
     .btn-login{
     	margin-right: 30px;
     	background-color: #21c2b8;
+		color: #fff;
+
     	&:hover{
-			color: #fff
+			color: #333;
 		}
     }
     /*.btn-register{
     	margin-left: 30px;
     }*/
+}
+
+.signup {
+
+	p {
+		font-size: 14px;
+		padding: 10px 0;
+	}
 }
 
 .socialbar{
@@ -51,15 +61,18 @@
 .btn-facebook{
 	&:hover{
 		opacity: 0.5;
+		text-decoration: none;
 	}
 }
 .btn-google-plus{
 	&:hover{
 		opacity: 0.5;
+		text-decoration: none;
 	}
 }
 .btn-twitter{
 	&:hover{
 		opacity: 0.5;
+		text-decoration: none;
 	}
 }

@@ -1,4 +1,4 @@
-.signup-container{	
+.signup-container{
 	h3{
 		text-align: center;
 		margin-bottom: 30px;
@@ -29,30 +29,35 @@
 
     .btn-signup{
     	margin-right: 0px;
+		color: #fff;
     	background-color: #21c2b8;
     	&:hover{
-			color: #fff
+			color: #333;
 		}
     }
 }
 
 .socialbar{
 	width: 128px ;
-    margin: 0 auto;
+   margin: 0 auto;
+	padding: 10px 0;
 }
 
 .btn-facebook{
 	&:hover{
 		opacity: 0.5;
+		text-decoration: none;
 	}
 }
 .btn-google-plus{
 	&:hover{
 		opacity: 0.5;
+		text-decoration: none;
 	}
 }
 .btn-twitter{
 	&:hover{
 		opacity: 0.5;
+		text-decoration: none;
 	}
 }
