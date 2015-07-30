@@ -1,10 +1,25 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  	.controller('MapCtrl', function ($scope, $http, Auth, $modal) {
-    $scope.isLoggedIn = Auth.isLoggedIn;
+  	.controller('MapCtrl', function ($rootScope, $scope, $http, $state, Auth, $modal, search, $filter, User, Lightbox, $timeout, Locator) {
 
-    $scope.openModal = function (size) {
+    $scope.isLoggedIn = Auth.isLoggedIn;
+    $scope.currentUser = Auth.getCurrentUser();
+
+    $scope.search = search;
+
+    $scope.openImage = function (index, images) {
+      Lightbox.openModal(images, index);
+    };
+
+    $scope.$watch("search.searchTerm", function(searchTerm){
+      $scope.filteredLocations = $filter("filter")($scope.locations, searchTerm);
+      if (!$scope.filteredLocations){
+        return;
+      }
+    });
+
+    $scope.openModal = function(size) {
 
       var modalInstance = $modal.open({
         templateUrl: 'app/locations/new/new.html',
@@ -12,106 +27,137 @@ angular.module('treasuremapApp')
         size: size
       });
 
-      modalInstance.result.then(function (newLocation) {
-        newLocation.coordinates.latitude = newLocation.coordinates.lat;
-        newLocation.coordinates.longitude = newLocation.coordinates.lng;
+      modalInstance.result.then(function(newLocation) {
         newLocation.cluster = {
-          styles: { url: 'assets/images/Cluster.png' }
+          styles: {
+            url: 'assets/images/Cluster.png'
+          }
         };
+        $scope.search.map = { center: newLocation.coordinates, zoom: 15 };
 
         newLocation.icon = {
           url: newLocation.details.category.imgUrl
         };
 
+        //location.click = selectLocation;
+
         $scope.locations.push(newLocation);
-      }, function () {
+      }, function() {
         console.log('Modal dismissed at: ' + new Date());
       });
     };
 
-    var style = [
-      {
-        'featureType': 'poi',
-        'elementType': 'labels',
-        'stylers': [
-          { 'visibility': 'off' }
-        ]
-      },{
-        'stylers': [
-          { 'gamma': 0.5 },
-          { 'saturation': -1 }
-        ]
-      },{
-        'featureType': 'water',
-        'elementType': 'geometry.fill',
-        'stylers': [
-          { 'color': '#21C2B8' }
-        ]
-      },{
-        'featureType': 'water',
-        'elementType': 'geometry.stroke',
-        'stylers': [
-          { 'weight': 0.25 }
+    var style = [{
+      "elementType": "labels.text",
+      "stylers": [{
+        "visibility": "simplified"
+      }, {
+        "color": "#666666"
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "labels",
+      "stylers": [{
+        "visibility": "on"
+      }]
+    }, {
+      "elementType": "geometry",
+      "stylers": [{
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "labels",
+      "stylers": [{
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "landscape.natural",
+      "stylers": [{
+        "gamma": 2.5
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "water",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "lightness": 25
+      }, {
+        "gamma": 1.2
+      }]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#FF931E"
+      }, {
+        "gamma": 1.5
+      }]
+    }, {
+      "featureType": "landscape.man_made",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#f3f3f3"
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "visibility": "on"
+      }, {
+        "color": "#e9e9e9"
+      }]
+    }, {
+      "featureType": "transit",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#e3e3e3"
+      }]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "labels.icon",
+      "stylers": [{
+        "visibility": "simplified"
+      }, {
+        "gamma": 1.85
+      }]
+    }];
 
-        ]
-      },{
-        'featureType': 'road.highway',
-        'elementType': 'geometry.fill',
-        'stylers': [
-          { 'color': '#FF931E' }
-        ]
-      },{
-        'featureType': 'road.highway',
-        'elementType': 'geometry.stroke',
-        'stylers': [
-          { 'weight': 0.25 }
-        ]
-      },{
-        'featureType': 'landscape.natural',
-        'elementType': 'geometry.fill',
-        'stylers': [
-          { 'color': '#39B54A' }
-        ]
-      }
-    ];
-
-    var cluster = {
-        title: 'Hi I am a Cluster!',
-        gridSize: 60,
-        ignoreHidden: true,
-        minimumClusterSize: 2,
-        imageExtension: 'png',
-        imagePath: 'assets/images/Cluster',
-        imageSizes: [72]
-      };
-
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition( function(pos) {
-        var currPos = pos.coords;
-
-        $scope.$apply(function () {
-          $scope.userLocation = {
-            latitude: currPos.latitude,
-            longitude: currPos.longitude
-          };
-          $scope.map = {
-            center: { latitude: currPos.latitude, longitude: currPos.longitude },
-            zoom: 14
-          };
-        });
-        $scope.getLocations($scope.userLocation, $scope.searchRadius);
+    var locate = Locator.locate();
+    locate.then( function(currPos) {
+       $timeout(function() {
+         $scope.$apply(function() {
+           $scope.search.userLocation = {
+             latitude: currPos.latitude,
+             longitude: currPos.longitude
+           };
+           $scope.search.map = {
+             center: {
+               latitude: currPos.latitude,
+               longitude: currPos.longitude
+             },
+             zoom: 14
+           };
+         });
+         $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
       });
-    }else{
-      $scope.getLocations($scope.map.center, $scope.searchRadius);
-      console.log('No support of geolocation');
-    }
+   });
 
-    $scope.map = { center: { latitude: 52.5075419, longitude: 13.4251364 }, zoom: 14 };
-    $scope.options = { styles: style };
-    $scope.map.clusterOptions = angular.toJson(cluster);
-    $scope.searchRadius = 5;
-    $scope.userLocation = $scope.map.center;
-
+    $scope.search.map = {
+      center: {
+        latitude: 52.5075419,
+        longitude: 13.4251364
+      },
+      zoom: 14
+    };
+    $scope.options = {
+      styles: style
+    };
+    $scope.searchRadius = 25;
+    $scope.search.userLocation = $scope.search.map.center;
 
     $scope.locations = [];
 
@@ -125,6 +171,9 @@ angular.module('treasuremapApp')
       }).success(function(locations) {
         $scope.labels = '';
         $scope.locations = locations;
+
+        $scope.filteredLocations = $scope.locations;
+
         _.each($scope.locations, function(location){
 
         //var link = location.details.name
@@ -146,8 +195,13 @@ angular.module('treasuremapApp')
         //location.duration = location.details.duration;
         //location.id = location.details.category._id;
 
-          location.cluster = {
-            styles: { url: 'assets/images/Cluster.png' }
+          $scope.clusterOpt = {
+            styles: [{
+              textColor: "white",
+              height: 50,
+              url: "assets/images/ClusterPin02.png",
+              width: 50
+            }],
           };
 
           location.icon = {
@@ -157,7 +211,131 @@ angular.module('treasuremapApp')
             // anchor: new google.maps.Point(0, 17)
           };
 
+          //location.click = selectLocation;
+
         });
       });
+    };
+
+    var clicked = false;
+
+    $scope.markersEvents = {
+      mouseover: function (gMarker, eventName, model) {
+        clicked = false;
+        model.show = true;
+        $scope.$apply();
+      },
+      mouseout: function (gMarker, eventName, model) {
+        model.show = clicked === true;
+        $scope.$apply();
+      },
+      click: function (gMarker, eventName, model) {
+        if ($state.params.id === model._id) {
+          $state.go('map');
+        } else {
+          $state.go('map.location', { id: model._id });
+        }
+      }
+    };
+
+    $scope.closeSidebar = function () {
+      $scope.showSidebar = false;
+      $state.go('^');
+    };
+
+    $scope.$watch('search.filterByFriends', function(filterByFriends){
+      if (filterByFriends) {
+        $scope.filteredLocations = [];
+
+        for(var i = 0; i < $scope.currentUser.friends.length; i++) {
+          $scope.currentUser.friends[i].locations = User.locations({ id: $scope.currentUser.friends[i]._id }, function (locations) {
+            _.each(locations, function(location){
+              location.cluster = { styles: { url: 'assets/images/Cluster.png' } };
+              location.icon = { url: location.details.category.imgUrl };
+
+              //location.click = selectLocation;
+            });
+
+            $scope.filteredLocations = $scope.filteredLocations.concat(locations);
+          });
+        }
+      } else {
+        $scope.filteredLocations = $scope.locations;
+      }
+    });
+    $scope.$watch('search.filterByMyLocations', function(filterByMyLocations){
+      if (filterByMyLocations) {
+        $scope.filteredLocations = [];
+
+        $scope.currentUser.locations = User.locations({ id: $scope.currentUser._id }, function (locations) {
+          _.each(locations, function(location){
+            location.icon = { url: location.details.category.imgUrl };
+
+            //location.click = selectLocation;
+          });
+
+          $scope.filteredLocations = locations;
+        });
+      } else {
+        $scope.filteredLocations = $scope.locations;
+      }
+    });
+
+    $rootScope.$on('$stateChangeSuccess',
+      function (event, toState, toParams, fromState, fromParams) {
+        $scope.showSidebar = false;
+        if ($state.includes('map.*') && !$state.is('map')) {
+          $scope.showSidebar = true;
+        }
+      });
+
+    $scope.searchboxNav = {
+      template: 'searchbox.tpl.html',
+      events: {
+        places_changed: function(searchBox) {
+          $scope.place = searchBox.getPlaces()[0];
+
+          var coordinates = {
+            lat: $scope.place.geometry.location.lat(),
+            latitude: $scope.place.geometry.location.lat(),
+            lng: $scope.place.geometry.location.lng(),
+            longitude: $scope.place.geometry.location.lng()
+          };
+
+          $scope.$apply(function() {
+            $scope.search.userLocation = {
+              latitude: coordinates.latitude,
+              longitude: coordinates.longitude
+            };
+            $scope.search.map = {
+              center: {
+                latitude: coordinates.latitude,
+                longitude: coordinates.longitude
+              },
+              zoom: 14
+            };
+          });
+          $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
+
+        }
+      }
+    };
+
+    $scope.getLocationBackground = function (location) {
+      if (location.details !== undefined) {
+        if (location.details.pictures.length > 0) {
+          return {
+            'background-image': 'linear-gradient(transparent 25%, black), url(' + location.details.pictures[0] + ')',
+            'height': '200px'
+          }
+        } else {
+          return {
+            'height': '75px',
+            'margin': 0,
+            'margin-left': '-15px',
+            'color': 'black'
+          }
+        }
+      }
     };
  });

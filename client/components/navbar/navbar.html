@@ -1,46 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <div ng-controller="NavbarCtrl">
   <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <a href="/" class="navbar-brand">
-          <img src="assets/images/yeoman.png" alt="treasuremap"/>
+          <img src="assets/images/logo.png" alt="treasuremap" />
+          <h1 class="title">Treasure Map</h1>
         </a>
+        <!--div class="middlePart" >
+          <div class="addLocation" style="float:left">
+          <a href="/" id="addNewLocation" ng-click="openModal('lg')" ng-show="isLoggedIn()" style="margin-top: 18px">Add new location</a>
+       </div-->
+       <a class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar" popover-placement="bottom" popover="Login or Signup to add a new Location!"></a>
+       <form class="navbar-form search" role="search" ng-hide="showSearch != 'map' || smallScreen()">
+           <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+           <div ng-attr-id="{{ !smallScreen() && 'address-search' }}"></div>
+           <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true" popover-placement="bottom" popover="Click here for your location!"></span>
+       </form>
 
-        <a id="menu" class="nav-icon navbar-right" ng-class="{'isVisible': showSidebar}" ng-click="showSidebar = !showSidebar"></a>
+       <!--div class="registration">
+         <li><a href="/login" ng-hide="isLoggedIn()" style="position:relative"> Login</a></li>
+         <li><a href="/signup" ng-hide="isLoggedIn()">Sign up</a></li>
+         <li class="logout" ng-show="isLoggedIn()"><a href="" ng-click="logout()">Logout</a></li>
+       </div-->
       </div>
     </div>
   </div>
 
   <div class="sidebar-nav" ng-class="{'isVisible': showSidebar}">
 
-    <h1>Treasure Map</h1>
-
-    <hr/>
-
     <ul class="nav navbar-nav">
+      <li>
+       <div class="form-group" ng-hide="showSearch != 'map' || !smallScreen()">
+          <form class="navbar-form search" role="search">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              <div ng-attr-id="{{ smallScreen() && 'address-search' }}"></div>
+              <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true"></span>
+          </form>
+       </div>
+      </li>
       <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-        <a ng-href="{{item.link}}">{{item.title}}</a>
+        <a ui-sref="{{item.link}}"><span class="glyphicon {{item.icon}}" aria-hidden="true"></span>{{item.title}}</a>
+      </li>
+      <li>
+        <div class="form-group">
+          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByFriends" btn-checkbox>Filter by friends</button>
+          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByMyLocations" btn-checkbox>Filter by my locations</button>
+        </div>
       </li>
     </ul>
 
     <footer>
       <ul class="nav navbar-nav">
-        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login"></span> Login</a></li>
-        <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p></li>
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"></span> Settings</a>
+         <li ng-show="isLoggedIn()" class="current-user">
+           <a href="/user/me"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p></a>
+         </li>
+        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Admin</a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}">
+          <a href="/login"></span><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Login</a>
         </li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>Sign up</a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}">
+          <a href="/settings"></span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Settings</a>
+        </li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</a>
         </li>
       </ul>
 
-      <hr/>
-
       <div class="copy">
-        <p>Copyright &copy; 2015 - Treasure Map Team</p>
+        <p>Copyright &copy; {{copyright}} - Team Treasure Map</p>
+        <a href="http://www.htw-berlin.de/impressum/" target="_blank">Imprint</a>
       </div>
     </footer>
 
   </div>
 </div>
+
+<script type="text/ng-template" id="searchbox.tpl.html">
+<input type="search"
+       name="address"
+       id="pac-input"
+       class="pac-controls form-control"
+       ng-model="ngModel"
+       placeholder="Search a Location"
+       required
+       mongoose-error/>
+       </script>

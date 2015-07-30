@@ -8,7 +8,9 @@ angular.module('treasuremapApp', [
   'ui.bootstrap',
   'uiGmapgoogle-maps',
   'ngFileUpload',
-  'ngStorage'
+  'ngStorage',
+  'bootstrapLightbox',
+  'ngTouch'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -18,13 +20,20 @@ angular.module('treasuremapApp', [
     $httpProvider.interceptors.push('authInterceptor');
   })
 
-  .config(function(uiGmapGoogleMapApiProvider) {
+  .config(function(uiGmapGoogleMapApiProvider, AppConfig) {
     uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
+        //key: AppConfig.googleapi,
         v: '3.17',
         libraries: 'weather,geometry,places'
     });
   })
+
+  .config(function (LightboxProvider) {
+    //LightboxProvider.templateUrl = 'lightbox-template.tpl.html';
+    LightboxProvider.getImageUrl = function (imageUrl) {
+      return imageUrl;
+      }
+   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {
@@ -61,4 +70,14 @@ angular.module('treasuremapApp', [
         }
       });
     });
+  })
+
+  .filter('limitHtml', function() {
+    return function(text, limit) {
+
+      var changedString = String(text).replace(/<[^>]+>/gm, '');
+      var length = changedString.length;
+
+      return changedString.length > limit ? changedString.substr(0, limit - 1) : changedString;
+    }
   });

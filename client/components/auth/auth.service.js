@@ -4,7 +4,7 @@ angular.module('treasuremapApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
     if($cookieStore.get('token')) {
-      currentUser = User.get();
+      currentUser = User.me();
     }
 
     return {
@@ -26,7 +26,7 @@ angular.module('treasuremapApp')
         }).
         success(function(data) {
           $cookieStore.put('token', data.token);
-          currentUser = User.get();
+          currentUser = User.me();
           deferred.resolve(data);
           return cb();
         }).
@@ -62,7 +62,7 @@ angular.module('treasuremapApp')
         return User.save(user,
           function(data) {
             $cookieStore.put('token', data.token);
-            currentUser = User.get();
+            currentUser = User.me();
             return cb(user);
           },
           function(err) {
@@ -85,6 +85,55 @@ angular.module('treasuremapApp')
         return User.changePassword({ id: currentUser._id }, {
           oldPassword: oldPassword,
           newPassword: newPassword
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+
+      /**
+       * Add Friend
+       *
+       * @param  {String}   friendId
+       * @param  {Function} callback    - optional
+       * @return {Promise}
+       */
+      addFriend: function(friendId, callback) {
+        var cb = callback || angular.noop;
+
+        return User.addFriend({ id: currentUser._id }, {
+          friendId: friendId
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+
+      /**
+       * Check if user has friend
+       *
+       * @param  {String}   friendId
+       * @return {boolean}
+       */
+      isFriend: function(friendId) { // gets called 4x?
+        //console.log(_.pluck(currentUser.friends, '_id').indexOf(friendId));
+        return _.pluck(currentUser.friends, '_id').indexOf(friendId) != -1;
+      },
+
+      /**
+       * Remove Friend
+       *
+       * @param  {String}   friendId
+       * @param  {Function} callback    - optional
+       * @return {Promise}
+       */
+      removeFriend: function(friendId, callback) {
+        var cb = callback || angular.noop;
+
+        return User.removeFriend({ id: currentUser._id }, {
+          friendId: friendId
         }, function(user) {
           return cb(user);
         }, function(err) {

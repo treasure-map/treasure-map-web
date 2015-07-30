@@ -1,117 +1,272 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
+@import '_variables.scss';
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
+
+$break-large: 600px;
+$break-small: 415px;
 
 /**
  * App-wide Styles
  */
-
 body {
-  //width: 100vw;
   overflow-x: hidden;
   margin-top: $navbar-height + $navbar-margin-bottom;
+  font-family: Helvetica;
 }
 
 .browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }
 
 .navbar {
-	//margin-bottom: 0 !important;
-	z-index: 10;
 
-	img {
-		height: 100%;
-		margin: 0;
-		padding: 0;
-	}
+  z-index: 10;
+  display: inline !important;
+  height: 80px;
+
+  img {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
 }
 
 .navbar-header {
+
   width: 100%;
-}
 
-.nav-icon {
-  display: block;
-  float: right;
-	padding: 15px;
-  margin-right: -15px;
-	font-size: 28px;
-	height: $navbar-height;
-	line-height: 20px;
-	color: #777;
-  cursor: pointer;
-
-	&:hover {
-		color: #000;
-		text-decoration: none;
-	}
-
-  &:before {
-    content: "\2630";
-    transition: content 0.5s;
+  .title {
+    margin: 15px;
+    color: #333;
+    font-size: 25px;
+    vertical-align: middle;
+    display: inline;
+    font-weight: 100;
   }
 
-  &.isVisible {
+  .navbar-brand {
+     padding: 15px;
+   }
+
+  .addLocation {
+    margin-top: 18px;
+    margin-right: 20px;
+  }
+
+  .search {
+    display: inline;
+    width: 285px;
+    float: right;
+
+    span {
+      margin-right: 4px;
+      color: #999;
+      font-size: 16px;
+      vertical-align: middle;
+   }
+
+   input {
+      width: 200px;
+      font-size: 16px;
+   }
+
+   .glyphicon-record {
+      margin-left: 4px;
+      cursor: pointer;
+   }
+
+   #address-search {
+     display: inline;
+   }
+
+  }
+
+  .registration {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 18px;
+    margin-left: 200px;
+    float: center;
+
+    li {
+      display: inline;
+      padding-right: 15px;
+      padding-left: 20px;
+    }
+
+    .logout {
+      position: relative;
+    }
+
+  }
+
+  .nav-icon {
+
+     @media screen and (max-width: $break-small) {
+      padding: 22px;
+     }
+
+    display: inline !important;
+    padding: 30px;
+    font-size: 30px;
+    line-height: 18px;
+    color: $brand-primary;
+    cursor: pointer;
+    min-width: 90px;
+    min-height: 80px;
+
+    &:hover {
+      color: #ccc;
+      text-decoration: none;
+    }
+
     &:before {
-      content: "\2715";
+      content: "\2630";
       transition: content 0.5s;
     }
+
+    &.isVisible {
+
+      &:before {
+        content: "\2715";
+        transition: content 0.5s;
+      }
+
+    }
+
   }
+
 }
 
 .sidebar-nav {
-	position: fixed;
-	right: -250px;
-	top: 0;
-	width: 250px;
-	height: 100vh;
+  position: fixed;
+  right: -300px;
+  top: 0;
+  min-width: 300px;
+  height: 100vh;
   padding-top: $navbar-height;
-	background: rgba(0, 0, 0, 0.8);
-	z-index: 9;
-	transition: all .5s ease-in;
-
-  h1 {
-    color: #888; //rgb(255, 147, 30);
-    font-size: 24px;
-    text-align: center;
-    margin: 12px;
-  }
-
-  hr {
-    margin: 0;
-    padding: 0 10px;
-  }
+  background: $navbar-default-bg;
+  z-index: 9;
+  transition: all 0.5s ease-in;
+  border-left: 1px solid $navbar-default-border;
 
   ul {
     width: 100%;
-    text-align: center;
 
     li {
       float: none;
       clear: both;
 
-      a {
-        color: #888; //rgb(33, 194, 184);
+      a,
+      form {
+        display: inline;
+        color: #333; //rgb(33, 194, 184);
+        font-size: 16px;
+        float: right;
+        width: 100%;
+        text-align: center;
+        font-weight: lighter;
+        border-bottom: 1px solid $navbar-default-border;
+
+        padding: 2vh 10px;
+        margin: 0;
+
+        .form-group:last-child {
+          margin-bottom: 0;
+        }
+
+        input {
+          display: inline-block;
+          vertical-align: middle;
+          width: auto;
+        }
+
+        &:hover {
+         color: $brand-primary;
+         text-decoration: none;
+       }
+
       }
+
+      p {
+         display: none;
+         font-size: 16px;
+         font-weight: normal;
+         text-align: left;
+         padding-left: 15px;
+         margin: 0;
+      }
+
+      span {
+        color: #333; //rgb(33, 194, 184);
+        font-size: 16px;
+        float: left;
+        padding-left: 15px;
+      }
+
     }
+
   }
 
   footer {
     width: 100%;
     position: absolute;
-    bottom: 25px;
+    bottom: 0;
+
+    .copy {
+      clear: both;
+      text-align: center;
+      color: #333;
+      font-size: 12px;
+      padding: 20px 0;
+
+      a {
+         color: #333;
+
+         &:hover {
+          color: $brand-primary;
+          text-decoration: none;
+        }
+      }
+
+    }
+
   }
 
   &.isVisible {
     right: 0;
   }
+
+}
+
+::-webkit-input-placeholder {
+    color: #999;
+    font-size: 16px;
+    font-weight: lighter;
+}
+:-moz-placeholder {
+   color: #999;
+   opacity: 1;
+   font-size: 16px;
+   font-weight: lighter;
+}
+::-moz-placeholder {
+   color: #999;
+   opacity: 1;
+   font-size: 16px;
+   font-weight: lighter;
+}
+:-ms-input-placeholder {
+   color: #999;
+   font-size: 16px;
+   font-weight: lighter;
 }
 
 // Component styles are injected through grunt
@@ -121,9 +276,12 @@ body {
 @import 'admin/admin.scss';
 @import 'categories/categories.scss';
 @import 'categories/category/category.scss';
+@import 'locations/edit/edit.scss';
 @import 'locations/location/location.scss';
 @import 'locations/locations.scss';
 @import 'locations/new/new.scss';
 @import 'map/map.scss';
+@import 'users/user/user.scss';
+@import 'users/users.scss';
 @import 'modal/modal.scss';
 // endinjector

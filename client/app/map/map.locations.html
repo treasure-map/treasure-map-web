@@ -1,0 +1,7 @@
+<h3>Locations</h3>
+
+<ul>
+  <li class="location" ng-repeat="l in locations | orderBy:'-details.name':true | filter:search.searchTerm"><a ng-href="locations/{{l._id}}">{{l.details.name}}</a> - <a
+    ng-href="categories/{{l.details.category._id}}" class="loc-category">{{l.details.category.name}}</a> - <span
+    class="loc-address">{{l.address.street}}, {{l.address.zipcode }} {{l.address.city}}</span></li>
+</ul>

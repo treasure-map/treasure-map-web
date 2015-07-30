@@ -1,0 +1,6 @@
+<h3>Friends Activity</h3>
+<ul>
+  <li ng-repeat="l in locations | orderBy:'createdAt'"><a ng-href="/users/{{l.owner._id}}">
+    {{l.createdAt | date : format : timezone}} - {{l.owner.name}}</a> created <a ng-href="/locations/{{l._id}}">{{l.details.name}}</a>
+  </li>
+</ul>

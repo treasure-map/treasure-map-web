@@ -1,38 +1,44 @@
 .modal-content {
   .angular-google-map-container {
-    height: 600px;
+    height: 625px;
   }
 
   .btn-submit,
   .btn-cancel {
-    width: 47%;
+    width: 25%;
   }
 
   .btn-submit {
-    margin-right: 5%;
+    float: right;
+    margin: 0 0 0 2%;
+  }
+
+  .form-control {
+     resize: none;
   }
 }
 
 .uploadForm {
+
   .drop-box {
     background: #F8F8F8;
-    border: 5px dashed #DDD;
-    height: 100px;
+    border: 2px dashed #DDD;
+    height: 120px;
     text-align: center;
     padding-top: 25px;
   }
 
   .dragover {
-    border: 5px dashed blue;
+    border: 2px dashed blue;
   }
 
   .pictures {
     list-style: none;
 
     .pic {
-      max-width: 50px;
+      max-width: 100%;
       height: auto;
-      margin: 0 5px 5px 0;
+      margin: 10px 5px 5px 0;
     }
   }
 }
@@ -40,5 +46,3 @@
 .pac-container {
   z-index: 10000 !important;
 }
-
-

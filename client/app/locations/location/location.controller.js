@@ -1,12 +1,75 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('LocationCtrl', function ($scope, $stateParams, Location) {
+  .controller('LocationCtrl', function ($scope, $stateParams, Location, Auth, Lightbox, $modal, $location, $filter, $http, AppConfig) {
     $scope.location = Location.get({ id: $stateParams.id }, function() {
       $scope.map.center.latitude = $scope.location.coordinates.latitude;
       $scope.map.center.longitude = $scope.location.coordinates.longitude;
       $scope.location.details.category.url = $scope.location.details.category.imgUrl;
+      $scope.images = $scope.location.details.pictures;
     });
+
+    $scope.socials = [{
+      'name': 'Facebook',
+      'icon': 'assets/social/facebook.png'
+      },{
+     'name': 'Twitter',
+     'icon': 'assets/social/twitter.png'
+     },{
+       'name': 'Pinterest',
+       'icon': 'assets/social/pinterest.png'
+    }];
+
+    $scope.share = function (service) {
+        var title = $scope.location.details.name;
+        var desc = $filter('limitTo')($scope.location.details.description, 128);
+        var image = $scope.location.details.pictures[0];
+        var url = encodeURI($location.absUrl());
+        var width = 550;
+        var height = 400;
+        var top = (screen.height / 2) - (height / 2);
+        var left = (screen.width / 2) - (width / 2);
+        if(service === 'Facebook'){
+           window.open('https://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + desc + '&p[url]=' + url + '&p[images][0]=' + image, 'Share Location', 'top=' + top + ',left=' + left + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+        }else if(service === 'Twitter'){
+           window.open('https://twitter.com/home?status=' + url, 'Share Location', 'top=' + top + ',left=' + left + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+        }else if(service === 'Pinterest'){
+           window.open('https://pinterest.com/pin/create/button/?url=' + url + '&media=' + image + '&description=' + desc, 'Share Location', 'top=' + top + ',left=' + left + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+        }
+     };
+
+    $scope.openImage = function (index) {
+      Lightbox.openModal($scope.images, index);
+    };
+
+    $scope.isLoggedIn = Auth.isLoggedIn;
+
+    $scope.openModal = function (size) {
+
+      var modalInstance = $modal.open({
+        templateUrl: 'app/locations/edit/edit.html',
+        controller: 'EditCtrl',
+        size: size
+      });
+
+      modalInstance.result.then(function (editLocation) {
+        $scope.location = editLocation;
+
+        $scope.location.coordinates.latitude = editLocation.coordinates.latitude;
+        $scope.location.coordinates.longitude = editLocation.coordinates.longitude;
+        $scope.map.center = $scope.location.coordinates;
+        //editLocation.cluster = {
+        //  styles: { url: 'assets/images/Cluster.png' }
+        //};
+        //
+        $scope.location.details.category.url = editLocation.details.category.imgUrl;
+
+        //
+        //$scope.locations.push(editLocation);
+      }, function () {
+        console.log('Modal dismissed at: ' + new Date());
+      });
+    };
 
     $scope.map = {
       center: {
@@ -40,19 +103,16 @@ angular.module('treasuremapApp')
 
           var message = window.btoa(disqusStr);
 
-          var result = CryptoJS.HmacSHA1(message + " " + timestamp, DISQUS_SECRET);
+          var result = CryptoJS.HmacSHA1(message + ' ' + timestamp, DISQUS_SECRET);
           var hexsig = CryptoJS.enc.Hex.stringify(result);
 
           return {
             key: DISQUS_PUBLIC,
-            auth: message + " " + hexsig + " " + timestamp
+            auth: message + ' ' + hexsig + ' ' + timestamp
           };
         }
 
         var hash = disqusSignon(Auth.getCurrentUser());
-        console.log(Auth.getCurrentUser());
-        console.log(hash.auth);
-        console.log(hash.key);
 
         var disqus_config = function () {
           this.page.remote_auth_s3 = hash.auth;
@@ -74,4 +134,3 @@ angular.module('treasuremapApp')
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
     });
-

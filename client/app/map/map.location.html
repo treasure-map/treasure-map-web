@@ -1,0 +1,29 @@
+<a class="selloc-name" href='/locations/{{location._id}}' ng-style="getLocationBackground(location)">
+  <h2>{{location.details.name}}</h2>
+</a>
+
+<p>
+  <a href='/categories/{{location.details.category._id}}'>{{location.details.category.name}}</a>
+</p>
+
+<address>
+  {{location.address.street}} <br/>
+  {{location.address.zipcode}} {{location.address.city}} <br/>
+</address>
+
+<p ng-show="location.details.duration">Duration: {{location.details.duration}} h</p>
+
+<h3 ng-show="location.details.description || location.details.imports.length >= 1">Description</h3>
+
+<p ng-show="location.details.description">{{location.details.description | limitTo:128}} <a ng-href="/locations/{{location._id}}">...</a></p>
+<p ng-show="location.details.imports.length >= 1"><span ng-bind-html="location.details.imports | limitHtml:256"></span> <a ng-href="/locations/{{location._id}}">...</a></p>
+
+<a ng-href="/locations/{{location._id}}">Read more</a>
+
+<!--<div>-->
+<!--<h3>Images</h3>-->
+
+<!--<a ng-click="openImage($index, location.details.pictures)" class="selloc-picture thumbnail" ng-repeat="pic in location.details.pictures">-->
+<!--<img src="{{pic}}" alt="">-->
+<!--</a>-->
+<!--</div>-->

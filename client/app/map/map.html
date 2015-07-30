@@ -1,15 +1,29 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="map">
-  <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
+  <ui-gmap-google-map center='search.map.center' zoom='search.map.zoom' options='options'>
 
-  	<ui-gmap-markers models='locations' idKey="'_id'" coords="'coordinates'" doCluster='true' icon="'icon'">
+     <ui-gmap-search-box template="searchboxNav.template"
+                        events="searchboxNav.events"
+                        parentdiv="'address-search'"
+                        ng-model="search.searchTerm"></ui-gmap-search-box>
+
+  	<ui-gmap-markers
+      models='filteredLocations'
+      idKey="'_id'"
+      coords="'coordinates'"
+      doCluster='true'
+      clusterOptions="clusterOpt"
+      icon="'icon'"
+      click="click"
+      events="markersEvents">
 
   		<ui-gmap-windows show="show">
         <div ng-non-bindable>
           <a href='/locations/{{_id}}'>
             <strong>{{details.name}}</strong>
-            <p>{{address.street}}<br/>{{address.zipcode}} {{address.city}}</p>
+            <p>{{address.street}}
+              <br/>{{address.zipcode}} {{address.city}}</p>
           </a>
           <p>Duration {{details.duration}}h</p>
           <a href='/categories/{{details.category._id}}'><i>{{details.category.name}}</i></a>
@@ -18,13 +32,19 @@
 
   	</ui-gmap-markers>
 
-    <ui-gmap-marker coords="userLocation" idkey="1"></ui-gmap-marker>
-    <ui-gmap-circle center="userLocation" radius="searchRadius * 1000"></ui-gmap-circle>
+    <ui-gmap-marker coords="search.userLocation" idkey="1" icon='{url: "assets/images/CurrentLocation03.png"}'></ui-gmap-marker>
+    <ui-gmap-circle center="search.userLocation" radius="searchRadius * 1000" fill="{opacity: 0}" stroke="{weight: 1}"></ui-gmap-circle>
 
   </ui-gmap-google-map>
 
-  <button class="btn btn-primary btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()">
-    &#43;
+  <div class="sidebar" ng-class="{ 'isVisible': showSidebar }">
+    <div ui-view=""></div>
+
+    <span class="closer glyphicon glyphicon-remove" aria-hidden="true" ng-click="closeSidebar()"></span>
+  </div>
+
+  <button class="btn btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()" popover-placement="right" popover="Click here to add new Locations!" popover-trigger="mouseover mouseleave">
+    <span>&#43;</span>
   </button>
 
   <form class="form-inline searchRadius">
@@ -33,11 +53,8 @@
 
       <div class="input-group">
         <div class="input-group-addon">Search Radius (in km)</div>
-        <input ng-model="searchRadius" type="number" name="searchRadius" class="form-control"
-               placeholder="Search Radius" min="1" max="100" step="1" ng-change="getLocations(userLocation, searchRadius)">
+        <input ng-model="searchRadius" type="number" name="searchRadius" class="form-control" placeholder="Search Radius" min="1" max="100" step="1" ng-change="getLocations(search.userLocation, searchRadius)">
       </div>
     </div>
   </form>
-
-
 </div>
