@@ -11,11 +11,11 @@
           <div class="addLocation" style="float:left">
           <a href="/" id="addNewLocation" ng-click="openModal('lg')" ng-show="isLoggedIn()" style="margin-top: 18px">Add new location</a>
        </div-->
-       <a class="nav-icon navbar-right" ng-class="{'isVisible': search.showSidebar}" ng-click="search.showSidebar = !search.showSidebar" popover-placement="top" popover="Login or Signup to add a new Location!"></a>
+       <a class="nav-icon navbar-right" ng-class="{'isVisible': search.showSidebar}" ng-click="search.showSidebar = !search.showSidebar"></a>
        <form class="navbar-form search" role="search" ng-hide="showSearch != 'map' || smallScreen()">
            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
            <div ng-attr-id="{{ !smallScreen() && 'address-search' }}"></div>
-           <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true" popover-placement="bottom" popover="Click here for your location!"></span>
+           <span ng-click="locate()" class="glyphicon glyphicon-record" aria-hidden="true" popover-placement="bottom" popover="Click here for your location!" popover-trigger="mouseover mouseleave"></span>
        </form>
 
        <!--div class="registration">
@@ -42,12 +42,17 @@
       <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ui-sref="{{item.link}}"><span class="glyphicon {{item.icon}}" aria-hidden="true"></span>{{item.title}}</a>
       </li>
-      <li>
-        <div class="form-group">
-          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByFriends" btn-checkbox>Filter by Friends</button>
-          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByMyLocations" btn-checkbox>Filter my Locations</button>
-          <button class="btn btn-default btn-sm" ng-click="filterCategory(category.name)" name="category" ng-model="filteredCategory" btn-radio="'{{category.name}}'" ng-repeat="category in categories">{{category.name}}</button>
-        </div>
+      <li ng-hide="smallScreen()">
+        <a ng-click="isFilterCollapsed = !isFilterCollapsed"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter</a>
+        <div collapse="isFilterCollapsed">
+            <div class="btn-group filter">
+       		  <div class="well well-lg">
+                 <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm col-sm-4" ng-click="filteredCategory = false; search.filterByMyLocations = false" ng-model="search.filterByFriends" btn-checkbox><img src="assets/images/FriendsLocation.png" alt="Friends"/></button>
+                 <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm col-sm-4" ng-click="filteredCategory = false; search.filterByFriends = false" ng-model="search.filterByMyLocations" btn-checkbox><img src="assets/images/UserLocation.png" alt="Users"/></button>
+                 <button type="button" class="btn btn-default btn-sm col-sm-4" ng-click="filterCategory(category.name); search.filterByFriends = false; search.filterByMyLocations = false"  name="category" ng-model="filteredCategory" btn-radio="'{{category.name}}'" ng-repeat="category in categories"><img ng-src="{{category.imgUrl}}" alt="'{{category.name}}'"/></button>
+               </div>
+            </div>
+	     </div>
       </li>
     </ul>
 

@@ -34,7 +34,8 @@ angular.module('treasuremapApp')
          $scope.categories = categories;
       });
 
-    $scope.filteredCategory = '';
+    $scope.isFilterCollapsed = true;
+    $scope.filteredCategory = false;
     $scope.showSearch = $state.$current.name;
     $scope.search = search;
     $scope.isCollapsed = true;
@@ -65,7 +66,7 @@ angular.module('treasuremapApp')
                   longitude: currPos.longitude
                 },
                 zoom: 14
-              };              
+              };
               $scope.clearSearch();
               $scope.search.showSidebar = false;
               $scope.search.getNewLocations = true;
@@ -86,13 +87,25 @@ angular.module('treasuremapApp')
          $scope.filteredCategory = '';
          $scope.search.filterByCategory = '';
       }
-   }
+  }
+
+   /*$scope.filterCategory = function(category) {
+      console.log(category);
+      var objIndex = $scope.filteredCategory.indexOf(category);
+      if(objIndex < 0) {
+         $scope.filteredCategory.push(category);
+         $scope.search.filterByCategory = $scope.filteredCategory;
+      }else{
+         $scope.filteredCategory.splice(objIndex, 1);
+         $scope.search.filterByCategory = $scope.filteredCategory;
+      }
+   }*/
 
    $timeout(function() {
        var popups = document.querySelectorAll('*[popover]');
        var popup = popups[0];
        var popupElement = angular.element(popup);
-       $(popupElement).popover('show');
+       //$(popupElement).popover('show');
    }, 2000);
 
     $scope.logout = function () {
@@ -112,8 +125,8 @@ angular.module('treasuremapApp')
      map: '',
      userLocation: '',
      showSidebar: false,
+     filterByCategory: false,
      filterByFriends: false,
      filterByMyLocations: false,
-     filterByCategory: false,
      getNewLocations: false
   });

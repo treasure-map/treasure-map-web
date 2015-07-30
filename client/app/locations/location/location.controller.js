@@ -11,13 +11,13 @@ angular.module('treasuremapApp')
 
     $scope.socials = [{
       'name': 'Facebook',
-      'icon': 'assets/social/facebook.png'
+      'icon': 'assets/images/social/facebook.png'
       },{
      'name': 'Twitter',
-     'icon': 'assets/social/twitter.png'
+     'icon': 'assets/images/social/twitter.png'
      },{
        'name': 'Pinterest',
-       'icon': 'assets/social/pinterest.png'
+       'icon': 'assets/images/social/pinterest.png'
     }];
 
     $scope.share = function (service) {
