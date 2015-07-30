@@ -20,7 +20,6 @@ angular.module('treasuremapApp')
       Lightbox.openModal($scope.images, index);
     };
 
-    console.log($scope.editLocation);
     $scope.alerts = [];
 
     $scope.closeAlert = function (index) {
@@ -70,7 +69,6 @@ angular.module('treasuremapApp')
     $scope.removePicture = function(pic) {
       var index = $scope.editLocation.details.pictures.indexOf(pic);
       $scope.editLocation.details.pictures.splice(index, 1);
-      console.log($scope.editLocation.details.pictures);
     };
 
     $http.get('/api/categories')
@@ -105,7 +103,8 @@ angular.module('treasuremapApp')
 
             $scope.editLocation = {};
 
-            $http.get('/api/categories/'+data.details.category)
+            console.log()
+            $http.get('/api/categories/'+ data.details.category)
               .success(function (category) {
                 data.details.category = category;
                 $scope.$close(data);
@@ -113,7 +112,7 @@ angular.module('treasuremapApp')
           })
           .error(function (data, status) {
             console.log('Error!' + status);
-            $scope.alerts.push({type: 'danger', msg: 'Couln\'t edit location!'});
+            $scope.alerts.push({type: 'danger', msg: 'Couldn\'t edit location!'});
           });
       } else {
         form.$valid = false;

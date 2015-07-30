@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout, $state) {
+  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout, $state, $http) {
     $scope.menu = [{
       'title': 'Map',
       'link': 'map',
@@ -29,6 +29,12 @@ angular.module('treasuremapApp')
       });
     }
 
+    $http.get('/api/categories')
+      .success(function(categories){
+         $scope.categories = categories;
+      });
+
+    $scope.filteredCategory = '';
     $scope.showSearch = $state.$current.name;
     $scope.search = search;
     $scope.isCollapsed = true;
@@ -59,17 +65,28 @@ angular.module('treasuremapApp')
                   longitude: currPos.longitude
                 },
                 zoom: 14
-              };
+              };              
+              $scope.clearSearch();
+              $scope.search.showSidebar = false;
+              $scope.search.getNewLocations = true;
             });
          });
       });
-      $scope.clearSearch();
-      $scope.search.showSidebar = false;
    };
 
    $scope.clearSearch = function () {
       $scope.search.searchTerm = '';
    };
+
+   $scope.filterCategory = function(category) {
+      if($scope.filteredCategory != category) {
+         $scope.filteredCategory = category;
+         $scope.search.filterByCategory = category;
+      }else{
+         $scope.filteredCategory = '';
+         $scope.search.filterByCategory = '';
+      }
+   }
 
    $timeout(function() {
        var popups = document.querySelectorAll('*[popover]');
@@ -96,5 +113,7 @@ angular.module('treasuremapApp')
      userLocation: '',
      showSidebar: false,
      filterByFriends: false,
-     filterByMyLocations: false
+     filterByMyLocations: false,
+     filterByCategory: false,
+     getNewLocations: false
   });

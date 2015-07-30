@@ -44,8 +44,9 @@
       </li>
       <li>
         <div class="form-group">
-          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByFriends" btn-checkbox>Filter by friends</button>
-          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByMyLocations" btn-checkbox>Filter by my locations</button>
+          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByFriends" btn-checkbox>Filter by Friends</button>
+          <button ng-show="isLoggedIn()" type="button" class="btn btn-default btn-sm" ng-model="search.filterByMyLocations" btn-checkbox>Filter my Locations</button>
+          <button class="btn btn-default btn-sm" ng-click="filterCategory(category.name)" name="category" ng-model="filteredCategory" btn-radio="'{{category.name}}'" ng-repeat="category in categories">{{category.name}}</button>
         </div>
       </li>
     </ul>

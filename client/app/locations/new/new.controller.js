@@ -224,7 +224,7 @@ angular.module('treasuremapApp')
             console.log('Error! ' + status);
             $scope.alerts.push({
               type: 'danger',
-              msg: 'Couln\'t add new location!'
+              msg: 'Couldn\'t add new location!'
             });
           });
       } else {

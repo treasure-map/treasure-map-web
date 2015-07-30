@@ -169,6 +169,12 @@ angular.module('treasuremapApp')
 
     $scope.locations = [];
 
+    $scope.$watch('search.getNewLocations', function() {
+      console.log($scope.search.userLocation);
+      $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
+      $scope.search.getNewLocations = false;
+   });
+
     $scope.getLocations = function(coords, distance) {
       $http.get('/api/locations', {
         params: {
@@ -264,7 +270,7 @@ angular.module('treasuremapApp')
               //location.click = selectLocation;
             });
 
-            $scope.filteredLocations = $scope.filteredLocations.concat(locations);
+            $scope.filteredLocations = locations;
           });
         }
       } else {
@@ -287,6 +293,10 @@ angular.module('treasuremapApp')
       } else {
         $scope.filteredLocations = $scope.locations;
       }
+    });
+    $scope.$watch('search.filterByCategory', function(filterByCategory){
+      $scope.filteredLocations = $scope.locations;
+      $scope.filteredLocations = $filter("filter")($scope.locations, filterByCategory);
     });
 
     $rootScope.$on('$stateChangeSuccess',
