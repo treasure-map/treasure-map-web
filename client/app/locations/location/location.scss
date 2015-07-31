@@ -3,6 +3,10 @@
 }
 
 .location {
+	.modal-body {
+	 padding: 0 !important;
+	}
+	
 	.loc-images {
      position: relative;
      display: inline-block;
