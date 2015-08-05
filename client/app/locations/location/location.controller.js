@@ -85,11 +85,11 @@ angular.module('treasuremapApp')
       }
     };
   })
-    .controller('DisqusCtrl', function ($scope, $stateParams, Auth) {
-        var DISQUS_SECRET = ***REMOVED***,
-            DISQUS_PUBLIC = ***REMOVED***,
-            DISQUS_SHORTNAME = ***REMOVED***,
-            BASEURL = 'http://treasuremap-stage.herokuapp.com';
+    .controller('DisqusCtrl', function ($scope, $stateParams, Auth, AppConfig) {
+        var DISQUS_SECRET = AppConfig.disqus_secret,
+            DISQUS_PUBLIC = AppConfig.disqus_public,
+            DISQUS_SHORTNAME = AppConfig.disqus_shortname,
+            BASEURL = AppConfig.baseurl;
 
         function disqusSignon(user) {
           var disqusData = {
