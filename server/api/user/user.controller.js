@@ -171,7 +171,7 @@ exports.authCallback = function(req, res, next) {
 function sendUserToSlack(user, method) {
   request({
     method: 'POST',
-    url: ***REMOVED***,
+    url: config.others.slackUrl,
     body: JSON.stringify({
       "text": "A new user has been " + method + "! <http://" + process.env.DOMAIN + "/users/" + user._id + "|Click here> for details!",
       "username": "New User Bot",

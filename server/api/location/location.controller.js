@@ -2,12 +2,13 @@
 
 var _ = require('lodash');
 var Location = require('./location.model');
+var config = require('../../config/environment');
 
 var geocoderProvider = 'google';
 var httpAdapter = 'https';
 // optionnal
 var extra = {
-  apiKey: ***REMOVED***, // for Mapquest, OpenCage, Google Premier
+  apiKey: config.others.someKey, // for Mapquest, OpenCage, Google Premier
   formatter: null         // 'gpx', 'string', ...
 };
 
@@ -138,7 +139,7 @@ function handleError(res, err) {
 function sendLocationToSlack(location, method) {
   request({
     method: 'POST',
-    url: ***REMOVED***,
+    url: config.others.slackUrl,
       body: JSON.stringify({
         "text": "A new location has been " + method + "! <http://" + process.env.DOMAIN + "/locations/" + location._id + "|Click here> for details!",
         "username": "New Location Bot",

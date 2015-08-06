@@ -22,7 +22,7 @@ angular.module('treasuremapApp', [
 
   .config(function(uiGmapGoogleMapApiProvider, AppConfig) {
     uiGmapGoogleMapApiProvider.configure({
-        key: AppConfig.googleapi,
+        //key: AppConfig.googleapi,
         v: '3.17',
         libraries: 'weather,geometry,places'
     });
