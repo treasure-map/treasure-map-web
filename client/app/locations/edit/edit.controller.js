@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Auth, Location, Lightbox, $stateParams) {
+  .controller('EditCtrl', function ($scope, $http, $timeout, uiGmapGoogleMapApi, Auth, Location, Lightbox, $stateParams, AppConfig) {
     $scope.currentUser = Auth.getCurrentUser();
 
     uiGmapGoogleMapApi.then(function (maps) {
       $timeout(function () {
-        //maps.event.trigger($scope.mapNew, 'resize');
         $scope.showMap = true;
       }, 100);
     });
@@ -122,17 +121,19 @@ angular.module('treasuremapApp')
       }
     };
 
-    var S3_BUCKET = ***REMOVED***;
-    var creds = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: ***REMOVED***,
-    });
+    var S3_BUCKET = AppConfig.s3_bucket;
+     var creds = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: AppConfig.aws_cognito,
+     });
 
-    AWS.config.update({
-      region: ***REMOVED***,
-      credentials: creds
-    });
+     AWS.config.update({
+        region: AppConfig.aws_region,
+        credentials: creds
+     });
 
-    var S3 = new AWS.S3({region: ***REMOVED***});
+     var S3 = new AWS.S3({
+        region: s3_region
+     });
 
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
@@ -143,7 +144,6 @@ angular.module('treasuremapApp')
         for (var i = 0; i < files.length; i++) {
            var file = files[i];
           var random = Math.floor((Math.random() * 1000000) + 1);
-          //var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
           var params = {
             Bucket: S3_BUCKET,
             Key: 'images/' + random + file.name,
