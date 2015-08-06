@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NewCtrl', function($scope, $http, $timeout, $q, uiGmapGoogleMapApi, Auth) {
+  .controller('NewCtrl', function($scope, $http, $timeout, $q, uiGmapGoogleMapApi, Auth, AppConfig) {
     uiGmapGoogleMapApi.then(function(maps) {
       $timeout(function() {
-        //maps.event.trigger($scope.mapNew, 'resize');
         $scope.showMap = true;
       }, 100);
     });
@@ -232,40 +231,18 @@ angular.module('treasuremapApp')
       }
     }
 
-    var S3_BUCKET = ***REMOVED***;
+    var S3_BUCKET = AppConfig.s3_bucket;
     var creds = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: ***REMOVED***,
+      IdentityPoolId: AppConfig.aws_cognito,
     });
 
     AWS.config.update({
-      region: ***REMOVED***,
+      region: AppConfig.aws_region,
       credentials: creds
     });
 
-    // TODO: User Auth for Cognito
-    /*
-    if(Auth.isLoggedIn){
-      if(Auth.getCurrentUser().provider == 'local'){
-         console.log(Auth.getToken());
-         //userLoggedIn('treasuremapApp', Auth.getToken());
-         userLoggedIn('treasuremap-stage.herokuapp.com', Auth.getToken());
-      } else {
-         userLoggedIn(Auth.getCurrentUser().provider, Auth.getToken());
-      }
-   }
-
-    function userLoggedIn(providerName, token) {
-      creds.params.Logins = {};
-      creds.params.Logins[providerName] = token;
-      creds.expired = true;
-      creds.refresh(function(err, data) {
-        if (err) console.log(err, err.stack);
-        else console.log(data);
-      });
-   }*/
-
     var S3 = new AWS.S3({
-      region: ***REMOVED***
+      region: s3_region
     });
 
     $scope.$watch('files', function() {
@@ -277,7 +254,6 @@ angular.module('treasuremapApp')
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           var random = Math.floor((Math.random() * 1000000) + 1);
-          //var filename = CryptoJS.MD5(file) + '.' + file.name.split('.').pop();
           var params = {
             Bucket: S3_BUCKET,
             Key: 'images/' + random + file.name,
