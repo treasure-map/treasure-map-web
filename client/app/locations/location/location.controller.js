@@ -11,13 +11,13 @@ angular.module('treasuremapApp')
 
     $scope.socials = [{
       'name': 'Facebook',
-      'icon': 'assets/social/facebook.png'
+      'icon': 'assets/images/social/facebook.png'
       },{
      'name': 'Twitter',
-     'icon': 'assets/social/twitter.png'
+     'icon': 'assets/images/social/twitter.png'
      },{
        'name': 'Pinterest',
-       'icon': 'assets/social/pinterest.png'
+       'icon': 'assets/images/social/pinterest.png'
     }];
 
     $scope.share = function (service) {
@@ -85,11 +85,11 @@ angular.module('treasuremapApp')
       }
     };
   })
-    .controller('DisqusCtrl', function ($scope, $stateParams, Auth) {
-        var DISQUS_SECRET = ***REMOVED***,
-            DISQUS_PUBLIC = ***REMOVED***,
-            DISQUS_SHORTNAME = ***REMOVED***,
-            BASEURL = 'http://treasuremap-stage.herokuapp.com';
+    .controller('DisqusCtrl', function ($scope, $stateParams, Auth, AppConfig) {
+        var DISQUS_SECRET = AppConfig.disqus_secret,
+            DISQUS_PUBLIC = AppConfig.disqus_public,
+            DISQUS_SHORTNAME = AppConfig.disqus_shortname,
+            BASEURL = AppConfig.baseurl;
 
         function disqusSignon(user) {
           var disqusData = {

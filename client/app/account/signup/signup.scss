@@ -1,18 +1,14 @@
-.login-container{
+.signup-container{
 	h3{
 		text-align: center;
 		margin-bottom: 30px;
 	}
-	p{
-		text-align: center;
-		font-size: 14px;
-	}
 }
 
-.login-form{
+.sign{
 	width: 100%;
 	max-width: 500px;
-    margin: 0 auto;
+	margin: 0 auto;
 
 	label{
 		display: inline-block;
@@ -26,37 +22,26 @@
 	}
 }
 
-.button-row{
-	width: 80px ;
+.signup-button{
+	width: 95px ;
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 20px;
 
-    .btn-login{
-    	margin-right: 30px;
-    	background-color: #21c2b8;
+    .btn-signup{
+    	margin-right: 0px;
 		color: #fff;
-
+    	background-color: #21c2b8;
     	&:hover{
 			color: #333;
 		}
     }
-    /*.btn-register{
-    	margin-left: 30px;
-    }*/
-}
-
-.signup {
-
-	p {
-		font-size: 14px;
-		padding: 10px 0;
-	}
 }
 
 .socialbar{
 	width: 128px ;
-    margin: 0 auto;
+   margin: 0 auto;
+	padding: 10px 0;
 }
 
 .btn-facebook{

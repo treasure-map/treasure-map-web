@@ -1,7 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="map">
-  <ui-gmap-google-map center='search.map.center' zoom='search.map.zoom' options='options'>
+  <ui-gmap-google-map center='search.map.center' zoom='search.map.zoom' options='options' control='smallScreen'>
 
      <ui-gmap-search-box template="searchboxNav.template"
                         events="searchboxNav.events"
@@ -43,7 +43,7 @@
     <span class="closer glyphicon glyphicon-remove" aria-hidden="true" ng-click="closeSidebar()"></span>
   </div>
 
-  <button class="btn btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()" popover-placement="right" popover="Click here to add new Locations!" popover-trigger="mouseover mouseleave">
+  <button class="btn btn-lg btn-map-new" type="button" ng-click="openModal('lg')" ng-show="isLoggedIn()">
     <span>&#43;</span>
   </button>
 

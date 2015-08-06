@@ -22,7 +22,7 @@ angular.module('treasuremapApp', [
 
   .config(function(uiGmapGoogleMapApiProvider, AppConfig) {
     uiGmapGoogleMapApiProvider.configure({
-        //key: AppConfig.googleapi,
+        key: AppConfig.googleapi,
         v: '3.17',
         libraries: 'weather,geometry,places'
     });
@@ -63,12 +63,14 @@ angular.module('treasuremapApp', [
 
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, next) {
+    $rootScope.$on('$stateChangeStart', function (event, next, nextParams, last) {
       Auth.isLoggedInAsync(function(loggedIn) {
         if (next.authenticate && !loggedIn) {
           $location.path('/login');
         }
       });
+
+      angular.element('body').removeClass(last.name).addClass(next.name);
     });
   })
 

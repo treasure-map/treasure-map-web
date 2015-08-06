@@ -1,9 +1,9 @@
-$break-large: 600px;
+$break-huge: 1024px;
+$break-large: 770px;
 $break-small: 415px;
 
 .map {
   width: 100%;
-  margin-top: -$navbar-margin-bottom;
   height: calc(100vh - 80px);
 
   .angular-google-map-container {
@@ -19,8 +19,8 @@ $break-small: 415px;
       width: 65%;
     }
     @media screen and (max-width: $break-small) {
-      left: -90%;
-      width: 90%;
+      left: -95%;
+      width: 95%;
     }
 
     position: absolute;
@@ -28,11 +28,11 @@ $break-small: 415px;
     top: $navbar-height;
     bottom: 0;
     width: $sidebar-width;
-    min-width: 300px;
     background-color: $navbar-default-bg;
     padding: 15px;
     overflow-y: auto;
     transition: left 0.5s;
+    z-index: 100;
 
     a {
       color: $brand-primary;
@@ -126,9 +126,10 @@ $break-small: 415px;
     position: absolute;
     bottom: 15px;
     right: 15px;
+    z-index: 10;
 
-    @media screen and (max-width: $break-small) {
-      width: 65%;
+    @media screen and (max-width: $break-large) {
+      width: 220px;
       float: right;
    }
 

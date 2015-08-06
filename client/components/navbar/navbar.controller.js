@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('treasuremapApp')
-  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout, $state) {
+  .controller('NavbarCtrl', function ($scope, $location, $modal, Auth, search, Locator, $timeout, $state, $http) {
     $scope.menu = [{
       'title': 'Map',
       'link': 'map',
@@ -29,6 +29,13 @@ angular.module('treasuremapApp')
       });
     }
 
+    $http.get('/api/categories')
+      .success(function(categories){
+         $scope.categories = categories;
+      });
+
+    $scope.isFilterCollapsed = true;
+    $scope.filteredCategory = false;
     $scope.showSearch = $state.$current.name;
     $scope.search = search;
     $scope.isCollapsed = true;
@@ -37,7 +44,7 @@ angular.module('treasuremapApp')
     $scope.getCurrentUser = Auth.getCurrentUser;
 
     $scope.smallScreen = function() {
-      if(screen.width <= 600) {
+      if(screen.width <= 800) {
          return true;
       }else{
          return false;
@@ -60,21 +67,45 @@ angular.module('treasuremapApp')
                 },
                 zoom: 14
               };
+              $scope.clearSearch();
+              $scope.search.showSidebar = false;
+              $scope.search.getNewLocations = true;
             });
          });
       });
-      $scope.clearSearch();
    };
 
    $scope.clearSearch = function () {
       $scope.search.searchTerm = '';
    };
 
+   $scope.filterCategory = function(category) {
+      if($scope.filteredCategory != category) {
+         $scope.filteredCategory = category;
+         $scope.search.filterByCategory = category;
+      }else{
+         $scope.filteredCategory = '';
+         $scope.search.filterByCategory = '';
+      }
+  }
+
+   /*$scope.filterCategory = function(category) {
+      console.log(category);
+      var objIndex = $scope.filteredCategory.indexOf(category);
+      if(objIndex < 0) {
+         $scope.filteredCategory.push(category);
+         $scope.search.filterByCategory = $scope.filteredCategory;
+      }else{
+         $scope.filteredCategory.splice(objIndex, 1);
+         $scope.search.filterByCategory = $scope.filteredCategory;
+      }
+   }*/
+
    $timeout(function() {
        var popups = document.querySelectorAll('*[popover]');
        var popup = popups[0];
        var popupElement = angular.element(popup);
-       $(popupElement).popover('show');
+       //$(popupElement).popover('show');
    }, 2000);
 
     $scope.logout = function () {
@@ -86,13 +117,16 @@ angular.module('treasuremapApp')
       return route === $location.path();
     };
 
-    $scope.showSidebar = false;
+    $scope.search.showSidebar = false;
     $scope.copyright = new Date().getFullYear();
   })
   .value('search', {
      searchTerm: '',
      map: '',
      userLocation: '',
+     showSidebar: false,
+     filterByCategory: false,
      filterByFriends: false,
-     filterByMyLocations: false
+     filterByMyLocations: false,
+     getNewLocations: false
   });

@@ -1,0 +1,33 @@
+.settings-form{
+	width: 100%;
+	max-width: 500px;
+	margin: 30px auto;
+
+	label{
+		display: inline-block;
+		text-align: right;
+	}
+	input{
+		width: 100%;
+	}
+	p{
+		margin-top: 30px;
+		font-size: 10px;
+	}
+}
+
+.buttons{
+	margin-top: 50px;
+	text-align: center;
+}
+
+.btn-save{
+  margin-right: 0px;
+  color: #fff;
+  background-color: #21c2b8;
+  &:hover{
+	  color: #333;
+	  text-decoration: none;
+	  background-color: #21c2b8;
+  }
+}

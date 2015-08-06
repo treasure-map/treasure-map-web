@@ -146,6 +146,13 @@ angular.module('treasuremapApp')
       });
    });
 
+   var hideUI;
+   if(screen.width <= 800) {
+      hideUI = true;
+   }else{
+      hideUI = false;
+   }
+
     $scope.search.map = {
       center: {
         latitude: 52.5075419,
@@ -154,12 +161,18 @@ angular.module('treasuremapApp')
       zoom: 14
     };
     $scope.options = {
-      styles: style
+      styles: style,
+      disableDefaultUI: hideUI
     };
     $scope.searchRadius = 25;
     $scope.search.userLocation = $scope.search.map.center;
 
     $scope.locations = [];
+
+    $scope.$watch('search.getNewLocations', function() {
+      $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
+      $scope.search.getNewLocations = false;
+   });
 
     $scope.getLocations = function(coords, distance) {
       $http.get('/api/locations', {
@@ -256,7 +269,7 @@ angular.module('treasuremapApp')
               //location.click = selectLocation;
             });
 
-            $scope.filteredLocations = $scope.filteredLocations.concat(locations);
+            $scope.filteredLocations = locations;
           });
         }
       } else {
@@ -280,6 +293,29 @@ angular.module('treasuremapApp')
         $scope.filteredLocations = $scope.locations;
       }
     });
+
+    $scope.$watch('search.filterByCategory', function(filterByCategory){
+      $scope.filteredLocations = $scope.locations;
+      $scope.filteredLocations = $filter("filter")($scope.locations, filterByCategory);
+    });
+
+    /*$scope.$watch('search.filterByCategory', function(filterByCategory){
+      console.log(filterByCategory);
+      if(filterByCategory.length > 0){
+         $scope.filteredLocations = $scope.locations;
+         var resultList = [];
+         _.each(filterByCategory, function(filterTherm){
+            console.log(filterTherm);
+            var filterList = $filter("filter")($scope.locations, filterTherm);
+            console.log(filterList);
+            resultList = resultList.concat(filterList);
+         });
+         console.log(resultList);
+         $scope.filteredLocations = resultList;
+      }else{
+         $scope.filteredLocations = $scope.locations;
+      }
+   });*/
 
     $rootScope.$on('$stateChangeSuccess',
       function (event, toState, toParams, fromState, fromParams) {
@@ -316,6 +352,7 @@ angular.module('treasuremapApp')
             };
           });
           $scope.getLocations($scope.search.userLocation, $scope.searchRadius);
+          $scope.search.showSidebar = false;
 
         }
       }

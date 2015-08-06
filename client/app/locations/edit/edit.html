@@ -20,7 +20,8 @@
              class="form-control"
              ng-model="editLocation.details.name"
              autofocus
-             required/>
+             required
+             ng-disabled="currentUser._id !== editLocation.owner._id"/>
 
       <p class="help-block" ng-show="form.name.$error.required && submitted">
         Name required
